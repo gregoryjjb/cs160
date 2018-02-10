@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>81</x>
+      <y>495</y>
+      <w>189</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>*Video Frame Extractor*
+--
+In: uint VideoID
+Out: Image[] VideoImages
+
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>540</y>
+      <w>225</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Face Mesh Processor*
+--
+In: uint VideoID, uint Frame
+Out: Face Mesh Image
+Process:
+- Fetch image
+- Create face mesh image
+- Write face mesh image to temp dir
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>432</x>
+      <y>351</y>
+      <w>171</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*OpenFace/DLIB Processor*
+--
+In: uint VideoID, uint Frame
+Out: face data points
+Process:
+- Fetch each image
+- Get data points
+- Write data points to DB
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>819</x>
+      <y>351</y>
+      <w>162</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Pupil Processor*
+--
+In: uint VideoID, uint Frame
+Out: pupil data points
+Process:
+- Fetch each image
+- Find Pupils
+- Write pupil data to DB
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1188</x>
+      <y>405</y>
+      <w>180</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>*Video Maker*
+--
+Using FFMPEG, merges face 
+mesh images into a video file
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>297</y>
+      <w>171</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>*Video Metadata Extractor*
+--
+In: string VideoPath
+Out: 
+-- uint FrameCount
+-- uint FPS
+-- uint XResolution
+-- uint YResolution
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>405</y>
+      <w>27</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>180</x>
+      <y>432</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>On Video Metadata Extractor Completion
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>648</x>
+      <y>279</y>
+      <w>144</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>For Each Video Frame
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>423</x>
+      <y>252</y>
+      <w>567</w>
+      <h>423</h>
+    </coordinates>
+    <panel_attributes>Processing Pipeline
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>261</x>
+      <y>522</y>
+      <w>180</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>270</x>
+      <y>531</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>On Video Frame Extractor Completion
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>297</y>
+      <w>225</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>702</x>
+      <y>297</y>
+      <w>216</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>220.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>405</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>594</x>
+      <y>405</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>405</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>Synchronize
+style=wordwrap
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>702</x>
+      <y>414</y>
+      <w>27</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>981</x>
+      <y>432</y>
+      <w>225</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>230.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1017</x>
+      <y>414</y>
+      <w>99</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>On Processing Finished
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1629</x>
+      <y>297</y>
+      <w>126</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>432</x>
+      <y>495</y>
+      <w>171</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Note...
+Might pass these processors an Image instance 
+rather than a frame number to reduce DB queeries.
+style=wordwrap
+bg=blue
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>846</x>
+      <y>495</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Note...
+Each of these processors uses threads for each frame
+style=wordwrap
+bg=blue
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
