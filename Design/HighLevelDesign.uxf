@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>290</x>
+      <y>110</y>
+      <w>220</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Web-Front End (JS or Python?)
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>540</x>
+      <y>110</y>
+      <w>230</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Database (Postgres or MySQL?)
+--
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>290</x>
+      <y>320</y>
+      <w>690</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>Backend Processing (C++)
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>140</y>
+      <w>180</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>*Responsibilities*
+--
+User Registration
+User Authentication
+Video Upload
+Processed Video Playback
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>550</x>
+      <y>140</y>
+      <w>170</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>*Data Stored*
+--
+User Profile
+Video Metadata
+Head Position
+Pupil Data
+OpenFace data points
+Maybe: still image blobs
+
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>360</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Video Metadata Extractor*
+--
+Frame Count
+FPS
+Resolution
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>360</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Video Frame Extractor*
+--
+Extracts all video frames
+Store in DB or on file system?
+File System Format: 
+  [VideoID][FrameNumber].png
+
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>300</x>
+      <y>480</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*OpenFace/DLIB Processor*
+--
+Extract face data points 
+from still images
+Store points (68) to DB 
+for each frame
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>480</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Pupil Processor*
+--
+Locate pupils in images
+For each image, write 
+pupil location to DB
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>360</y>
+      <w>250</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Face Mesh Processor*
+--
+Reads face and pupil data 
+points for a given video ID
+Use OpenCV to draw Delaunay mesh
+-- saves temporary image
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>480</y>
+      <w>250</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*Video Maker*
+--
+Using FFMPEG, merges images
+into a video file
+layer=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
