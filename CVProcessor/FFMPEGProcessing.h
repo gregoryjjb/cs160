@@ -30,7 +30,7 @@ VideoMetadata extractMetadata(const std::string& videoFile);
  * placing them in the given output folder
  */
 void extractFrames(const std::string& videoFile, 
-                   const std::string& outputFolder, 
+                   const std::string& outputFormat, 
                    const VideoMetadata& metadata);
 
 void combineFrames(const std::string& sourceFolder,
