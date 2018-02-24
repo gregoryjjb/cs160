@@ -28,7 +28,9 @@ int main(int argc, char** argv)
             FFMPEGProcessing::extractMetadata(inputFile);
         FFMPEGProcessing::extractFrames(inputFile, "frames", metadata);
         FFMPEGProcessing::combineFrames("frames", "output.mp4", metadata);
-        OpenFaceProcessing::extractFaceDataPoints("frames/out1.png", metadata);
+        
+        OpenFaceProcessing::FaceDataPointsRecord dataPoints 
+            = OpenFaceProcessing::extractFaceDataPoints("frames/out1.png", metadata);
         
         std::cout << "Extracted the following metadata: " << metadata.width << std::endl
             << " " << metadata.height << std::endl

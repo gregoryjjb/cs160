@@ -15,14 +15,30 @@
 #define OPENFACEPROCESSING_H
 
 #include <string>
+#include <opencv2/core/core.hpp>
 
 #include "VideoMetadata.h"
 
 namespace OpenFaceProcessing
 {
 
-void extractFaceDataPoints(const std::string& imagePath, 
-                           const VideoMetadata& metadata);
+struct FaceDataPointsRecord
+{
+public:
+    cv::Mat_<double> landmarks;
+    cv::Mat_<int> visibilities;
+    
+    FaceDataPointsRecord(const cv::Mat_<double>& landmarks, 
+                         const cv::Mat_<int>& visibilities);
+};
+
+FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
+                                           const VideoMetadata& metadata);
+
+void applyFaceDataPointsToImage(const std::string& imagePath,
+                                const std::string& outputPath,
+                                const FaceDataPointsRecord& dataPoints,
+                                const VideoMetadata& metadata);
 
 }
 

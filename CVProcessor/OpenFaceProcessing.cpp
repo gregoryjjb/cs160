@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-#include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
@@ -26,19 +25,24 @@
 #include "OpenFaceProcessing.h"
 #include "VideoMetadata.h"
 
-void OpenFaceProcessing::extractFaceDataPoints(
-                                            const std::string& imagePath, 
-                                            const VideoMetadata& metadata)
+using namespace OpenFaceProcessing;
+
+FaceDataPointsRecord::FaceDataPointsRecord(const cv::Mat_<double>& landmarks, 
+                                           const cv::Mat_<int>& visibilities)
+    : landmarks(landmarks),
+    visibilities(visibilities)
+{
+    
+}
+
+FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const std::string& imagePath, 
+                                           const VideoMetadata& metadata)
 {
     // TODO: figure out why these args matter
     std::vector<std::string> args{};
-    args.push_back("test");
-    args.push_back("-fdir");
-    args.push_back("../samples/");
+    args.push_back("-q");
     args.push_back("-wild");
 
-    Utilities::Visualizer visualizer(args);
-    
     cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR);
     cv::Mat_<uchar> grayImage;
     Utilities::ConvertToGrayscale_8bit(image, grayImage);
@@ -49,6 +53,17 @@ void OpenFaceProcessing::extractFaceDataPoints(
     
     LandmarkDetector::DetectLandmarksInImage(grayImage, clnfModel, detParameters);
     
+    return FaceDataPointsRecord(clnfModel.detected_landmarks, clnfModel.GetVisibilities());
+}
+
+void OpenFaceProcessing::applyFaceDataPointsToImage(const std::string& imagePath,
+                                const std::string& outputPath,
+                                const FaceDataPointsRecord& dataPoints,
+                                const VideoMetadata& metadata)
+{
+    Utilities::Visualizer visualizer(false, false, false);
+    cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR);
+    
     // estimates
     float fx = 500.0f * (metadata.width / 640.0f);
     float fy = 500.0f * (metadata.height / 480.0f);
@@ -56,9 +71,9 @@ void OpenFaceProcessing::extractFaceDataPoints(
     float cy = metadata.height / 2.0f;
     
     visualizer.SetImage(image, fx, fy, cx, cy);
-    visualizer.SetObservationLandmarks(clnfModel.detected_landmarks, 1.0, 
-                                       clnfModel.GetVisibilities());
+    visualizer.SetObservationLandmarks(dataPoints.landmarks, 1.0, 
+                                       dataPoints.visibilities);
     
     cv::Mat result = visualizer.GetVisImage();
-    cv::imwrite("output.png", result);
+    cv::imwrite(outputPath, result);
 }
