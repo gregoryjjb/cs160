@@ -33,7 +33,7 @@ void extractFrames(const std::string& videoFile,
                    const std::string& outputFormat, 
                    const VideoMetadata& metadata);
 
-void combineFrames(const std::string& sourceFolder,
+void combineFrames(const std::string& inputFormat,
                    const std::string& outputName,
                    const VideoMetadata& metadata);
 
