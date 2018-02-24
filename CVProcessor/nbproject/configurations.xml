@@ -42,6 +42,9 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <incDir>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
       </compileType>
       <item path="FFMPEGProcessing.cpp" ex="false" tool="1" flavor2="0">
@@ -70,6 +73,9 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>8</standard>
+          <incDir>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
