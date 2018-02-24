@@ -33,6 +33,10 @@ void extractFrames(const std::string& videoFile,
                    const std::string& outputFolder, 
                    const VideoMetadata& metadata);
 
+void combineFrames(const std::string& sourceFolder,
+                   const std::string& outputName,
+                   const VideoMetadata& metadata);
+
 }
 
 #endif /* FFMPEGPROCESSING_H */

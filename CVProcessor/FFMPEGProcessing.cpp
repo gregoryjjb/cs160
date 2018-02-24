@@ -40,14 +40,30 @@ VideoMetadata FFMPEGProcessing::extractMetadata(const std::string& videoFile)
 }
 
 void FFMPEGProcessing::extractFrames(const std::string& targetVideo, 
-                 const std::string& outputFolder, 
+                 const std::string& outputFolder,
                  const VideoMetadata& metadata)
 {
+    // TODO: parameterize the output image type
     // TODO: create outputFolder if needed
     // TODO: Validate that we wont overflow buffer
     const char* format = "ffmpeg -i %s -vf fps=%d/%d %s/out%s.png 2>&1";
     char buffer[256];
     sprintf(buffer, format, targetVideo.c_str(), metadata.frameRateNum, 
             metadata.frameRateDenom, outputFolder.c_str(), "%d");
+    exec(std::string(buffer));
+}
+
+void FFMPEGProcessing::combineFrames(const std::string& sourceFolder,
+                                     const std::string& outputName,
+                                     const VideoMetadata& metadata)
+{
+    // TODO: parameterize the input frame names and encoding
+    // TODO: Validate that we wont overflow buffer
+    const char* format = 
+        "ffmpeg -r %d/%d -start_number 1 -f image2 -i "
+        "frames/out%s.png -c:v libx264 %s 2>&1";
+    char buffer[256];
+    sprintf(buffer, format, metadata.frameRateNum, 
+            metadata.frameRateDenom, "%d", outputName.c_str());
     exec(std::string(buffer));
 }
