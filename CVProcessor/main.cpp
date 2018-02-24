@@ -25,7 +25,7 @@ int main(int argc, char** argv)
         VideoMetadata metadata = 
             FFMPEGProcessing::extractMetadata(inputFile);
         FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
-        FFMPEGProcessing::combineFrames("frames", "output.mp4", metadata);
+        FFMPEGProcessing::combineFrames("frames/out%d.png", "output.mp4", metadata);
         
         std::cout << "Extracted the following metadata: " << metadata.width << std::endl
             << " " << metadata.height << std::endl

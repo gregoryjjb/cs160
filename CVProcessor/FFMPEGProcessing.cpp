@@ -50,8 +50,8 @@ void FFMPEGProcessing::extractFrames(const std::string& targetVideo,
             metadata.frameRateDenom, outputFormat.c_str());
     exec(std::string(buffer));
 }
-
-void FFMPEGProcessing::combineFrames(const std::string& sourceFolder,
+#include <iostream>
+void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
                                      const std::string& outputName,
                                      const VideoMetadata& metadata)
 {
@@ -59,9 +59,9 @@ void FFMPEGProcessing::combineFrames(const std::string& sourceFolder,
     // TODO: Validate that we wont overflow buffer
     const char* format = 
         "ffmpeg -r %d/%d -start_number 1 -f image2 -i "
-        "frames/out%s.png -c:v libx264 %s 2>&1";
+        "%s -c:v libx264 %s 2>&1";
     char buffer[256];
     sprintf(buffer, format, metadata.frameRateNum, 
-            metadata.frameRateDenom, "%d", outputName.c_str());
+            metadata.frameRateDenom, inputFormat.c_str(), outputName.c_str());
     exec(std::string(buffer));
 }
