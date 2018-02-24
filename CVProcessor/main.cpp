@@ -15,8 +15,10 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <sstream>
 #include <string>
 #include <array>
+#include "VideoMetadata.h"
 
 /*
  Executes the given command and returns the output of that command
@@ -33,12 +35,50 @@ std::string exec(const std::string& cmd) {
     return result;
 }
 
-void splitFrames(const std::string& targetVideo, const std::string& outputFolder, int fps)
+/*
+ Extracts various metadata from a video at the given path
+ */
+VideoMetadata extractMetadata(const std::string& targetVideo)
 {
+    const char* format =
+        "ffprobe -v error -count_frames -select_streams v:0 "
+        "-show_entries stream=avg_frame_rate,nb_read_frames,width,height "
+        "-of default=noprint_wrappers=1:nokey=1 %s";
     // TODO: Validate that we wont overflow buffer
-    std::string format = "ffmpeg -i %s -vf fps=%d %s/out%d.png 2>&1";
     char buffer[256];
-    sprintf(buffer, format.c_str(), targetVideo.c_str(), fps, outputFolder.c_str());
+    sprintf(buffer, format, targetVideo.c_str());
+    
+    std::istringstream result;
+    result.str(exec(std::string(buffer)));
+    
+    std::string widthStr, heightStr, avgFramesStr, frameCountStr;
+    std::getline(result, widthStr);    
+    std::getline(result, heightStr);
+    std::getline(result, avgFramesStr);
+    std::getline(result, frameCountStr);
+
+    int width = std::stoi(widthStr);
+    int height = std::stoi(heightStr);
+
+    int sep = avgFramesStr.find('/');
+    int num = std::stoi(avgFramesStr.substr(0,sep));
+    int denom = std::stoi(avgFramesStr.substr(sep + 1));
+
+    int frameCount = std::stoi(frameCountStr);
+    
+    return VideoMetadata(width, height, frameCount, num, denom);
+}
+
+void splitFrames(const std::string& targetVideo, 
+                 const std::string& outputFolder, 
+                 const VideoMetadata& metadata)
+{
+    // TODO: create outputFolder if needed
+    // TODO: Validate that we wont overflow buffer
+    const char* format = "ffmpeg -i %s -vf fps=%d/%d %s/out%s.png 2>&1";
+    char buffer[256];
+    sprintf(buffer, format, targetVideo.c_str(), metadata.frameRateNum, 
+            metadata.frameRateDenom, outputFolder.c_str(), "%d");
     exec(std::string(buffer));
 }
 
@@ -50,7 +90,15 @@ int main(int argc, char** argv)
     if (argc >= 2)
     {
         std::string inputFile = argv[1];
-        splitFrames(inputFile, "frames", 30);
+        VideoMetadata metadata = extractMetadata(inputFile);
+        splitFrames(inputFile, "frames", metadata);
+        
+        std::cout << "Extracted the following metadata: " << metadata.width << std::endl
+            << " " << metadata.height << std::endl
+            << " " << metadata.numFrames << std::endl
+            << " " << metadata.frameRateNum << std::endl      
+            << " " << metadata.frameRateDenom << std::endl;
+
     }
     return 0;
 }
