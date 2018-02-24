@@ -16,16 +16,19 @@
 #include <string>
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
+#include "OpenFaceProcessing.h"
 
 int main(int argc, char** argv)
 {
     if (argc >= 2)
     {
         std::string inputFile = argv[1];
+        
         VideoMetadata metadata = 
             FFMPEGProcessing::extractMetadata(inputFile);
         FFMPEGProcessing::extractFrames(inputFile, "frames", metadata);
         FFMPEGProcessing::combineFrames("frames", "output.mp4", metadata);
+        OpenFaceProcessing::extractFaceDataPoints("frames/out1.png", metadata);
         
         std::cout << "Extracted the following metadata: " << metadata.width << std::endl
             << " " << metadata.height << std::endl
@@ -34,6 +37,7 @@ int main(int argc, char** argv)
             << " " << metadata.frameRateDenom << std::endl;
 
     }
+    
     return 0;
 }
 

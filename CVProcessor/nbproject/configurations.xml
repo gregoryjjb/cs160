@@ -5,7 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>FFMPEGProcessing.h</itemPath>
+      <itemPath>OpenFaceProcessing.h</itemPath>
       <itemPath>SystemHelper.h</itemPath>
+      <itemPath>Utilities.h</itemPath>
       <itemPath>VideoMetadata.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -16,6 +18,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>FFMPEGProcessing.cpp</itemPath>
+      <itemPath>OpenFaceProcessing.cpp</itemPath>
       <itemPath>SystemHelper.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
@@ -43,17 +46,39 @@
         <ccTool>
           <standard>8</standard>
           <incDir>
-            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/include/boost</pElem>
+            <pElem>/usr/local/include/OpenFace</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor</output>
+          <linkerAddLib>
+            <pElem>/usr/lib/x86_64-linux-gnu</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>Utilities</linkerLibLibItem>
+            <linkerLibLibItem>LandmarkDetector</linkerLibLibItem>
+            <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dlib-1`</linkerOptionItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>tbb</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="FFMPEGProcessing.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FFMPEGProcessing.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="OpenFaceProcessing.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenFaceProcessing.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="SystemHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="SystemHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="VideoMetadata.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -73,9 +98,6 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>8</standard>
-          <incDir>
-            <pElem>/usr/local/include</pElem>
-          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -83,14 +105,25 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="FFMPEGProcessing.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FFMPEGProcessing.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="OpenFaceProcessing.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="OpenFaceProcessing.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="SystemHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="SystemHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="VideoMetadata.h" ex="false" tool="3" flavor2="0">
       </item>
