@@ -14,6 +14,10 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
+#include <vector>
+
+#include <OpenFace/LandmarkDetectorModel.h>
+
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
@@ -27,15 +31,39 @@ int main(int argc, char** argv)
         VideoMetadata metadata = 
             FFMPEGProcessing::extractMetadata(inputFile);
         FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
-        FFMPEGProcessing::combineFrames("frames/out%d.png", "output.mp4", metadata);
         
-        OpenFaceProcessing::FaceDataPointsRecord dataPoints 
-            = OpenFaceProcessing::extractFaceDataPoints("frames/out1.png", metadata);
+        
+        std::vector<std::string> args{};
+        args.push_back("-q");
+        args.push_back("-wild");
+        
+        LandmarkDetector::FaceModelParameters detParameters(args);
+        LandmarkDetector::CLNF clnfModel(detParameters.model_location);
+        
+        for (int i = 1; i < metadata.numFrames + 1; i++)
+        {
+            std::stringstream istream;
+            istream << "frames/out" << i << ".png";
+            std::string input = istream.str();
+            
+            std::stringstream ostream;
+            ostream << "processed/out" << i << ".png";
+            std::string output = ostream.str();
+            
+            OpenFaceProcessing::FaceDataPointsRecord dataPoints 
+                = OpenFaceProcessing::extractFaceDataPoints(input, metadata, clnfModel);
+            
+            OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
+            
+            std::cout << "Finished " << i << std::endl;
+        }
+        
+        FFMPEGProcessing::combineFrames("processed/out%d.png", "processed.mp4", metadata);
         
         std::cout << "Extracted the following metadata: " << metadata.width << std::endl
             << " " << metadata.height << std::endl
             << " " << metadata.numFrames << std::endl
-            << " " << metadata.frameRateNum << std::endl      
+            << " " << metadata.frameRateNum << std::endl
             << " " << metadata.frameRateDenom << std::endl;
 
     }

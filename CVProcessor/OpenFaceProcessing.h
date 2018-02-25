@@ -16,6 +16,7 @@
 
 #include <string>
 #include <opencv2/core/core.hpp>
+#include <OpenFace/LandmarkDetectorModel.h>
 
 #include "VideoMetadata.h"
 
@@ -34,6 +35,10 @@ public:
 
 FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
                                            const VideoMetadata& metadata);
+
+FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
+                                           const VideoMetadata& metadata,
+                                           const LandmarkDetector::CLNF& originalModel);
 
 void applyFaceDataPointsToImage(const std::string& imagePath,
                                 const std::string& outputPath,
