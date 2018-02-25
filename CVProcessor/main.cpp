@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
 
 #include <OpenFace/LandmarkDetectorModel.h>
 
@@ -22,52 +23,77 @@
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
 
+void processFrame(const std::string& input, 
+                  const std::string& output, 
+                  const VideoMetadata& metadata, 
+                  const LandmarkDetector::CLNF& originalModel)
+{
+    std::cout << "Starting " << input << std::endl;
+    
+    OpenFaceProcessing::FaceDataPointsRecord dataPoints
+                = OpenFaceProcessing::extractFaceDataPoints(input, metadata, originalModel);
+    
+    OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
+    
+    std::cout << "Finished " << input << std::endl;
+}
+
+void processVideo(const std::string& framesFormat,
+                  const std::string& processedFormat,
+                  const VideoMetadata& metadata)
+{
+    std::vector<std::string> args{};
+    args.push_back("-q");
+    args.push_back("-wild");
+
+    LandmarkDetector::FaceModelParameters detParameters(args);
+    LandmarkDetector::CLNF clnfModel(detParameters.model_location);
+
+    std::thread threads[metadata.numFrames];
+    
+    for (int i = 1; i < metadata.numFrames + 1; i++)
+    {
+        char buffer[128];
+        // TODO: guard against buffer overflow
+        sprintf(buffer, framesFormat.c_str(), i);
+        std::string input(buffer);
+        
+        memset(buffer, 0, sizeof(buffer));
+        sprintf(buffer, processedFormat.c_str(), i);
+        std::string output(buffer);
+        
+        //std::cout << "Creating " << input << std::endl;
+        
+        threads[i-1] = std::thread(processFrame, input, output, std::cref(metadata), std::cref(clnfModel));
+    }
+    
+    for (int i = 0; i < metadata.numFrames; i++)
+    {
+        threads[i].join();
+    }
+}
+
 int main(int argc, char** argv)
 {
     if (argc >= 2)
     {
         std::string inputFile = argv[1];
-        
-        VideoMetadata metadata = 
+
+        VideoMetadata metadata =
             FFMPEGProcessing::extractMetadata(inputFile);
-        FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
-        
-        
-        std::vector<std::string> args{};
-        args.push_back("-q");
-        args.push_back("-wild");
-        
-        LandmarkDetector::FaceModelParameters detParameters(args);
-        LandmarkDetector::CLNF clnfModel(detParameters.model_location);
-        
-        for (int i = 1; i < metadata.numFrames + 1; i++)
-        {
-            std::stringstream istream;
-            istream << "frames/out" << i << ".png";
-            std::string input = istream.str();
-            
-            std::stringstream ostream;
-            ostream << "processed/out" << i << ".png";
-            std::string output = ostream.str();
-            
-            OpenFaceProcessing::FaceDataPointsRecord dataPoints 
-                = OpenFaceProcessing::extractFaceDataPoints(input, metadata, clnfModel);
-            
-            OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
-            
-            std::cout << "Finished " << i << std::endl;
-        }
-        
-        FFMPEGProcessing::combineFrames("processed/out%d.png", "processed.mp4", metadata);
         
         std::cout << "Extracted the following metadata: " << metadata.width << std::endl
             << " " << metadata.height << std::endl
             << " " << metadata.numFrames << std::endl
             << " " << metadata.frameRateNum << std::endl
             << " " << metadata.frameRateDenom << std::endl;
+        
+        FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
 
+        processVideo("frames/out%d.png", "processed/out%d.png", metadata);
+
+        FFMPEGProcessing::combineFrames("processed/out%d.png", "processed.mp4", metadata);
     }
-    
+
     return 0;
 }
-

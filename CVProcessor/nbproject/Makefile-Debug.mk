@@ -55,7 +55,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/x86_64-linux-gnu -lUtilities -lLandmarkDetector `pkg-config --libs opencv` `pkg-config --libs dlib-1` -lboost_filesystem -lboost_system -ltbb  
+LDLIBSOPTIONS=-L/usr/lib/x86_64-linux-gnu -lUtilities -lLandmarkDetector `pkg-config --libs opencv` `pkg-config --libs dlib-1` -lboost_filesystem -lboost_system -ltbb -lpthread   
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
