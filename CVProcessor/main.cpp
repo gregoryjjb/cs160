@@ -22,27 +22,23 @@
 #include "OpenFaceProcessing.h"
 #include "Utilities.h"
 
-void processFrame(const std::string& input, 
-                  const std::string& output, 
+void processFrame(const cv::Mat& input, 
+                  cv::Mat& output, 
                   const VideoMetadata& metadata, 
                   LandmarkDetector::CLNF& model)
 {
-    cv::Mat image = OpenFaceProcessing::openImage(input);
     cv::Mat_<uchar> grayImage;
-    Utilities::ConvertToGrayscale_8bit(image, grayImage);
+    Utilities::ConvertToGrayscale_8bit(input, grayImage);
     
     OpenFaceProcessing::FaceDataPointsRecord dataPoints
                 = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
     
-    cv::Mat processedImage;
-    OpenFaceProcessing::applyFaceDataPointsToImage(image, processedImage, dataPoints, metadata);
+    OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
     
     std::vector<cv::Vec6f> triangles = 
         OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
     
-    OpenFaceProcessing::applyDelaunayTrianlgesToImage(processedImage, triangles, metadata);
-    
-    OpenFaceProcessing::saveImage(output, processedImage);
+    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
 }
 
 void processVideo(const std::string& framesFormat,
@@ -58,17 +54,30 @@ void processVideo(const std::string& framesFormat,
     
     int imageCount = metadata.numFrames;
     
+    cv::Mat images[imageCount];
+    cv::Mat processedImages[imageCount];
+    
+    // Open all images of the video
     for (int i = 1; i < imageCount + 1; i++)
     {
         char buffer[128];
         snprintf(buffer, 128, framesFormat.c_str(), i);
         std::string input(buffer);
-        
-        memset(buffer, 0, sizeof(buffer));
+        images[i-1] = OpenFaceProcessing::openImage(input);
+    }
+    
+    for (int i = 1; i < imageCount + 1; i++)
+    {
+        processFrame(images[i-1], processedImages[i-1], metadata, clnfModel);
+    }
+    
+    // Save all processed images
+    for (int i = 1; i < imageCount + 1; i++)
+    {
+        char buffer[128];
         snprintf(buffer, 128, processedFormat.c_str(), i);
         std::string output(buffer);
-        
-        processFrame(input, output, metadata, clnfModel);
+        OpenFaceProcessing::saveImage(output, processedImages[i-1]);
     }
 }
 
