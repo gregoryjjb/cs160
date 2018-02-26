@@ -39,6 +39,11 @@ void processFrame(const std::string& input,
     cv::Mat processedImage;
     OpenFaceProcessing::applyFaceDataPointsToImage(image, processedImage, dataPoints, metadata);
     
+    std::vector<cv::Vec6f> triangles = 
+        OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
+    
+    OpenFaceProcessing::applyDelaunayTrianlgesToImage(processedImage, triangles, metadata);
+    
     OpenFaceProcessing::saveImage(output, processedImage);
     
     std::cout << "Finished " << input << std::endl;
@@ -55,9 +60,11 @@ void processVideo(const std::string& framesFormat,
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel(detParameters.model_location);
 
-    std::thread threads[metadata.numFrames];
+    int imageCount = metadata.numFrames;
     
-    for (int i = 1; i < metadata.numFrames + 1; i++)
+    std::thread threads[imageCount];
+    
+    for (int i = 1; i < imageCount + 1; i++)
     {
         char buffer[128];
         // TODO: guard against buffer overflow
@@ -68,12 +75,10 @@ void processVideo(const std::string& framesFormat,
         sprintf(buffer, processedFormat.c_str(), i);
         std::string output(buffer);
         
-        //std::cout << "Creating " << input << std::endl;
-        
         threads[i-1] = std::thread(processFrame, input, output, std::cref(metadata), std::cref(clnfModel));
     }
     
-    for (int i = 0; i < metadata.numFrames; i++)
+    for (int i = 0; i < imageCount; i++)
     {
         threads[i].join();
     }
