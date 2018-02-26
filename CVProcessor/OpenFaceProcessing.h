@@ -33,6 +33,9 @@ public:
                          const cv::Mat_<int>& visibilities);
 };
 
+cv::Mat openImage(const std::string& inputPath);
+void saveImage(const std::string& path, const cv::Mat& image);
+
 FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
                                            const VideoMetadata& metadata);
 

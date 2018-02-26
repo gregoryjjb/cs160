@@ -35,6 +35,16 @@ FaceDataPointsRecord::FaceDataPointsRecord(const cv::Mat_<double>& landmarks,
     
 }
 
+cv::Mat OpenFaceProcessing::openImage(const std::string& inputPath)
+{
+    return cv::imread(inputPath, cv::IMREAD_COLOR);
+}
+
+void OpenFaceProcessing::saveImage(const std::string& path, const cv::Mat& image)
+{
+    cv::imwrite(path, image);
+}
+
 FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const std::string& imagePath, 
                                            const VideoMetadata& metadata)
 {

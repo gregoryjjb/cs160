@@ -22,6 +22,7 @@
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
+#include "Utilities.h"
 
 void processFrame(const std::string& input, 
                   const std::string& output, 
@@ -30,10 +31,17 @@ void processFrame(const std::string& input,
 {
     std::cout << "Starting " << input << std::endl;
     
-    OpenFaceProcessing::FaceDataPointsRecord dataPoints
-                = OpenFaceProcessing::extractFaceDataPoints(input, metadata, originalModel);
+    cv::Mat image = OpenFaceProcessing::openImage(input);
+    cv::Mat_<uchar> grayImage;
+    Utilities::ConvertToGrayscale_8bit(image, grayImage);
     
-    OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
+    OpenFaceProcessing::FaceDataPointsRecord dataPoints
+                = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, originalModel);
+    
+    cv::Mat processedImage;
+    OpenFaceProcessing::applyFaceDataPointsToImage(image, processedImage, dataPoints, metadata);
+    
+    OpenFaceProcessing::saveImage(output, processedImage);
     
     std::cout << "Finished " << input << std::endl;
 }
