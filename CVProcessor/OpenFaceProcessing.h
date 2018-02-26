@@ -36,12 +36,24 @@ public:
 FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
                                            const VideoMetadata& metadata);
 
+FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
+                                           const VideoMetadata& metadata);
+
 FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
+                                           const VideoMetadata& metadata,
+                                           const LandmarkDetector::CLNF& originalModel);
+
+FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
                                            const VideoMetadata& metadata,
                                            const LandmarkDetector::CLNF& originalModel);
 
 void applyFaceDataPointsToImage(const std::string& imagePath,
                                 const std::string& outputPath,
+                                const FaceDataPointsRecord& dataPoints,
+                                const VideoMetadata& metadata);
+
+void applyFaceDataPointsToImage(const cv::Mat& inputImage,
+                                cv::Mat& outputImage,
                                 const FaceDataPointsRecord& dataPoints,
                                 const VideoMetadata& metadata);
 
