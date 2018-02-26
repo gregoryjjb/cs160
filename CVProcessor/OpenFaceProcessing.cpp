@@ -6,7 +6,6 @@
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
 #include <boost/filesystem.hpp>
 
 #include <tbb/tbb.h>
@@ -45,16 +44,6 @@ void OpenFaceProcessing::saveImage(const std::string& path, const cv::Mat& image
     cv::imwrite(path, image);
 }
 
-FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const std::string& imagePath,
-                                                               const VideoMetadata& metadata)
-{
-    cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR);
-    cv::Mat_<uchar> grayImage;
-    Utilities::ConvertToGrayscale_8bit(image, grayImage);
-
-    return extractFaceDataPoints(grayImage, metadata);
-}
-
 FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
                                                                const VideoMetadata& metadata)
 {
@@ -71,20 +60,9 @@ FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uc
     return FaceDataPointsRecord(clnfModel.detected_landmarks, clnfModel.GetVisibilities());
 }
 
-FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const std::string& imagePath,
+FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uchar> grayFrame,
                                                                const VideoMetadata& metadata,
-                                                               const LandmarkDetector::CLNF& originalModel)
-{
-    cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR);
-    cv::Mat_<uchar> grayImage;
-    Utilities::ConvertToGrayscale_8bit(image, grayImage);
-
-    return extractFaceDataPoints(grayImage, metadata, originalModel);
-}
-
-FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
-                                                               const VideoMetadata& metadata,
-                                                               const LandmarkDetector::CLNF& originalModel)
+                                                               LandmarkDetector::CLNF& clnfModel)
 {
     // TODO: figure out why these args matter
     std::vector<std::string> args{};
@@ -92,9 +70,8 @@ FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uc
     args.push_back("-wild");
 
     LandmarkDetector::FaceModelParameters detParameters(args);
-    LandmarkDetector::CLNF clnfModel(originalModel);
 
-    LandmarkDetector::DetectLandmarksInImage(grayImage, clnfModel, detParameters);
+    LandmarkDetector::DetectLandmarksInVideo(grayFrame, clnfModel, detParameters);
 
     return FaceDataPointsRecord(clnfModel.detected_landmarks, clnfModel.GetVisibilities());
 }

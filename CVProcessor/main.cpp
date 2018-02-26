@@ -25,16 +25,14 @@
 void processFrame(const std::string& input, 
                   const std::string& output, 
                   const VideoMetadata& metadata, 
-                  const LandmarkDetector::CLNF& originalModel)
+                  LandmarkDetector::CLNF& model)
 {
-    std::cout << "Starting " << input << std::endl;
-    
     cv::Mat image = OpenFaceProcessing::openImage(input);
     cv::Mat_<uchar> grayImage;
     Utilities::ConvertToGrayscale_8bit(image, grayImage);
     
     OpenFaceProcessing::FaceDataPointsRecord dataPoints
-                = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, originalModel);
+                = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
     
     cv::Mat processedImage;
     OpenFaceProcessing::applyFaceDataPointsToImage(image, processedImage, dataPoints, metadata);
@@ -45,8 +43,6 @@ void processFrame(const std::string& input,
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(processedImage, triangles, metadata);
     
     OpenFaceProcessing::saveImage(output, processedImage);
-    
-    std::cout << "Finished " << input << std::endl;
 }
 
 void processVideo(const std::string& framesFormat,
@@ -59,28 +55,20 @@ void processVideo(const std::string& framesFormat,
 
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel(detParameters.model_location);
-
-    int imageCount = metadata.numFrames;
     
-    std::thread threads[imageCount];
+    int imageCount = metadata.numFrames;
     
     for (int i = 1; i < imageCount + 1; i++)
     {
         char buffer[128];
-        // TODO: guard against buffer overflow
-        sprintf(buffer, framesFormat.c_str(), i);
+        snprintf(buffer, 128, framesFormat.c_str(), i);
         std::string input(buffer);
         
         memset(buffer, 0, sizeof(buffer));
-        sprintf(buffer, processedFormat.c_str(), i);
+        snprintf(buffer, 128, processedFormat.c_str(), i);
         std::string output(buffer);
         
-        threads[i-1] = std::thread(processFrame, input, output, std::cref(metadata), std::cref(clnfModel));
-    }
-    
-    for (int i = 0; i < imageCount; i++)
-    {
-        threads[i].join();
+        processFrame(input, output, metadata, clnfModel);
     }
 }
 

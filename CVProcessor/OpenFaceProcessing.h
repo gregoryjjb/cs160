@@ -36,19 +36,15 @@ public:
 cv::Mat openImage(const std::string& inputPath);
 void saveImage(const std::string& path, const cv::Mat& image);
 
-FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
-                                           const VideoMetadata& metadata);
-
+// Extracts the facial data points from a single image
 FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
                                            const VideoMetadata& metadata);
 
-FaceDataPointsRecord extractFaceDataPoints(const std::string& imagePath,
+// Extracts the facial data points from a frame of a video
+// using the provided CLNF model that is tracking each frame
+FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayFrame,
                                            const VideoMetadata& metadata,
-                                           const LandmarkDetector::CLNF& originalModel);
-
-FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
-                                           const VideoMetadata& metadata,
-                                           const LandmarkDetector::CLNF& originalModel);
+                                           LandmarkDetector::CLNF& model);
 
 std::vector<cv::Vec6f> getDelaunayTriangles(const FaceDataPointsRecord& dataPoints,
                           const VideoMetadata& metadata);
