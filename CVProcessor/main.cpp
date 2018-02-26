@@ -17,8 +17,6 @@
 #include <vector>
 #include <thread>
 
-#include <OpenFace/LandmarkDetectorModel.h>
-
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
