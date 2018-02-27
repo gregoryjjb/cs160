@@ -41,6 +41,33 @@ void processFrame(const cv::Mat& input,
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
 }
 
+void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
+                        std::vector<cv::Mat>::const_iterator inputItEnd,
+                        std::vector<cv::Mat>::iterator outputIt,
+                        std::vector<cv::Mat>::iterator outputItEnd,
+                        int step,
+                        const VideoMetadata& metadata,
+                        LandmarkDetector::CLNF& model)
+{
+    int processed = 0;
+    while (true)
+    {
+        processFrame(*inputIt, *outputIt, metadata, model);
+        processed++;
+        for (int i = 0; i < step; i++)
+        {
+            ++inputIt;
+            ++outputIt;
+            
+            if (inputIt == inputItEnd || outputIt == outputItEnd)
+            {
+                std::cout << "Thread processed " << processed << std::endl;
+                return;
+            }
+        }
+    }
+}
+
 void processVideo(const std::string& framesFormat,
                   const std::string& processedFormat,
                   const VideoMetadata& metadata)
@@ -50,12 +77,13 @@ void processVideo(const std::string& framesFormat,
     args.push_back("-wild");
 
     LandmarkDetector::FaceModelParameters detParameters(args);
-    LandmarkDetector::CLNF clnfModel(detParameters.model_location);
+    LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
+    LandmarkDetector::CLNF clnfModel2(clnfModel1);
     
     int imageCount = metadata.numFrames;
     
-    cv::Mat images[imageCount];
-    cv::Mat processedImages[imageCount];
+    std::vector<cv::Mat> images((size_t)imageCount);
+    std::vector<cv::Mat> processedImages((size_t)imageCount);
     
     // Open all images of the video
     for (int i = 1; i < imageCount + 1; i++)
@@ -66,11 +94,18 @@ void processVideo(const std::string& framesFormat,
         images[i-1] = OpenFaceProcessing::openImage(input);
     }
     
-    for (int i = 1; i < imageCount + 1; i++)
-    {
-        processFrame(images[i-1], processedImages[i-1], metadata, clnfModel);
-    }
+    Utilities::uint64 tStart = Utilities::GetTimeMs64();
     
+    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), processedImages.begin(), processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel1));
+    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), processedImages.begin()+1, processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel2));
+    
+    t1.join();
+    t2.join();
+    
+    Utilities::uint64 tEnd = Utilities::GetTimeMs64();
+    
+    std::cout << "Processing Took: " << (tEnd - tStart) << "ms" << std::endl;
+
     // Save all processed images
     for (int i = 1; i < imageCount + 1; i++)
     {
