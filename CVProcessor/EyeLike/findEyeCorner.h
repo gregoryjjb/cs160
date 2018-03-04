@@ -1,7 +1,7 @@
 #ifndef EYE_CORNER_H
 #define EYE_CORNER_H
 
-#include "opencv2/imgproc/imgproc.hpp"
+#include <opencv2/imgproc/imgproc.hpp>
 
 #define kEyeLeft true
 #define kEyeRight false
