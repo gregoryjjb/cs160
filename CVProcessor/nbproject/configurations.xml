@@ -8,8 +8,10 @@
         <itemPath>EyeLike/constants.h</itemPath>
         <itemPath>EyeLike/findEyeCenter.h</itemPath>
         <itemPath>EyeLike/findEyeCorner.h</itemPath>
+        <itemPath>EyeLike/findEyes.h</itemPath>
         <itemPath>EyeLike/helpers.h</itemPath>
       </logicalFolder>
+      <itemPath>EyeLikeProcessing.h</itemPath>
       <itemPath>FFMPEGProcessing.h</itemPath>
       <itemPath>OpenFaceProcessing.h</itemPath>
       <itemPath>SystemHelper.h</itemPath>
@@ -26,9 +28,10 @@
       <logicalFolder name="f1" displayName="EyeLike" projectFiles="true">
         <itemPath>EyeLike/findEyeCenter.cpp</itemPath>
         <itemPath>EyeLike/findEyeCorner.cpp</itemPath>
+        <itemPath>EyeLike/findEyes.cpp</itemPath>
         <itemPath>EyeLike/helpers.cpp</itemPath>
-        <itemPath>EyeLike/main.cpp</itemPath>
       </logicalFolder>
+      <itemPath>EyeLikeProcessing.cpp</itemPath>
       <itemPath>FFMPEGProcessing.cpp</itemPath>
       <itemPath>OpenFaceProcessing.cpp</itemPath>
       <itemPath>SystemHelper.cpp</itemPath>
@@ -60,6 +63,7 @@
           <incDir>
             <pElem>/usr/include/boost</pElem>
             <pElem>/usr/local/include/OpenFace</pElem>
+            <pElem>.</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -89,11 +93,17 @@
       </item>
       <item path="EyeLike/findEyeCorner.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="EyeLike/findEyes.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="EyeLike/findEyes.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="EyeLike/helpers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EyeLike/helpers.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="EyeLike/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="EyeLikeProcessing.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="EyeLikeProcessing.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FFMPEGProcessing.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -150,11 +160,17 @@
       </item>
       <item path="EyeLike/findEyeCorner.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="EyeLike/findEyes.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="EyeLike/findEyes.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="EyeLike/helpers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EyeLike/helpers.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="EyeLike/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="EyeLikeProcessing.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="EyeLikeProcessing.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FFMPEGProcessing.cpp" ex="false" tool="1" flavor2="0">
       </item>

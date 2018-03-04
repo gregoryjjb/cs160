@@ -20,6 +20,7 @@
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
+#include "EyeLikeProcessing.h"
 #include "Utilities.h"
 
 void processFrame(const cv::Mat& input, 
@@ -39,6 +40,8 @@ void processFrame(const cv::Mat& input,
         OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
     
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
+    
+    EyeLikeProcessing::applyEyeCentersToImage(output, EyeLikeProcessing::detectPupils(grayImage));
 }
 
 void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
@@ -101,7 +104,7 @@ void processVideo(const std::string& framesFormat,
     
     t1.join();
     t2.join();
-    
+
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
     
     std::cout << "Processing Took: " << (tEnd - tStart) << "ms" << std::endl;
@@ -132,7 +135,7 @@ int main(int argc, char** argv)
             << " " << metadata.frameRateDenom << std::endl;
         
         FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
-
+        
         processVideo("frames/out%d.png", "processed/out%d.png", metadata);
 
         FFMPEGProcessing::combineFrames("processed/out%d.png", "processed.mp4", metadata);
