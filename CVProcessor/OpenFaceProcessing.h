@@ -57,8 +57,7 @@ void applyFaceDataPointsToImage(const std::string& imagePath,
                                 const FaceDataPointsRecord& dataPoints,
                                 const VideoMetadata& metadata);
 
-void applyFaceDataPointsToImage(const cv::Mat& inputImage,
-                                cv::Mat& outputImage,
+void applyFaceDataPointsToImage(cv::Mat& outputImage,
                                 const FaceDataPointsRecord& dataPoints,
                                 const VideoMetadata& metadata);
 

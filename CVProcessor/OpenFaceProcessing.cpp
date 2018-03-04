@@ -121,7 +121,7 @@ void OpenFaceProcessing::applyFaceDataPointsToImage(const cv::Mat& inputImage,
     float cx = metadata.width / 2.0f;
     float cy = metadata.height / 2.0f;
 
-    visualizer.SetImage(inputImage, fx, fy, cx, cy);
+    visualizer.SetImage(outputImage, fx, fy, cx, cy);
     visualizer.SetObservationLandmarks(dataPoints.landmarks, 1.0,
                                        dataPoints.visibilities);
 

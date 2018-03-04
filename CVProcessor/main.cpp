@@ -134,12 +134,13 @@ void processVideo(const std::string& framesFormat,
     int imageCount = metadata.numFrames;
     
     std::vector<cv::Mat> images((size_t)imageCount);
-    std::vector<cv::Mat> processedImages((size_t)imageCount);
     
     OpenImages openImagesLoop;
     openImagesLoop.framesFormat = &framesFormat;
     openImagesLoop.images  = &images;
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), openImagesLoop);
+    
+    std::vector<cv::Mat> processedImages(images);
     
     tStart = Utilities::GetTimeMs64();
     
