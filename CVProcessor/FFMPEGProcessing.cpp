@@ -59,7 +59,7 @@ void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
     // TODO: Validate that we wont overflow buffer
     const char* format = 
         "ffmpeg -r %d/%d -start_number 1 -f image2 -i "
-        "%s -c:v libx264 %s 2>&1";
+        "%s -c:v libx264 %s 2>&1 &";
     char buffer[256];
     sprintf(buffer, format, metadata.frameRateNum, 
             metadata.frameRateDenom, inputFormat.c_str(), outputName.c_str());

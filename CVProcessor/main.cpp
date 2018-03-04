@@ -114,13 +114,21 @@ void processVideo(const std::string& framesFormat,
                   const std::string& processedFormat,
                   const VideoMetadata& metadata)
 {
+    Utilities::uint64 tStart, tEnd;
+    
     std::vector<std::string> args{};
     args.push_back("-q");
     args.push_back("-wild");
 
+    tStart = Utilities::GetTimeMs64();
+    
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
     LandmarkDetector::CLNF clnfModel2(clnfModel1);
+    
+    tEnd = Utilities::GetTimeMs64();
+    
+    std::cout << "OpenFace Initialization Took: " << (tEnd - tStart) << "ms" << std::endl;
     
     int imageCount = metadata.numFrames;
     
@@ -132,7 +140,7 @@ void processVideo(const std::string& framesFormat,
     openImagesLoop.images  = &images;
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), openImagesLoop);
     
-    Utilities::uint64 tStart = Utilities::GetTimeMs64();
+    tStart = Utilities::GetTimeMs64();
     
     std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), processedImages.begin(), processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel1));
     std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), processedImages.begin()+1, processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel2));
@@ -140,7 +148,7 @@ void processVideo(const std::string& framesFormat,
     t1.join();
     t2.join();
 
-    Utilities::uint64 tEnd = Utilities::GetTimeMs64();
+    tEnd = Utilities::GetTimeMs64();
     
     std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << "ms" << std::endl;
 
