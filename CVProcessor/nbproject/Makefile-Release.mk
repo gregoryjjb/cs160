@@ -35,6 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/EyeLike/findEyeCenter.o \
+	${OBJECTDIR}/EyeLike/findEyeCorner.o \
+	${OBJECTDIR}/EyeLike/helpers.o \
+	${OBJECTDIR}/EyeLike/main.o \
 	${OBJECTDIR}/FFMPEGProcessing.o \
 	${OBJECTDIR}/OpenFaceProcessing.o \
 	${OBJECTDIR}/SystemHelper.o \
@@ -64,6 +68,26 @@ LDLIBSOPTIONS=`pkg-config --libs opencv`
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/EyeLike/findEyeCenter.o: EyeLike/findEyeCenter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/EyeLike
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/findEyeCenter.o EyeLike/findEyeCenter.cpp
+
+${OBJECTDIR}/EyeLike/findEyeCorner.o: EyeLike/findEyeCorner.cpp 
+	${MKDIR} -p ${OBJECTDIR}/EyeLike
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/findEyeCorner.o EyeLike/findEyeCorner.cpp
+
+${OBJECTDIR}/EyeLike/helpers.o: EyeLike/helpers.cpp 
+	${MKDIR} -p ${OBJECTDIR}/EyeLike
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/helpers.o EyeLike/helpers.cpp
+
+${OBJECTDIR}/EyeLike/main.o: EyeLike/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/EyeLike
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/main.o EyeLike/main.cpp
 
 ${OBJECTDIR}/FFMPEGProcessing.o: FFMPEGProcessing.cpp 
 	${MKDIR} -p ${OBJECTDIR}
