@@ -68,6 +68,12 @@ FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uc
     return FaceDataPointsRecord(clnfModel.detected_landmarks, clnfModel.GetVisibilities());
 }
 
+cv::Vec6f extractHeadPose(const LandmarkDetector::CLNF& clnfModel, 
+                          const VideoMetadata& metadata)
+{
+    return LandmarkDetector::GetPose(clnfModel, 500, 500, metadata.width / 2, metadata.height / 2);
+}
+
 std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPointsRecord& dataPoints,
                                                                 const VideoMetadata& metadata)
 {
