@@ -79,7 +79,7 @@ void processFrame(const cv::Mat& input,
     std::vector<cv::Vec6f> triangles = 
         OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
     
-    OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
+    OpenFaceProcessing::applyFaceDataPointsToImage(output, dataPoints, metadata);
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
     EyeLikeProcessing::applyEyeCentersToImage(output, pupilsFuture.get());
 }

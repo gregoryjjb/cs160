@@ -104,28 +104,20 @@ void OpenFaceProcessing::applyFaceDataPointsToImage(const std::string& imagePath
     cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR);
 
     cv::Mat result;
-    applyFaceDataPointsToImage(image, result, dataPoints, metadata);
+    applyFaceDataPointsToImage(result, dataPoints, metadata);
     cv::imwrite(outputPath, result);
 }
 
-void OpenFaceProcessing::applyFaceDataPointsToImage(const cv::Mat& inputImage,
-                                                    cv::Mat& outputImage,
+void OpenFaceProcessing::applyFaceDataPointsToImage(cv::Mat& outputImage,
                                                     const FaceDataPointsRecord& dataPoints,
                                                     const VideoMetadata& metadata)
 {
-    Utilities::Visualizer visualizer(false, false, false);
-
-    // estimates
-    float fx = 500.0f * (metadata.width / 640.0f);
-    float fy = 500.0f * (metadata.height / 480.0f);
-    float cx = metadata.width / 2.0f;
-    float cy = metadata.height / 2.0f;
-
-    visualizer.SetImage(outputImage, fx, fy, cx, cy);
-    visualizer.SetObservationLandmarks(dataPoints.landmarks, 1.0,
-                                       dataPoints.visibilities);
-
-    outputImage = visualizer.GetVisImage();
+    for (int i = 0; i < dataPoints.landmarks.rows / 2; i++)
+    {
+        double x = dataPoints.landmarks.at<double>(i, 0);
+        double y = dataPoints.landmarks.at<double>(i + dataPoints.landmarks.rows / 2, 0);
+        cv::circle(outputImage, cv::Point(x,y), 3, 200);
+    }
 }
 
 void OpenFaceProcessing::applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
