@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/FFMPEGProcessing.o \
+	${OBJECTDIR}/OpenFaceProcessing.o \
 	${OBJECTDIR}/SystemHelper.o \
 	${OBJECTDIR}/main.o
 
@@ -54,7 +55,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-L/usr/lib/x86_64-linux-gnu -lUtilities -lLandmarkDetector `pkg-config --libs opencv` `pkg-config --libs dlib-1` -lboost_filesystem -lboost_system -ltbb -lpthread   
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -67,17 +68,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor: ${OBJECTFILES}
 ${OBJECTDIR}/FFMPEGProcessing.o: FFMPEGProcessing.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FFMPEGProcessing.o FFMPEGProcessing.cpp
+	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace `pkg-config --cflags opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FFMPEGProcessing.o FFMPEGProcessing.cpp
+
+${OBJECTDIR}/OpenFaceProcessing.o: OpenFaceProcessing.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace `pkg-config --cflags opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OpenFaceProcessing.o OpenFaceProcessing.cpp
 
 ${OBJECTDIR}/SystemHelper.o: SystemHelper.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SystemHelper.o SystemHelper.cpp
+	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace `pkg-config --cflags opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SystemHelper.o SystemHelper.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace `pkg-config --cflags opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
