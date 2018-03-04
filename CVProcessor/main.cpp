@@ -75,6 +75,7 @@ void processFrame(const cv::Mat& input,
     
     OpenFaceProcessing::FaceDataPointsRecord dataPoints
                 = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
+    cv::Vec6f headPose = OpenFaceProcessing::extractHeadPose(model, metadata);
     std::vector<cv::Vec6f> triangles = 
         OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
     
