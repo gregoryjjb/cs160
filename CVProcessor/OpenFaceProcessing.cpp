@@ -67,7 +67,7 @@ FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uc
     // TODO: figure out why these args matter
     std::vector<std::string> args{};
     args.push_back("-q");
-    args.push_back("-wild");
+    //args.push_back("-wild");
 
     LandmarkDetector::FaceModelParameters detParameters(args);
 

@@ -150,7 +150,8 @@ void processVideo(const std::string& framesFormat,
 
     tEnd = Utilities::GetTimeMs64();
     
-    std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << "ms" << std::endl;
+    std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << "ms (" 
+        << (tEnd - tStart) / imageCount << "ms per frame)" << std::endl;
 
     SaveImages saveImagesLoop;
     saveImagesLoop.framesFormat = &processedFormat;
