@@ -26,6 +26,8 @@
 
 using namespace OpenFaceProcessing;
 
+std::vector<std::string> detectionArgs{"-q"};
+
 FaceDataPointsRecord::FaceDataPointsRecord(const cv::Mat_<double>& landmarks,
                                            const cv::Mat_<int>& visibilities)
 : landmarks(landmarks),
@@ -47,12 +49,7 @@ void OpenFaceProcessing::saveImage(const std::string& path, const cv::Mat& image
 FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uchar> grayImage,
                                                                const VideoMetadata& metadata)
 {
-    // TODO: figure out why these args matter
-    std::vector<std::string> args{};
-    args.push_back("-q");
-    args.push_back("-wild");
-
-    LandmarkDetector::FaceModelParameters detParameters(args);
+    LandmarkDetector::FaceModelParameters detParameters(detectionArgs);
     LandmarkDetector::CLNF clnfModel(detParameters.model_location);
 
     LandmarkDetector::DetectLandmarksInImage(grayImage, clnfModel, detParameters);
@@ -64,12 +61,7 @@ FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uc
                                                                const VideoMetadata& metadata,
                                                                LandmarkDetector::CLNF& clnfModel)
 {
-    // TODO: figure out why these args matter
-    std::vector<std::string> args{};
-    args.push_back("-q");
-    args.push_back("-wild");
-
-    LandmarkDetector::FaceModelParameters detParameters(args);
+    LandmarkDetector::FaceModelParameters detParameters(detectionArgs);
 
     LandmarkDetector::DetectLandmarksInVideo(grayFrame, clnfModel, detParameters);
 
