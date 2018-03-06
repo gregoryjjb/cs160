@@ -4,8 +4,22 @@
 #include "OutputWriter.h"
 
 OutputWriter::OutputWriter()
-    : m_mutex()
+    : m_mutex(),
+    m_stdout(NULL)
 {
+}
+
+void OutputWriter::enableOtherStdOutStreams()
+{
+    std::unique_lock<std::mutex> lock(m_mutex);
+    std::cout.rdbuf(m_stdout);
+}
+
+void OutputWriter::disableOtherStdOutStreams()
+{
+    std::unique_lock<std::mutex> lock(m_mutex);
+    m_stdout = cout.rdbuf();
+    cout.rdbuf(NULL);
 }
 
 void OutputWriter::outputMetadata(const VideoMetadata& metadata)
@@ -25,7 +39,15 @@ void OutputWriter::outputMetadata(const VideoMetadata& metadata)
     // Start critical section
     {
         std::unique_lock<std::mutex> lock(m_mutex);
-        std::cout << outputStream.str();
+        if (m_stdout == NULL)
+            std::cout << outputStream.str();
+        else
+        {
+            std::cout.rdbuf(m_stdout);
+            std::cout << outputStream.str();
+            m_stdout = cout.rdbuf();
+            std::cout.rdbuf(NULL);
+        }
     }
 }
 
@@ -86,6 +108,15 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
     // Start critical section
     {
         std::unique_lock<std::mutex> lock(m_mutex);
-        std::cout << outputStream.str();
+        
+        if (m_stdout == NULL)
+            std::cout << outputStream.str();
+        else
+        {
+            std::cout.rdbuf(m_stdout);
+            std::cout << outputStream.str();
+            m_stdout = cout.rdbuf();
+            std::cout.rdbuf(NULL);
+        }
     }
 }

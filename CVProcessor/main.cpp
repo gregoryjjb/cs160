@@ -173,7 +173,7 @@ void processVideo(const std::string& framesFormat,
 int main(int argc, char** argv)
 {
     if (argc >= 2)
-    {       
+    {
         std::string inputFile = argv[1];
 
         Utilities::uint64 tStart = Utilities::GetTimeMs64();
@@ -181,6 +181,7 @@ int main(int argc, char** argv)
         VideoMetadata metadata =
             FFMPEGProcessing::extractMetadata(inputFile);
         
+        Config::output.disableOtherStdOutStreams();
         Config::output.outputMetadata(metadata);
         
         FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
