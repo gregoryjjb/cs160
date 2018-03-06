@@ -20,6 +20,7 @@
 
 #include <tbb/tbb.h>
 
+#include "Config.h"
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
@@ -78,7 +79,7 @@ void processFrame(const cv::Mat& input,
     cv::Vec6f headPose = OpenFaceProcessing::extractHeadPose(model, metadata);
     std::vector<cv::Vec6f> triangles = 
         OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
-    
+
     OpenFaceProcessing::applyFaceDataPointsToImage(output, dataPoints, metadata);
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
     EyeLikeProcessing::applyEyeCentersToImage(output, pupilsFuture.get());
@@ -104,7 +105,6 @@ void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
             
             if (inputIt == inputItEnd || outputIt == outputItEnd)
             {
-                std::cout << "Thread processed " << processed << std::endl;
                 return;
             }
         }
@@ -164,7 +164,7 @@ void processVideo(const std::string& framesFormat,
 int main(int argc, char** argv)
 {
     if (argc >= 2)
-    {
+    {       
         std::string inputFile = argv[1];
 
         Utilities::uint64 tStart = Utilities::GetTimeMs64();
@@ -172,11 +172,7 @@ int main(int argc, char** argv)
         VideoMetadata metadata =
             FFMPEGProcessing::extractMetadata(inputFile);
         
-        std::cout << "Extracted the following metadata: " << metadata.width << std::endl
-            << " " << metadata.height << std::endl
-            << " " << metadata.numFrames << std::endl
-            << " " << metadata.frameRateNum << std::endl
-            << " " << metadata.frameRateDenom << std::endl;
+        Config::output.outputMetadata(metadata);
         
         FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
         
