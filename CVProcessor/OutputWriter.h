@@ -4,7 +4,7 @@
 #include <mutex>
 
 #include "VideoMetadata.h"
-#include "OpenFaceProcessing.h"
+#include "FrameData.h"
 
 // Provides thread-safe output features
 // for processed data
@@ -14,9 +14,8 @@ public:
     OutputWriter();
     
     void outputMetadata(const VideoMetadata& metadata);
+    void outputFrameData(const FrameData& frameData);
     
-    void outputDataPoints(int frameNumber, 
-        const OpenFaceProcessing::FaceDataPointsRecord& dataPoints);
 private:
     std::mutex m_mutex;
 };

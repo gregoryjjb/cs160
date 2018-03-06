@@ -98,6 +98,22 @@ std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPo
 
     std::vector<cv::Vec6f> triangles;
     sub.getTriangleList(triangles);
+    
+    // Remove triangles outside the bounds of the image
+    std::vector<cv::Point> pt(3);
+    for (int i = triangles.size() - 1; i >= 0; i--)
+    {
+        cv::Vec6f t = triangles[i];
+        pt[0] = cv::Point(cvRound(t[0]), cvRound(t[1]));
+        pt[1] = cv::Point(cvRound(t[2]), cvRound(t[3]));
+        pt[2] = cv::Point(cvRound(t[4]), cvRound(t[5]));
+
+        if (!rect.contains(pt[0]) || !rect.contains(pt[1]) || !rect.contains(pt[2]))
+        {
+            triangles.erase(triangles.begin() + i);
+        }
+    }
+    
     return triangles;
 }
 

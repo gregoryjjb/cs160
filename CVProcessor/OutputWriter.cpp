@@ -29,24 +29,59 @@ void OutputWriter::outputMetadata(const VideoMetadata& metadata)
     }
 }
 
-void OutputWriter::outputDataPoints(int frameNumber,
-    const OpenFaceProcessing::FaceDataPointsRecord& dataPoints)
+void OutputWriter::outputFrameData(const FrameData& frameData)
 {
     std::ostringstream outputStream;
     outputStream.precision(5);
     outputStream.setf(std::ios::fixed);
     
-    outputStream << "Begin Frame " << frameNumber << "Landmarks" << std::endl;
+    outputStream << std::endl;
+    outputStream << "Begin Frame " << frameData.frameNumber << std::endl;
     
-    for (int i = 0; i < dataPoints.landmarks.rows / 2; i++)
+    outputStream << "Begin Landmarks" << std::endl;
+    for (int i = 0; i < frameData.dataPoints.landmarks.rows / 2; i++)
     {
-        double x = dataPoints.landmarks.at<double>(i, 0);
-        double y = dataPoints.landmarks.at<double>(i + dataPoints.landmarks.rows / 2, 0);
+        double x = frameData.dataPoints.landmarks.at<double>(i, 0);
+        double y = frameData.dataPoints.landmarks.at<double>(
+            i + frameData.dataPoints.landmarks.rows / 2, 0);
         
         outputStream << i << ": " << x << " " << y << std::endl;
     }
+    outputStream << "End Landmarks" << std::endl;
     
-    outputStream << "End Frame " << frameNumber << "Landmarks" << std::endl;
+    outputStream << "Begin Head Pose" << std::endl;
+    outputStream << "X: " << frameData.headPose[0] 
+        << " Y: " << frameData.headPose[1]
+        << " Z: " << frameData.headPose[2] 
+        << std::endl;
+    outputStream << "RX: " << frameData.headPose[3] 
+        << " RY: " << frameData.headPose[4]
+        << " RZ: " << frameData.headPose[5] 
+        << std::endl;
+    outputStream << "End Head Pose" << std::endl;
+    
+    outputStream << "Begin Triangles" << std::endl;
+    for (int i = 0; i < frameData.delaunayTriangles.size(); i++)
+    {
+        outputStream 
+            << frameData.delaunayTriangles[i][0] << " "
+            << frameData.delaunayTriangles[i][1] << " "
+            << std::endl;
+        
+        outputStream 
+            << frameData.delaunayTriangles[i][2] << " "
+            << frameData.delaunayTriangles[i][3] << " "
+            << std::endl;
+        
+        outputStream 
+            << frameData.delaunayTriangles[i][4] << " "
+            << frameData.delaunayTriangles[i][5] << " "
+            << std::endl;
+    }
+    outputStream << "End Triangles" << std::endl;
+    
+    outputStream << "End Frame " << frameData.frameNumber << std::endl;
+    outputStream << std::endl;
     
     // Start critical section
     {
