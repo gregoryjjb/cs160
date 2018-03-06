@@ -12,13 +12,16 @@ OutputWriter::OutputWriter()
 void OutputWriter::enableOtherStdOutStreams()
 {
     std::unique_lock<std::mutex> lock(m_mutex);
+    // Restore std::couts underlying stream
     std::cout.rdbuf(m_stdout);
 }
 
 void OutputWriter::disableOtherStdOutStreams()
 {
     std::unique_lock<std::mutex> lock(m_mutex);
+    // Store std::couts underlying stream for our own use
     m_stdout = cout.rdbuf();
+    // Disables std::couts underlying stream
     cout.rdbuf(NULL);
 }
 

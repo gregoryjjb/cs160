@@ -117,18 +117,6 @@ std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPo
     return triangles;
 }
 
-void OpenFaceProcessing::applyFaceDataPointsToImage(const std::string& imagePath,
-                                                    const std::string& outputPath,
-                                                    const FaceDataPointsRecord& dataPoints,
-                                                    const VideoMetadata& metadata)
-{
-    cv::Mat image = cv::imread(imagePath, cv::IMREAD_COLOR);
-
-    cv::Mat result;
-    applyFaceDataPointsToImage(result, dataPoints, metadata);
-    cv::imwrite(outputPath, result);
-}
-
 void OpenFaceProcessing::applyFaceDataPointsToImage(cv::Mat& outputImage,
                                                     const FaceDataPointsRecord& dataPoints,
                                                     const VideoMetadata& metadata)
