@@ -21,6 +21,7 @@
 #include <tbb/tbb.h>
 
 #include "Config.h"
+#include "FrameData.h"
 #include "VideoMetadata.h"
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
@@ -47,7 +48,7 @@ public:
 class SaveImages
 {
 public:
-    std::vector<cv::Mat>* images;
+    std::vector<FrameData>* frameData;
     const std::string* framesFormat;
     void operator()(const tbb::blocked_range<size_t>& r) const
     {
@@ -56,13 +57,13 @@ public:
             char buffer[128];
             snprintf(buffer, 128, framesFormat->c_str(), i);
             std::string output(buffer);
-            OpenFaceProcessing::saveImage(output, (*images)[i-1]);
+            OpenFaceProcessing::saveImage(output, (*frameData)[i-1].outputImage);
         }
     }
 };
 
 void processFrame(const cv::Mat& input, 
-                  cv::Mat& output, 
+                  FrameData& output, 
                   const VideoMetadata& metadata, 
                   LandmarkDetector::CLNF& model)
 {
@@ -74,21 +75,22 @@ void processFrame(const cv::Mat& input,
         return EyeLikeProcessing::detectPupils(grayImage);
     });
     
-    OpenFaceProcessing::FaceDataPointsRecord dataPoints
-                = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
-    cv::Vec6f headPose = OpenFaceProcessing::extractHeadPose(model, metadata);
-    std::vector<cv::Vec6f> triangles = 
-        OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
+    output.dataPoints = 
+        OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
+    output.headPose = 
+        OpenFaceProcessing::extractHeadPose(model, metadata);
+    output.delaunayTriangles = 
+        OpenFaceProcessing::getDelaunayTriangles(output.dataPoints, metadata);
 
-    OpenFaceProcessing::applyFaceDataPointsToImage(output, dataPoints, metadata);
-    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
-    EyeLikeProcessing::applyEyeCentersToImage(output, pupilsFuture.get());
+    OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata);
+    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata);
+    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, pupilsFuture.get());
 }
 
 void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
                         std::vector<cv::Mat>::const_iterator inputItEnd,
-                        std::vector<cv::Mat>::iterator outputIt,
-                        std::vector<cv::Mat>::iterator outputItEnd,
+                        std::vector<FrameData>::iterator outputIt,
+                        std::vector<FrameData>::iterator outputItEnd,
                         int step,
                         const VideoMetadata& metadata,
                         LandmarkDetector::CLNF& model)
@@ -140,12 +142,17 @@ void processVideo(const std::string& framesFormat,
     openImagesLoop.images  = &images;
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), openImagesLoop);
     
-    std::vector<cv::Mat> processedImages(images);
+    std::vector<FrameData> frameData((size_t)imageCount);
+    for (size_t i = 0; i < imageCount; i++)
+    {
+        frameData[i].frameNumber = i;
+        frameData[i].outputImage = cv::Mat(images[i]);
+    }
     
     tStart = Utilities::GetTimeMs64();
     
-    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), processedImages.begin(), processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel1));
-    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), processedImages.begin()+1, processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel2));
+    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), frameData.begin(), frameData.end(), 2, std::cref(metadata), std::ref(clnfModel1));
+    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), frameData.begin()+1, frameData.end(), 2, std::cref(metadata), std::ref(clnfModel2));
     
     t1.join();
     t2.join();
@@ -157,7 +164,7 @@ void processVideo(const std::string& framesFormat,
 
     SaveImages saveImagesLoop;
     saveImagesLoop.framesFormat = &processedFormat;
-    saveImagesLoop.images = &processedImages;
+    saveImagesLoop.frameData = &frameData;
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), saveImagesLoop);
 }
 

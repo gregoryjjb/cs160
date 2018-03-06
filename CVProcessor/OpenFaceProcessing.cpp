@@ -28,6 +28,11 @@ using namespace OpenFaceProcessing;
 
 std::vector<std::string> detectionArgs{"-q"};
 
+FaceDataPointsRecord::FaceDataPointsRecord()
+    : landmarks(), visibilities()
+{
+}
+
 FaceDataPointsRecord::FaceDataPointsRecord(const cv::Mat_<double>& landmarks,
                                            const cv::Mat_<int>& visibilities)
 : landmarks(landmarks),

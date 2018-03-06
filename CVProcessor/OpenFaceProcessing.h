@@ -29,6 +29,7 @@ public:
     cv::Mat_<double> landmarks;
     cv::Mat_<int> visibilities;
     
+    FaceDataPointsRecord();
     FaceDataPointsRecord(const cv::Mat_<double>& landmarks, 
                          const cv::Mat_<int>& visibilities);
 };
