@@ -19,6 +19,14 @@ struct VideoMetadata
 public:
     int width, height, numFrames, frameRateNum, frameRateDenom;
     
+    VideoMetadata()
+        : width(0),
+        height(0),
+        numFrames(0),
+        frameRateNum(0),
+        frameRateDenom(0)
+    {}
+    
     VideoMetadata(int w, int h, int frameCount, int frameRateNum, int frameRateDenom)
         : width(w),
         height(h),

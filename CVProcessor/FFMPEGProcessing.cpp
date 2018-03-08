@@ -50,7 +50,7 @@ void FFMPEGProcessing::extractFrames(const std::string& targetVideo,
             metadata.frameRateDenom, outputFormat.c_str());
     exec(std::string(buffer));
 }
-#include <iostream>
+
 void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
                                      const std::string& outputName,
                                      const VideoMetadata& metadata)

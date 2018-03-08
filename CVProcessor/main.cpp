@@ -182,30 +182,62 @@ std::vector<std::string> parseArguments(int argc, char** argv)
     return args;
 }
 
+void initializeConfiguration(const std::vector<std::string>& args)
+{
+    for (int i = 0; i < args.size(); i++)
+    {
+        if (args[i] == "-f")
+        {
+            Config::execMode = Config::ExecutionMode::VideoFile;
+            Config::targetFile = args[i+1];
+            i++;
+        }
+        else if (args[i] == "-s")
+        {
+            Config::execMode = Config::ExecutionMode::VideoStream;
+            Config::videoStream = args[i+1];
+            i++;
+        }
+        else if (args[i] == "-o")
+        {
+            Config::outputVideoName = args[i+1];
+            i++;
+        }
+    }
+}
+
 int main(int argc, char** argv)
 {
-    if (argc >= 2)
+    if (argc <= 1)
+        return 0;
+    
+    initializeConfiguration(
+        parseArguments(argc, argv));
+    
+    Utilities::uint64 tStart = Utilities::GetTimeMs64();
+    Config::output.disableOtherStdOutStreams();
+    
+    VideoMetadata metadata;
+    if (Config::execMode == Config::ExecutionMode::VideoFile)
     {
-        std::string inputFile = argv[1];
-
-        Utilities::uint64 tStart = Utilities::GetTimeMs64();
-        
-        VideoMetadata metadata =
-            FFMPEGProcessing::extractMetadata(inputFile);
-        
-        Config::output.disableOtherStdOutStreams();
+        metadata = FFMPEGProcessing::extractMetadata(Config::targetFile);
+        FFMPEGProcessing::extractFrames(Config::targetFile, 
+            "frames/out%d.png", metadata);
         Config::output.outputMetadata(metadata);
-        
-        FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
-        
-        processVideo("frames/out%d.png", "processed/out%d.png", metadata);
-
-        FFMPEGProcessing::combineFrames("processed/out%d.png", "processed.mp4", metadata);
-        
-        Utilities::uint64 tEnd = Utilities::GetTimeMs64();
-        
-        std::cout << "Full Processing Took: " << (tEnd - tStart) << "ms" << std::endl;
     }
+    else if (Config::execMode == Config::ExecutionMode::VideoStream)
+    {
+        // TODO
+    }
+
+    processVideo("frames/out%d.png", "processed/out%d.png", metadata);
+
+    FFMPEGProcessing::combineFrames("processed/out%d.png", 
+        Config::outputVideoName, metadata);
+
+    Utilities::uint64 tEnd = Utilities::GetTimeMs64();
+
+    std::cout << "Full Processing Took: " << (tEnd - tStart) << "ms" << std::endl;
 
     return 0;
 }

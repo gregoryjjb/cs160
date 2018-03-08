@@ -14,12 +14,24 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <string>
+
 #include "OutputWriter.h"
 
 namespace Config
 {
 
 OutputWriter output;
+
+std::string targetFile;
+std::string videoStream;
+std::string outputVideoName = "processed.mp4";
+
+enum class ExecutionMode
+{
+    VideoFile,
+    VideoStream
+} execMode;
 
 }
 
