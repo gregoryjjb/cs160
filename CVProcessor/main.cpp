@@ -170,6 +170,18 @@ void processVideo(const std::string& framesFormat,
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), saveImagesLoop);
 }
 
+// Returns cmd line arguments as a vector of strings
+// for convenience
+std::vector<std::string> parseArguments(int argc, char** argv)
+{
+    std::vector<string> args;
+    for (int i = 0; i < argc; i++)
+    {
+        args.push_back(argv[i]);
+    }
+    return args;
+}
+
 int main(int argc, char** argv)
 {
     if (argc >= 2)
