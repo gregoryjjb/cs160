@@ -75,10 +75,11 @@ void processFrame(const cv::Mat& input,
     
     OpenFaceProcessing::FaceDataPointsRecord dataPoints
                 = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
+    cv::Vec6f headPose = OpenFaceProcessing::extractHeadPose(model, metadata);
     std::vector<cv::Vec6f> triangles = 
         OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
     
-    OpenFaceProcessing::applyFaceDataPointsToImage(input, output, dataPoints, metadata);
+    OpenFaceProcessing::applyFaceDataPointsToImage(output, dataPoints, metadata);
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
     EyeLikeProcessing::applyEyeCentersToImage(output, pupilsFuture.get());
 }
@@ -133,12 +134,13 @@ void processVideo(const std::string& framesFormat,
     int imageCount = metadata.numFrames;
     
     std::vector<cv::Mat> images((size_t)imageCount);
-    std::vector<cv::Mat> processedImages((size_t)imageCount);
     
     OpenImages openImagesLoop;
     openImagesLoop.framesFormat = &framesFormat;
     openImagesLoop.images  = &images;
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), openImagesLoop);
+    
+    std::vector<cv::Mat> processedImages(images);
     
     tStart = Utilities::GetTimeMs64();
     

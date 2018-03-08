@@ -46,6 +46,9 @@ FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayFrame,
                                            const VideoMetadata& metadata,
                                            LandmarkDetector::CLNF& model);
 
+cv::Vec6f extractHeadPose(const LandmarkDetector::CLNF& model, 
+                          const VideoMetadata& metadata);
+
 std::vector<cv::Vec6f> getDelaunayTriangles(const FaceDataPointsRecord& dataPoints,
                           const VideoMetadata& metadata);
 
@@ -54,8 +57,7 @@ void applyFaceDataPointsToImage(const std::string& imagePath,
                                 const FaceDataPointsRecord& dataPoints,
                                 const VideoMetadata& metadata);
 
-void applyFaceDataPointsToImage(const cv::Mat& inputImage,
-                                cv::Mat& outputImage,
+void applyFaceDataPointsToImage(cv::Mat& outputImage,
                                 const FaceDataPointsRecord& dataPoints,
                                 const VideoMetadata& metadata);
 
