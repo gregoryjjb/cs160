@@ -26,6 +26,11 @@ namespace FFMPEGProcessing
 VideoMetadata extractMetadata(const std::string& videoFile);
 
 /*
+ * Extracts the video metadata from a given video stream
+ */
+VideoMetadata extractMetadataFromStream(const std::string& stream);
+
+/*
  * Extracts the inidividual frames from a given video file,
  * placing them in the given output folder
  */

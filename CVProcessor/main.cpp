@@ -224,16 +224,18 @@ int main(int argc, char** argv)
         FFMPEGProcessing::extractFrames(Config::targetFile, 
             "frames/out%d.png", metadata);
         Config::output.outputMetadata(metadata);
+        
+        processVideo("frames/out%d.png", "processed/out%d.png", metadata);
+        
+        FFMPEGProcessing::combineFrames("processed/out%d.png", 
+        Config::outputVideoName, metadata);
     }
     else if (Config::execMode == Config::ExecutionMode::VideoStream)
     {
-        // TODO
+        metadata = FFMPEGProcessing::extractMetadataFromStream(Config::videoStream);
+        Config::output.outputMetadata(metadata);
+        return 0;
     }
-
-    processVideo("frames/out%d.png", "processed/out%d.png", metadata);
-
-    FFMPEGProcessing::combineFrames("processed/out%d.png", 
-        Config::outputVideoName, metadata);
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
 
