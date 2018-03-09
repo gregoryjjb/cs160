@@ -15,6 +15,7 @@
 #define FFMPEGPROCESSING_H
 
 #include <string>
+#include <functional>
 #include "VideoMetadata.h"
 
 namespace FFMPEGProcessing
@@ -37,6 +38,14 @@ VideoMetadata extractMetadataFromStream(const std::string& stream);
 void extractFrames(const std::string& videoFile, 
                    const std::string& outputFormat, 
                    const VideoMetadata& metadata);
+
+/*
+ * Begins extracting frames from the given stream.
+ * Returns the PID of the process managing the stream extraction.
+ */
+int extractFramesFromStream(const std::string& stream,
+                             const std::string& outputFormat,
+                             const VideoMetadata& metadata);
 
 /*
  * Combines the frames of a given format on disk

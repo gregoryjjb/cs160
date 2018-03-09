@@ -5,6 +5,8 @@
  */
 
 #include <sstream>
+#include <unistd.h>
+#include <iostream> // Remove usage of std::cout for Config::output and remove this header
 #include "SystemHelper.h"
 #include "FFMPEGProcessing.h"
 
@@ -19,7 +21,7 @@ VideoMetadata FFMPEGProcessing::extractMetadata(const std::string& videoFile)
     snprintf(buffer, 256, format, videoFile.c_str());
     
     std::istringstream result;
-    result.str(exec(std::string(buffer)));
+    result.str(execAndGetOutput(std::string(buffer)));
     
     std::string widthStr, heightStr, avgFramesStr, frameCountStr;
     std::getline(result, widthStr);    
@@ -50,7 +52,7 @@ VideoMetadata FFMPEGProcessing::extractMetadataFromStream(const std::string& str
     snprintf(buffer, 256, format, stream.c_str());
     
     std::istringstream result;
-    result.str(exec(std::string(buffer)));
+    result.str(execAndGetOutput(std::string(buffer)));
     
     std::string widthStr, heightStr, avgFramesStr;
     std::getline(result, widthStr);    
@@ -75,7 +77,29 @@ void FFMPEGProcessing::extractFrames(const std::string& targetVideo,
     char buffer[256];
     snprintf(buffer, 256, format, targetVideo.c_str(), metadata.frameRateNum, 
             metadata.frameRateDenom, outputFormat.c_str());
-    exec(std::string(buffer));
+    execAndGetOutput(std::string(buffer));
+}
+
+int FFMPEGProcessing::extractFramesFromStream(const std::string& stream, 
+                                               const std::string& outputFormat, 
+                                               const VideoMetadata& metadata)
+{
+    int pid = fork();
+    if (pid < 0)
+    {
+        std::cout << "Error forking to process the incoming stream" << std::endl;
+    }
+    else if (pid == 0) // Child
+    {
+        const char* format = "ffmpeg -i %s -r %d/%d %s 2>&1";
+        char buffer[256];
+        snprintf(buffer, 256, format, stream.c_str(), metadata.frameRateNum, 
+                metadata.frameRateDenom, outputFormat.c_str());
+        execAndGetOutput(std::string(buffer));
+        exit(1);
+    }
+
+    return pid;
 }
 
 void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
@@ -89,5 +113,5 @@ void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
     char buffer[256];
     snprintf(buffer, 256, format, metadata.frameRateNum, 
             metadata.frameRateDenom, inputFormat.c_str(), outputName.c_str());
-    exec(std::string(buffer));
+    execAndGetOutput(std::string(buffer));
 }
