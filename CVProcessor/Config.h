@@ -21,13 +21,13 @@
 namespace Config
 {
 
-OutputWriter output;
+extern OutputWriter output;
 
-std::string targetFile;
-std::string videoStream;
-std::string outputVideoName = "processed.mp4";
+extern std::string targetFile;
+extern std::string videoStream;
+extern std::string outputVideoName;
 
-enum class ExecutionMode
+extern enum class ExecutionMode
 {
     VideoFile,
     VideoStream
