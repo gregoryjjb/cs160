@@ -123,3 +123,21 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
         }
     }
 }
+
+void OutputWriter::log(const std::string& str)
+{
+    // Start critical section
+    {
+        std::unique_lock<std::mutex> lock(m_mutex);
+        
+        if (m_stdout == NULL)
+            std::cout << str;
+        else
+        {
+            std::cout.rdbuf(m_stdout);
+            std::cout << str;
+            m_stdout = cout.rdbuf();
+            std::cout.rdbuf(NULL);
+        }
+    }
+}
