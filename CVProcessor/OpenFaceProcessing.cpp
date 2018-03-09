@@ -94,6 +94,9 @@ std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPo
         points.push_back(cv::Point2f(x,y));
     }
 
+    if (points.size() == 0)
+        return std::vector<cv::Vec6f>();
+    
     sub.insert(points);
 
     std::vector<cv::Vec6f> triangles;
