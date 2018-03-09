@@ -16,6 +16,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/filesystem.hpp>
+
 #include "Config.h"
 #include "Utilities.h"
 #include "VideoProcessing.h"
@@ -66,6 +68,12 @@ int main(int argc, char** argv)
 {
     if (argc <= 1)
         return 0;
+    
+    boost::filesystem::remove_all("frames/");
+    boost::filesystem::remove_all("processed/");
+    
+    boost::filesystem::create_directory("frames/");
+    boost::filesystem::create_directory("processed/");
     
     Config::outputVideoName = "processed.mp4";
     
