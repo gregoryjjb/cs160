@@ -7,7 +7,7 @@
 #include <array>
 #include "SystemHelper.h"
 
-std::string exec(const std::string& cmd)
+std::string execAndGetOutput(const std::string& cmd)
 {
     std::array<char, 128> buffer;
     std::string result;

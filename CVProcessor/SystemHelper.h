@@ -18,6 +18,6 @@
 
 // Executes the given command and returns anything 
 // output to stdout by the command
-std::string exec(const std::string& cmd);
+std::string execAndGetOutput(const std::string& cmd);
 
 #endif /* SYSTEMHELPER_H */
