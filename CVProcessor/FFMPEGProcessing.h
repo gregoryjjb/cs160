@@ -48,6 +48,13 @@ int extractFramesFromStream(const std::string& stream,
                              const VideoMetadata& metadata);
 
 /*
+ * Begins outputting files of the given name format to the given stream.
+ * Returns the PID of the process managing the stream output.
+ */
+int outputFramesToStream(const std::string& stream,
+                          const std::string& outputFilesFormat,
+                          const VideoMetadata& metadata);
+/*
  * Combines the frames of a given format on disk
  * into a video file of the given name
  */

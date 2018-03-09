@@ -101,6 +101,32 @@ int FFMPEGProcessing::extractFramesFromStream(const std::string& stream,
 
     return pid;
 }
+#include "Config.h"
+int FFMPEGProcessing::outputFramesToStream(const std::string& stream,
+                                           const std::string& outputFormat,
+                                           const VideoMetadata& metadata)
+{
+    int pid = fork();
+    if (pid < 0)
+    {
+        std::cout << "Error forking to produce outgoing stream" << std::endl;
+    }
+    else if (pid == 0) // Child
+    {
+        const char* format = "ffmpeg -re -i %s -r %d/%d -f rtsp -muxdelay 0.1 %s 2>&1";
+        char buffer[256];
+        snprintf(buffer, 256, format, outputFormat.c_str(), metadata.frameRateNum, 
+                metadata.frameRateDenom, stream.c_str());
+        //execAndGetOutput(std::string(buffer));
+        
+        execlp("ffmpeg", "-re", "-i", outputFormat.c_str(), "-r", "16", "-f", "rtsp", 
+               "-muxdelay", "0.1", stream.c_str(), (char*)NULL);
+        
+        //exit(1);
+    }
+    Config::output.log("Streaming PID: " + std::to_string(pid) + "\n");
+    return pid;
+}
 
 void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
                                      const std::string& outputName,
