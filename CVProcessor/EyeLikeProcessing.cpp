@@ -40,11 +40,12 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
     cv::flip(rightCornerKernel, leftCornerKernel, 1);
 
     std::vector<cv::Rect> faces;
-
+    
+    unsigned int imageWidth = grayFrame.size().width;
+    
     faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2,
                                  0 | CV_HAAR_SCALE_IMAGE | CV_HAAR_FIND_BIGGEST_OBJECT, 
-                                 // TODO: figure out a way to calculate this size based on image size
-                                 cv::Size(75, 75)); 
+                                 cv::Size(imageWidth/4, imageWidth/4)); 
 
     if (faces.size() > 0)
     {
