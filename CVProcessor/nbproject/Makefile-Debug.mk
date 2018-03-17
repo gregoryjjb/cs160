@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/EyeLikeProcessing.o \
 	${OBJECTDIR}/FFMPEGProcessing.o \
 	${OBJECTDIR}/OpenFaceProcessing.o \
+	${OBJECTDIR}/OutputWriter.o \
 	${OBJECTDIR}/SystemHelper.o \
 	${OBJECTDIR}/main.o
 
@@ -104,6 +105,11 @@ ${OBJECTDIR}/OpenFaceProcessing.o: OpenFaceProcessing.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OpenFaceProcessing.o OpenFaceProcessing.cpp
+
+${OBJECTDIR}/OutputWriter.o: OutputWriter.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OutputWriter.o OutputWriter.cpp
 
 ${OBJECTDIR}/SystemHelper.o: SystemHelper.cpp 
 	${MKDIR} -p ${OBJECTDIR}

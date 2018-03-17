@@ -33,6 +33,10 @@ void extractFrames(const std::string& videoFile,
                    const std::string& outputFormat, 
                    const VideoMetadata& metadata);
 
+/*
+ * Combines the frames of a given format on disk
+ * into a video file of the given name
+ */
 void combineFrames(const std::string& inputFormat,
                    const std::string& outputName,
                    const VideoMetadata& metadata);
