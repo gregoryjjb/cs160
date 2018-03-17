@@ -122,19 +122,21 @@ std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPo
 
 void OpenFaceProcessing::applyFaceDataPointsToImage(cv::Mat& outputImage,
                                                     const FaceDataPointsRecord& dataPoints,
-                                                    const VideoMetadata& metadata)
+                                                    const VideoMetadata& metadata,
+                                                    double scaleFactor)
 {
     for (int i = 0; i < dataPoints.landmarks.rows / 2; i++)
     {
         double x = dataPoints.landmarks.at<double>(i, 0);
         double y = dataPoints.landmarks.at<double>(i + dataPoints.landmarks.rows / 2, 0);
-        cv::circle(outputImage, cv::Point(x,y), 3, 200);
+        cv::circle(outputImage, cv::Point(x * scaleFactor,y * scaleFactor), 3, 200);
     }
 }
 
 void OpenFaceProcessing::applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
                                                        const std::vector<cv::Vec6f> triangles,
-                                                       const VideoMetadata& metadata)
+                                                       const VideoMetadata& metadata,
+                                                       double scaleFactor)
 {
     std::vector<cv::Point> pt(3);
     cv::Scalar delaunay_color(255, 255, 255);
@@ -143,9 +145,9 @@ void OpenFaceProcessing::applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
     for (int i = 0; i < triangles.size(); i++)
     {
         cv::Vec6f t = triangles[i];
-        pt[0] = cv::Point(cvRound(t[0]), cvRound(t[1]));
-        pt[1] = cv::Point(cvRound(t[2]), cvRound(t[3]));
-        pt[2] = cv::Point(cvRound(t[4]), cvRound(t[5]));
+        pt[0] = cv::Point(cvRound(t[0] * scaleFactor), cvRound(t[1] * scaleFactor));
+        pt[1] = cv::Point(cvRound(t[2] * scaleFactor), cvRound(t[3] * scaleFactor));
+        pt[2] = cv::Point(cvRound(t[4] * scaleFactor), cvRound(t[5] * scaleFactor));
 
         if (rect.contains(pt[0]) && rect.contains(pt[1]) && rect.contains(pt[2]))
         {

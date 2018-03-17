@@ -60,12 +60,14 @@ std::vector<cv::Vec6f> getDelaunayTriangles(const FaceDataPointsRecord& dataPoin
 // Draws the given face data points on the target image
 void applyFaceDataPointsToImage(cv::Mat& outputImage,
                                 const FaceDataPointsRecord& dataPoints,
-                                const VideoMetadata& metadata);
+                                const VideoMetadata& metadata,
+                                double scaleFactor = 1.0);
 
 // Draws the given triangles on the target image
 void applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
                                    const std::vector<cv::Vec6f> triangles,
-                                   const VideoMetadata& metadata);
+                                   const VideoMetadata& metadata,
+                                   double scaleFactor = 1.0);
 
 }
 

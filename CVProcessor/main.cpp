@@ -103,7 +103,7 @@ int main(int argc, char** argv)
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
 
-    std::cout << "Full Processing Took: " << (tEnd - tStart) << "ms" << std::endl;
+    Config::output.log("Full Processing Took: " + std::to_string(tEnd - tStart) + "ms\n");
 
     return 0;
 }

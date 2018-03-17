@@ -42,7 +42,9 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
     std::vector<cv::Rect> faces;
 
     faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2,
-                                 0 | CV_HAAR_SCALE_IMAGE | CV_HAAR_FIND_BIGGEST_OBJECT, cv::Size(150, 150));
+                                 0 | CV_HAAR_SCALE_IMAGE | CV_HAAR_FIND_BIGGEST_OBJECT, 
+                                 // TODO: figure out a way to calculate this size based on image size
+                                 cv::Size(75, 75)); 
 
     if (faces.size() > 0)
     {
@@ -53,11 +55,12 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
 }
 
 void EyeLikeProcessing::applyEyeCentersToImage(cv::Mat& outputImage, 
-                                               const std::tuple<cv::Point,cv::Point>& pupilLocations)
+                                               const std::tuple<cv::Point,cv::Point>& pupilLocations,
+                                               double scaleFactor)
 {
     cv::Point left;
     cv::Point right;
     std::tie(left, right) = pupilLocations;
-    cv::circle(outputImage, left, 3, 200);
-    cv::circle(outputImage, right, 3, 200);
+    cv::circle(outputImage, cv::Point(left.x * scaleFactor, left.y * scaleFactor), 3, 200);
+    cv::circle(outputImage, cv::Point(right.x * scaleFactor, right.y * scaleFactor), 3, 200);
 }

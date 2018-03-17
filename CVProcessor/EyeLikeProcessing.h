@@ -27,7 +27,8 @@ std::tuple<cv::Point, cv::Point> detectPupils(const cv::Mat_<uchar>& grayFrame);
 
 // Draws the given pupil locations onto the given image
 void applyEyeCentersToImage(cv::Mat& outputImage, 
-                            const std::tuple<cv::Point, cv::Point>& pupilLocations);
+                            const std::tuple<cv::Point, cv::Point>& pupilLocations,
+                            double scaleFactor = 1.0);
 }
 
 #endif /* EYELIKEPROCESSING_H */

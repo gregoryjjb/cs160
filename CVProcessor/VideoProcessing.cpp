@@ -73,6 +73,7 @@ void processFrame(const cv::Mat& input,
 {
     cv::Mat_<uchar> grayImage;
     Utilities::ConvertToGrayscale_8bit(input, grayImage);
+    cv::resize(grayImage, grayImage, grayImage.size() / 2, 0, 0, cv::INTER_LINEAR);
     
     auto pupilsFuture = std::async(std::launch::async, [&]()
     {
@@ -88,9 +89,9 @@ void processFrame(const cv::Mat& input,
 
     Config::output.outputFrameData(output);
     
-    OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata);
-    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata);
-    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, pupilsFuture.get());
+    OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, 2.0);
+    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, 2.0);
+    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, pupilsFuture.get(), 2.0);
 }
 
 void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
