@@ -59,9 +59,11 @@ void EyeLikeProcessing::applyEyeCentersToImage(cv::Mat& outputImage,
                                                const std::tuple<cv::Point,cv::Point>& pupilLocations,
                                                double scaleFactor)
 {
+    const cv::Scalar PUPIL_COLOR(255, 255, 255);
+    
     cv::Point left;
     cv::Point right;
     std::tie(left, right) = pupilLocations;
-    cv::circle(outputImage, cv::Point(left.x * scaleFactor, left.y * scaleFactor), 3, 200);
-    cv::circle(outputImage, cv::Point(right.x * scaleFactor, right.y * scaleFactor), 3, 200);
+    cv::circle(outputImage, cv::Point(left.x * scaleFactor, left.y * scaleFactor), 3, PUPIL_COLOR);
+    cv::circle(outputImage, cv::Point(right.x * scaleFactor, right.y * scaleFactor), 3, PUPIL_COLOR);
 }

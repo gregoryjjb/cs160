@@ -125,11 +125,13 @@ void OpenFaceProcessing::applyFaceDataPointsToImage(cv::Mat& outputImage,
                                                     const VideoMetadata& metadata,
                                                     double scaleFactor)
 {
+    const cv::Scalar DATA_POINT_COLOR(200, 0, 0);
+    
     for (int i = 0; i < dataPoints.landmarks.rows / 2; i++)
     {
         double x = dataPoints.landmarks.at<double>(i, 0);
         double y = dataPoints.landmarks.at<double>(i + dataPoints.landmarks.rows / 2, 0);
-        cv::circle(outputImage, cv::Point(x * scaleFactor,y * scaleFactor), 3, 200);
+        cv::circle(outputImage, cv::Point(x * scaleFactor,y * scaleFactor), 3, DATA_POINT_COLOR);
     }
 }
 
@@ -139,7 +141,7 @@ void OpenFaceProcessing::applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
                                                        double scaleFactor)
 {
     std::vector<cv::Point> pt(3);
-    cv::Scalar delaunay_color(255, 255, 255);
+    const cv::Scalar DELAUNAY_COLOR(255, 255, 255);
     cv::Rect rect(0, 0, metadata.width, metadata.height);
 
     for (int i = 0; i < triangles.size(); i++)
@@ -151,9 +153,9 @@ void OpenFaceProcessing::applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
 
         if (rect.contains(pt[0]) && rect.contains(pt[1]) && rect.contains(pt[2]))
         {
-            cv::line(outputImage, pt[0], pt[1], delaunay_color, 1, CV_AA, 0);
-            cv::line(outputImage, pt[1], pt[2], delaunay_color, 1, CV_AA, 0);
-            cv::line(outputImage, pt[2], pt[0], delaunay_color, 1, CV_AA, 0);
+            cv::line(outputImage, pt[0], pt[1], DELAUNAY_COLOR, 1, CV_AA, 0);
+            cv::line(outputImage, pt[1], pt[2], DELAUNAY_COLOR, 1, CV_AA, 0);
+            cv::line(outputImage, pt[2], pt[0], DELAUNAY_COLOR, 1, CV_AA, 0);
         }
     }
 }
