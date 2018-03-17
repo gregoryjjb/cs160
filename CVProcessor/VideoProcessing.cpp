@@ -259,10 +259,10 @@ void processVideoStream(const std::string& inPipe,
 void VideoProcessing::processVideo(const std::string& inputFile, 
                                    const std::string& outputFile)
 {
-    VideoMetadata metadata = FFMPEGProcessing::extractMetadata(outputFile);
+    VideoMetadata metadata = FFMPEGProcessing::extractMetadata(inputFile);
     Config::output.outputMetadata(metadata);
 
-    FFMPEGProcessing::extractFrames(outputFile, 
+    FFMPEGProcessing::extractFrames(inputFile, 
         "frames/out%d.png", metadata);
         
     processVideo("frames/out%d.png", "processed/out%d.png", metadata);
