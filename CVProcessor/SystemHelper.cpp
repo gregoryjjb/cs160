@@ -5,7 +5,16 @@
  */
 #include <memory>
 #include <array>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <iostream>
+#include <unistd.h>
+#include <fcntl.h>
+
 #include "SystemHelper.h"
+
+#include "Config.h"
 
 std::string execAndGetOutput(const std::string& cmd)
 {
@@ -18,4 +27,15 @@ std::string execAndGetOutput(const std::string& cmd)
             result += buffer.data();
     }
     return result;
+}
+
+int createFIFO(const std::string& fifoName)
+{
+    int pipeStatus = mkfifo(fifoName.c_str(), 0622);
+    if (pipeStatus < 0)
+    {
+        Config::output.log("Failed to create " + fifoName + " pipe(already created?)\n");
+    }
+    
+    return pipeStatus;
 }

@@ -6,7 +6,7 @@
 
 #include <sstream>
 #include <unistd.h>
-#include <iostream> // Remove usage of std::cout for Config::output and remove this header
+#include "Config.h"
 #include "SystemHelper.h"
 #include "FFMPEGProcessing.h"
 
@@ -87,13 +87,16 @@ int FFMPEGProcessing::extractFramesFromStream(const std::string& stream,
     int pid = fork();
     if (pid < 0)
     {
-        std::cout << "Error forking to process the incoming stream" << std::endl;
+        Config::output.log("Error forking to process the incoming stream\n");
     }
     else if (pid == 0) // Child
     {
-        const char* format = "ffmpeg -i %s -r %d/%d %s 2>&1";
+        const char* format = 
+        "ffmpeg -i %s -f rawvideo -vcodec rawvideo "
+        "-video_size %dx%d -pix_fmt bgr24 -r %d/%d -an -y %s 2>&1";
         char buffer[256];
-        snprintf(buffer, 256, format, stream.c_str(), metadata.frameRateNum, 
+        snprintf(buffer, 256, format, stream.c_str(), metadata.width, metadata.height,
+                 metadata.frameRateNum, 
                 metadata.frameRateDenom, outputFormat.c_str());
         execAndGetOutput(std::string(buffer));
         exit(1);
@@ -101,30 +104,33 @@ int FFMPEGProcessing::extractFramesFromStream(const std::string& stream,
 
     return pid;
 }
-#include "Config.h"
-int FFMPEGProcessing::outputFramesToStream(const std::string& stream,
-                                           const std::string& outputFormat,
+
+int FFMPEGProcessing::outputFramesToStreamFromPipe(const std::string& stream,
+                                           const std::string& pipeName,
                                            const VideoMetadata& metadata)
 {
     int pid = fork();
     if (pid < 0)
     {
-        std::cout << "Error forking to produce outgoing stream" << std::endl;
+        Config::output.log("Error forking to produce outgoing stream\n");
     }
     else if (pid == 0) // Child
     {
-        const char* format = "ffmpeg -re -i %s -r %d/%d -f rtsp -muxdelay 0.1 %s 2>&1";
+        const char* format = 
+            "ffmpeg -f rawvideo -vcodec rawvideo -video_size %dx%d "
+            "-pix_fmt bgr24 -framerate %d/%d -i %s -q:v 10 -r %d/%d "
+            "-f rtsp %s 2>&1";
         char buffer[256];
-        snprintf(buffer, 256, format, outputFormat.c_str(), metadata.frameRateNum, 
-                metadata.frameRateDenom, stream.c_str());
-        //execAndGetOutput(std::string(buffer));
+        snprintf(buffer, 256, format, metadata.width, metadata.height,
+                 metadata.frameRateNum, metadata.frameRateDenom, 
+                 pipeName.c_str(),
+                 metadata.frameRateNum, metadata.frameRateDenom,
+                 stream.c_str());
         
-        execlp("ffmpeg", "-re", "-i", outputFormat.c_str(), "-r", "16", "-f", "rtsp", 
-               "-muxdelay", "0.1", stream.c_str(), (char*)NULL);
-        
-        //exit(1);
+        execAndGetOutput(std::string(buffer));
+        exit(1);
     }
-    Config::output.log("Streaming PID: " + std::to_string(pid) + "\n");
+
     return pid;
 }
 

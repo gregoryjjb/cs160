@@ -20,4 +20,8 @@
 // output to stdout by the command
 std::string execAndGetOutput(const std::string& cmd);
 
+// Creates a fifo of the given name, returning the status indicator
+// from mkfifo
+int createFIFO(const std::string& fifoName);
+
 #endif /* SYSTEMHELPER_H */

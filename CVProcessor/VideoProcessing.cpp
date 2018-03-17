@@ -11,12 +11,26 @@
 #include "FFMPEGProcessing.h"
 #include "OpenFaceProcessing.h"
 #include "EyeLikeProcessing.h"
+#include "SystemHelper.h"
+#include "StreamingFrameSource.h"
 
+#include <boost/filesystem.hpp>
+#include <tbb/tbb.h>
+#include <opencv2/opencv.hpp>
+
+#include <iterator>
 #include <vector>
 #include <thread>
+#include <tuple>
 #include <signal.h>
 #include <future>
-#include <tbb/tbb.h>
+
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <iostream>
+#include <unistd.h>
+#include <fcntl.h>
 
 class OpenImages
 {
@@ -160,6 +174,88 @@ void processVideo(const std::string& framesFormat,
     tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), saveImagesLoop);
 }
 
+// Continually processes frames using the given input and output
+// functions. Intended to be called in a separate thread.
+void processVideoStreamFrames(const VideoMetadata& metadata,
+                        LandmarkDetector::CLNF& model,
+                        std::function<cv::Mat()> input,
+                        std::function<void(const FrameData&)> output)
+{
+    while (true)
+    {
+        cv::Mat image = input();
+        
+        FrameData data;
+        data.outputImage = cv::Mat(image);
+        
+        processFrame(image, data, metadata, model);
+        
+        output(data);
+    }
+}
+
+// Processed the video stream from the given pipe
+void processVideoStream(const std::string& inPipe,
+                        const std::string& outputStream,
+                        const VideoMetadata& metadata)
+{
+    Utilities::uint64 tStart, tEnd;
+    
+    std::vector<std::string> args{};
+    args.push_back("-q");
+    args.push_back("-wild");
+
+    tStart = Utilities::GetTimeMs64();
+    
+    LandmarkDetector::FaceModelParameters detParameters(args);
+    LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
+    
+    tEnd = Utilities::GetTimeMs64();
+    
+    std::cout << "OpenFace Initialization Took: " << (tEnd - tStart) << "ms" << std::endl;
+    
+    tStart = Utilities::GetTimeMs64();
+    
+    const std::string outPipeName = "cvprocessor-out";
+    createFIFO(outPipeName);
+    
+    // Start up read end of pipe
+    FFMPEGProcessing::outputFramesToStreamFromPipe(
+        outputStream,
+        outPipeName,
+        metadata);
+    
+    int fifo;
+    // Open pipe for outputting images. Waits for reader.
+    if ((fifo = open(outPipeName.c_str(), O_WRONLY)) < 0) 
+    {
+        Config::output.log("Unable to open output pipe\n");
+    }
+
+    StreamingFrameSource streamFrameSource(inPipe, metadata);
+    
+    processVideoStreamFrames(metadata, clnfModel1,
+    [&]() -> cv::Mat
+    {
+        return streamFrameSource.getLatestFrame();
+    },
+    [&](const FrameData& data)
+    {
+        // TODO: check data.outputImage.continuous or whatever its called
+        if (write(fifo, data.outputImage.data, metadata.width*metadata.height*3) < 0)
+        {
+            Config::output.log("Error when writing to pipe\n");
+        }
+    });
+
+    // Close the output pipe
+    close(fifo);
+    
+    tEnd = Utilities::GetTimeMs64();
+    
+    std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << std::endl;
+}
+
 void VideoProcessing::processVideo(const std::string& inputFile, 
                                    const std::string& outputFile)
 {
@@ -175,14 +271,25 @@ void VideoProcessing::processVideo(const std::string& inputFile,
         outputFile, metadata);
 }
 
-void VideoProcessing::processVideoStream(const std::string& inputStream)
+void VideoProcessing::processVideoStream(const std::string& inputStream,
+                                         const std::string& outputStream)
 {
     VideoMetadata metadata = FFMPEGProcessing::extractMetadataFromStream(Config::videoStream);
     Config::output.outputMetadata(metadata);
-        
+    
+    // limit the frame rate to 20 FPS
+    // even if the stream is coming in faster
+    //if ((metadata.frameRateNum / (float)metadata.frameRateDenom) > 20)
+    {
+        metadata.frameRateNum = 20;
+        metadata.frameRateDenom = 1;
+    }
+    
+    const std::string inPipeName = "cvprocessor-in";
+    createFIFO(inPipeName);
+    
     int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(Config::videoStream, 
-        "frames/out%d.png", metadata);
+        inPipeName, metadata);
 
-    sleep(5);
-    kill(extractionProcessID, 15);
+    processVideoStream(inPipeName, outputStream, metadata);
 }

@@ -17,6 +17,7 @@
       <itemPath>FrameData.h</itemPath>
       <itemPath>OpenFaceProcessing.h</itemPath>
       <itemPath>OutputWriter.h</itemPath>
+      <itemPath>StreamingFrameSource.h</itemPath>
       <itemPath>SystemHelper.h</itemPath>
       <itemPath>Utilities.h</itemPath>
       <itemPath>VideoMetadata.h</itemPath>
@@ -39,6 +40,7 @@
       <itemPath>FFMPEGProcessing.cpp</itemPath>
       <itemPath>OpenFaceProcessing.cpp</itemPath>
       <itemPath>OutputWriter.cpp</itemPath>
+      <itemPath>StreamingFrameSource.cpp</itemPath>
       <itemPath>SystemHelper.cpp</itemPath>
       <itemPath>VideoProcessing.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -127,6 +129,10 @@
       </item>
       <item path="OutputWriter.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="StreamingFrameSource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="StreamingFrameSource.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="SystemHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="SystemHelper.h" ex="false" tool="3" flavor2="0">
@@ -205,6 +211,10 @@
       <item path="OutputWriter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="OutputWriter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StreamingFrameSource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="StreamingFrameSource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="SystemHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>

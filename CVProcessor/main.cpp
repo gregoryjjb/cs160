@@ -40,22 +40,28 @@ std::vector<std::string> parseArguments(int argc, char** argv)
     return args;
 }
 
+// Configure application based on the given command line args
 void initializeConfiguration(const std::vector<std::string>& args)
 {
     for (int i = 0; i < args.size(); i++)
     {
+        // Fixed file processing
         if (args[i] == "-f")
         {
             Config::execMode = Config::ExecutionMode::VideoFile;
             Config::targetFile = args[i+1];
+            Config::outputVideoName = "processed.mp4";
             i++;
         }
+        // Stream processing
         else if (args[i] == "-s")
         {
             Config::execMode = Config::ExecutionMode::VideoStream;
             Config::videoStream = args[i+1];
+            Config::outputVideoName = "rtsp://localhost:5545/processed.mp4";
             i++;
         }
+        // Output name
         else if (args[i] == "-o")
         {
             Config::outputVideoName = args[i+1];
@@ -69,18 +75,21 @@ int main(int argc, char** argv)
     if (argc <= 1)
         return 0;
     
+    // Delete existing output directories to clear old data
     boost::filesystem::remove_all("frames/");
     boost::filesystem::remove_all("processed/");
     
+    // Create output directories
     boost::filesystem::create_directory("frames/");
     boost::filesystem::create_directory("processed/");
-    
-    Config::outputVideoName = "processed.mp4";
-    
+
     initializeConfiguration(
         parseArguments(argc, argv));
     
     Utilities::uint64 tStart = Utilities::GetTimeMs64();
+    // Disable std::out to prevent libraries
+    // like OpenFace and OpenCV from spamming
+    // our output
     Config::output.disableOtherStdOutStreams();
     
     if (Config::execMode == Config::ExecutionMode::VideoFile)
@@ -89,7 +98,7 @@ int main(int argc, char** argv)
     }
     else if (Config::execMode == Config::ExecutionMode::VideoStream)
     {
-        VideoProcessing::processVideoStream(Config::videoStream);
+        VideoProcessing::processVideoStream(Config::videoStream, Config::outputVideoName);
     }
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
