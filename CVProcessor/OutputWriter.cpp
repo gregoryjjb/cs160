@@ -40,19 +40,7 @@ void OutputWriter::outputMetadata(const VideoMetadata& metadata)
     
     outputStream << "End Metadata" << std::endl;
     
-    // Start critical section
-    {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        if (m_stdout == NULL)
-            std::cout << outputStream.str();
-        else
-        {
-            std::cout.rdbuf(m_stdout);
-            std::cout << outputStream.str();
-            m_stdout = cout.rdbuf();
-            std::cout.rdbuf(NULL);
-        }
-    }
+    log(outputStream.str(), OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::outputFrameData(const FrameData& frameData)
@@ -109,20 +97,7 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
     outputStream << "End Frame " << frameData.frameNumber << std::endl;
     outputStream << std::endl;
     
-    // Start critical section
-    {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        
-        if (m_stdout == NULL)
-            std::cout << outputStream.str();
-        else
-        {
-            std::cout.rdbuf(m_stdout);
-            std::cout << outputStream.str();
-            m_stdout = cout.rdbuf();
-            std::cout.rdbuf(NULL);
-        }
-    }
+    log(outputStream.str(), OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::log(const std::string& str, OutputWriter::LogLevel level)
