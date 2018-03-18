@@ -70,7 +70,7 @@ void processFrame(const cv::Mat& input,
                   FrameData& output, 
                   const VideoMetadata& metadata, 
                   LandmarkDetector::CLNF& model,
-                  cv::CascadeClassifier classifier)
+                  cv::CascadeClassifier& classifier)
 {
     cv::Mat_<uchar> grayImage;
     Utilities::ConvertToGrayscale_8bit(input, grayImage);
