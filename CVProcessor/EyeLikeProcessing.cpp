@@ -15,6 +15,7 @@
 
 #include "EyeLike/constants.h"
 #include "EyeLikeProcessing.h"
+#include "Config.h"
 
 const std::string FaceCascadeLocation = "haarcascade_frontalface_alt.xml";
 
@@ -31,7 +32,8 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
 
     if (!faceCascade.load(FaceCascadeLocation))
     {
-        std::cout << "Unable to load facial cascade - check path" << std::endl;
+        Config::output.log("Unable to load facial cascade - check path\n",
+                           OutputWriter::LogLevel::Debug);
     }
 
     // Create eye kernels

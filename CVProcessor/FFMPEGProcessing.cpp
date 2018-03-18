@@ -87,7 +87,8 @@ int FFMPEGProcessing::extractFramesFromStream(const std::string& stream,
     int pid = fork();
     if (pid < 0)
     {
-        Config::output.log("Error forking to process the incoming stream\n");
+        Config::output.log("Error forking to process the incoming stream\n", 
+                           OutputWriter::LogLevel::Debug);
     }
     else if (pid == 0) // Child
     {
@@ -112,7 +113,8 @@ int FFMPEGProcessing::outputFramesToStreamFromPipe(const std::string& stream,
     int pid = fork();
     if (pid < 0)
     {
-        Config::output.log("Error forking to produce outgoing stream\n");
+        Config::output.log("Error forking to produce outgoing stream\n",
+                           OutputWriter::LogLevel::Debug);
     }
     else if (pid == 0) // Child
     {

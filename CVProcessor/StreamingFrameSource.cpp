@@ -22,7 +22,8 @@ StreamingFrameSource::StreamingFrameSource(const std::string& inFifoName, const 
 {
     if ((m_InFifo = open(inFifoName.c_str(), O_RDONLY)) < 0)
     {
-        Config::output.log("Unable to open input pipe\n");
+        Config::output.log("Unable to open input pipe\n",
+                           OutputWriter::LogLevel::Debug);
     }
     
     m_ImageFetchingThread = std::thread([&]()
@@ -43,7 +44,8 @@ StreamingFrameSource::StreamingFrameSource(const std::string& inFifoName, const 
 
             cv::Mat image(m_FrameHeight, m_FrameWidth, CV_8UC3, buffer);
             if (image.empty()) {
-                Config::output.log("Failed to read image\n");
+                Config::output.log("Failed to read image\n",
+                                   OutputWriter::LogLevel::Debug);
             }
             
             {

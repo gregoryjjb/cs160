@@ -5,7 +5,8 @@
 
 OutputWriter::OutputWriter()
     : m_mutex(),
-    m_stdout(NULL)
+    m_stdout(NULL),
+    logLevel(LogLevel::Data)
 {
 }
 
@@ -124,8 +125,11 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
     }
 }
 
-void OutputWriter::log(const std::string& str)
+void OutputWriter::log(const std::string& str, OutputWriter::LogLevel level)
 {
+    if ((int)logLevel < (int)level)
+        return;
+    
     // Start critical section
     {
         std::unique_lock<std::mutex> lock(m_mutex);

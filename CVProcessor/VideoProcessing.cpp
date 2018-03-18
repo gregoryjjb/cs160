@@ -141,7 +141,9 @@ void processVideo(const std::string& framesFormat,
     
     tEnd = Utilities::GetTimeMs64();
     
-    std::cout << "OpenFace Initialization Took: " << (tEnd - tStart) << "ms" << std::endl;
+    Config::output.log("OpenFace Initialization Took: " 
+                        + std::to_string(tEnd-tStart) + "ms\n",
+                        OutputWriter::LogLevel::Info);
     
     int imageCount = metadata.numFrames;
     
@@ -168,10 +170,13 @@ void processVideo(const std::string& framesFormat,
     t2.join();
 
     tEnd = Utilities::GetTimeMs64();
-    
-    std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << "ms (" 
-        << (tEnd - tStart) / imageCount << "ms per frame)" << std::endl;
 
+    Config::output.log("Frame Processing Took: " 
+                        + std::to_string(tEnd-tStart) + "ms ("
+                        + std::to_string((tEnd - tStart) / imageCount) 
+                        + "ms per frame)\n",
+                        OutputWriter::LogLevel::Info);
+    
     SaveImages saveImagesLoop;
     saveImagesLoop.framesFormat = &processedFormat;
     saveImagesLoop.frameData = &frameData;
@@ -216,7 +221,9 @@ void processVideoStream(const std::string& inPipe,
     
     tEnd = Utilities::GetTimeMs64();
     
-    std::cout << "OpenFace Initialization Took: " << (tEnd - tStart) << "ms" << std::endl;
+    Config::output.log("OpenFace Initialization Took: " 
+                        + std::to_string(tEnd-tStart) + "ms\n",
+                        OutputWriter::LogLevel::Info);
     
     tStart = Utilities::GetTimeMs64();
     
@@ -233,7 +240,8 @@ void processVideoStream(const std::string& inPipe,
     // Open pipe for outputting images. Waits for reader.
     if ((fifo = open(outPipeName.c_str(), O_WRONLY)) < 0) 
     {
-        Config::output.log("Unable to open output pipe\n");
+        Config::output.log("Unable to open output pipe\n",
+                           OutputWriter::LogLevel::Debug);
     }
 
     StreamingFrameSource streamFrameSource(inPipe, metadata);
@@ -248,7 +256,8 @@ void processVideoStream(const std::string& inPipe,
         // TODO: check data.outputImage.continuous or whatever its called
         if (write(fifo, data.outputImage.data, metadata.width*metadata.height*3) < 0)
         {
-            Config::output.log("Error when writing to pipe\n");
+            Config::output.log("Error when writing to pipe\n",
+                               OutputWriter::LogLevel::Debug);
         }
     });
 
@@ -257,7 +266,9 @@ void processVideoStream(const std::string& inPipe,
     
     tEnd = Utilities::GetTimeMs64();
     
-    std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << std::endl;
+    Config::output.log("Frame Processing Took: " 
+                        + std::to_string(tEnd-tStart) + "ms\n",
+                        OutputWriter::LogLevel::Info);
 }
 
 void VideoProcessing::processVideo(const std::string& inputFile, 

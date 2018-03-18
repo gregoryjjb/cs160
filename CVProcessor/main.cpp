@@ -67,6 +67,12 @@ void initializeConfiguration(const std::vector<std::string>& args)
             Config::outputVideoName = args[i+1];
             i++;
         }
+        // Log Level
+        else if (args[i] == "-l")
+        {
+            Config::output.logLevel = (OutputWriter::LogLevel)std::stoi(args[i+1]);
+            i++;
+        }
     }
 }
 
@@ -103,7 +109,8 @@ int main(int argc, char** argv)
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
 
-    Config::output.log("Full Processing Took: " + std::to_string(tEnd - tStart) + "ms\n");
+    Config::output.log("Full Processing Took: " + std::to_string(tEnd - tStart) + "ms\n",
+                       OutputWriter::LogLevel::Info);
 
     return 0;
 }

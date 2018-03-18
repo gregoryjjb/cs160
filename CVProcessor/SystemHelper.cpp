@@ -34,7 +34,8 @@ int createFIFO(const std::string& fifoName)
     int pipeStatus = mkfifo(fifoName.c_str(), 0622);
     if (pipeStatus < 0)
     {
-        Config::output.log("Failed to create " + fifoName + " pipe(already created?)\n");
+        Config::output.log("Failed to create " + fifoName + " pipe(already created?)\n",
+                           OutputWriter::LogLevel::Debug);
     }
     
     return pipeStatus;
