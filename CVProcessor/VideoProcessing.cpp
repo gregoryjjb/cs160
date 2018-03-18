@@ -90,12 +90,14 @@ void processFrame(const cv::Mat& input,
         OpenFaceProcessing::extractHeadPose(model, metadata);
     output.delaunayTriangles = 
         OpenFaceProcessing::getDelaunayTriangles(output.dataPoints, metadata);
-
-    Config::output.outputFrameData(output);
     
     OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
-    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, pupilsFuture.get(), scaleFactor);
+    
+    output.pupils = pupilsFuture.get();
+    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, output.pupils, scaleFactor);
+    
+    Config::output.outputFrameData(output);
 }
 
 void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,

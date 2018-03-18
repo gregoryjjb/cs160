@@ -12,13 +12,15 @@ struct FrameData
     cv::Vec6f headPose;
     std::vector<cv::Vec6f> delaunayTriangles;
     cv::Mat outputImage;
+    std::tuple<cv::Point, cv::Point> pupils;
     
     FrameData()
         : frameNumber(-1),
         dataPoints(),
         headPose(),
         delaunayTriangles(),
-        outputImage()
+        outputImage(),
+        pupils()
     {
     }
 };

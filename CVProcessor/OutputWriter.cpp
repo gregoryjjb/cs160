@@ -74,6 +74,13 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
         << std::endl;
     outputStream << "End Head Pose" << std::endl;
     
+    outputStream << "Begin Pupils" << std::endl;
+    cv::Point left, right;
+    std::tie(left, right) = frameData.pupils;
+    outputStream << left.x << " " << left.y << std::endl;
+    outputStream << right.x << " " << right.y << std::endl;
+    outputStream << "End Pupils" << std::endl;
+    
     outputStream << "Begin Triangles" << std::endl;
     for (int i = 0; i < frameData.delaunayTriangles.size(); i++)
     {
