@@ -19,6 +19,7 @@
       <itemPath>OutputWriter.h</itemPath>
       <itemPath>StreamingFrameSource.h</itemPath>
       <itemPath>SystemHelper.h</itemPath>
+      <itemPath>Timer.h</itemPath>
       <itemPath>Utilities.h</itemPath>
       <itemPath>VideoMetadata.h</itemPath>
       <itemPath>VideoProcessing.h</itemPath>
@@ -137,6 +138,8 @@
       </item>
       <item path="SystemHelper.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Timer.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="VideoMetadata.h" ex="false" tool="3" flavor2="0">
@@ -219,6 +222,8 @@
       <item path="SystemHelper.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="SystemHelper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Timer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Utilities.h" ex="false" tool="3" flavor2="0">
       </item>
