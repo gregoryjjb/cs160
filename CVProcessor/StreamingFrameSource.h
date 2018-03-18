@@ -25,15 +25,18 @@
 class StreamingFrameSource
 {
 public:
-    StreamingFrameSource(const std::string& inFifoName, 
-                         const VideoMetadata& metadata);
+    StreamingFrameSource(const VideoMetadata& metadata);
     
     ~StreamingFrameSource();
+    
+    void openFIFO(const std::string& inFifoName);
     
     // Gets the latest frame pulled from the stream source
     cv::Mat getLatestFrame();
     
 private:
+    bool m_Initialized;
+    
     int m_InFifo;
     // Mutex to handle access to latest image variable
     std::mutex m_ImageLock;

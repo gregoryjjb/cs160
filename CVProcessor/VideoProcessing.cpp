@@ -244,7 +244,8 @@ void processVideoStream(const std::string& inPipe,
                            OutputWriter::LogLevel::Debug);
     }
 
-    StreamingFrameSource streamFrameSource(inPipe, metadata);
+    StreamingFrameSource streamFrameSource(metadata);
+    streamFrameSource.openFIFO(inPipe);
     
     processVideoStreamFrames(metadata, clnfModel1,
     [&]() -> cv::Mat
