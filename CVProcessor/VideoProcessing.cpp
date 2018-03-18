@@ -69,7 +69,8 @@ public:
 void processFrame(const cv::Mat& input, 
                   FrameData& output, 
                   const VideoMetadata& metadata, 
-                  LandmarkDetector::CLNF& model)
+                  LandmarkDetector::CLNF& model,
+                  cv::CascadeClassifier classifier)
 {
     cv::Mat_<uchar> grayImage;
     Utilities::ConvertToGrayscale_8bit(input, grayImage);
@@ -80,7 +81,7 @@ void processFrame(const cv::Mat& input,
     
     auto pupilsFuture = std::async(std::launch::async, [&]()
     {
-        return EyeLikeProcessing::detectPupils(grayImage);
+        return EyeLikeProcessing::detectPupils(grayImage, classifier);
     });
     
     output.dataPoints = 
@@ -103,12 +104,13 @@ void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
                         std::vector<FrameData>::iterator outputItEnd,
                         int step,
                         const VideoMetadata& metadata,
-                        LandmarkDetector::CLNF& model)
+                        LandmarkDetector::CLNF& model,
+                        cv::CascadeClassifier& classifier)
 {
     int processed = 0;
     while (true)
     {
-        processFrame(*inputIt, *outputIt, metadata, model);
+        processFrame(*inputIt, *outputIt, metadata, model, classifier);
         processed++;
         for (int i = 0; i < step; i++)
         {
@@ -138,6 +140,8 @@ void processVideo(const std::string& framesFormat,
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
     LandmarkDetector::CLNF clnfModel2(clnfModel1);
+    cv::CascadeClassifier classifier1(EyeLikeProcessing::createClassifier());
+    cv::CascadeClassifier classifier2(EyeLikeProcessing::createClassifier());
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -163,8 +167,8 @@ void processVideo(const std::string& framesFormat,
     
     tStart = Utilities::GetTimeMs64();
     
-    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), frameData.begin(), frameData.end(), 2, std::cref(metadata), std::ref(clnfModel1));
-    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), frameData.begin()+1, frameData.end(), 2, std::cref(metadata), std::ref(clnfModel2));
+    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), frameData.begin(), frameData.end(), 2, std::cref(metadata), std::ref(clnfModel1), std::ref(classifier1));
+    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), frameData.begin()+1, frameData.end(), 2, std::cref(metadata), std::ref(clnfModel2), std::ref(classifier2));
     
     t1.join();
     t2.join();
@@ -186,9 +190,10 @@ void processVideo(const std::string& framesFormat,
 // Continually processes frames using the given input and output
 // functions. Intended to be called in a separate thread.
 void processVideoStreamFrames(const VideoMetadata& metadata,
-                        LandmarkDetector::CLNF& model,
-                        std::function<cv::Mat()> input,
-                        std::function<void(const FrameData&)> output)
+                              LandmarkDetector::CLNF& model,
+                              cv::CascadeClassifier& classifier,
+                              std::function<cv::Mat()> input,
+                              std::function<void(const FrameData&)> output)
 {
     while (true)
     {
@@ -197,7 +202,7 @@ void processVideoStreamFrames(const VideoMetadata& metadata,
         FrameData data;
         data.outputImage = cv::Mat(image);
         
-        processFrame(image, data, metadata, model);
+        processFrame(image, data, metadata, model, classifier);
         
         output(data);
     }
@@ -218,6 +223,7 @@ void processVideoStream(const std::string& inPipe,
     
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
+    cv::CascadeClassifier classifier(EyeLikeProcessing::createClassifier());
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -250,7 +256,7 @@ void processVideoStream(const std::string& inPipe,
     Utilities::uint64 tFrameStart, tFrameEnd;
     tFrameStart = Utilities::GetTimeMs64();
     
-    processVideoStreamFrames(metadata, clnfModel1,
+    processVideoStreamFrames(metadata, clnfModel1, classifier,
     [&]() -> cv::Mat
     {
         return streamFrameSource.getLatestFrame();

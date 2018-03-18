@@ -16,14 +16,22 @@
 
 #include <string>
 #include <opencv2/core/core.hpp>
+#include <opencv2/objdetect/objdetect.hpp>
 #include <tuple>
 
 namespace EyeLikeProcessing
 {
 
+cv::CascadeClassifier createClassifier();
+
 // Returns the location of the pupils in the first detected face
 // of the given image
 std::tuple<cv::Point, cv::Point> detectPupils(const cv::Mat_<uchar>& grayFrame);
+
+// Returns the location of the pupils in the first detected face
+// of the given image
+std::tuple<cv::Point, cv::Point> detectPupils(const cv::Mat_<uchar>& grayFrame,
+                                              cv::CascadeClassifier& classifier);
 
 // Draws the given pupil locations onto the given image
 void applyEyeCentersToImage(cv::Mat& outputImage, 

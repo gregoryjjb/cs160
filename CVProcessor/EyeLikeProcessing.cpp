@@ -17,6 +17,8 @@
 #include "EyeLikeProcessing.h"
 #include "Config.h"
 
+#include "Utilities.h"
+
 const std::string FaceCascadeLocation = "haarcascade_frontalface_alt.xml";
 
 float kEyeCornerKernel[4][6] = {
@@ -26,15 +28,28 @@ float kEyeCornerKernel[4][6] = {
   { 1, 1, 1, 1, 1, 1},
 };
 
-std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<uchar>& grayFrame)
+cv::CascadeClassifier EyeLikeProcessing::createClassifier()
 {
     cv::CascadeClassifier faceCascade;
-
     if (!faceCascade.load(FaceCascadeLocation))
     {
         Config::output.log("Unable to load facial cascade - check path\n",
                            OutputWriter::LogLevel::Debug);
     }
+    return faceCascade;
+}
+
+std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<uchar>& grayFrame)
+{
+    cv::CascadeClassifier classifier = createClassifier();
+    return detectPupils(grayFrame, classifier);
+}
+
+std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<uchar>& grayFrame,
+                                                                 cv::CascadeClassifier& classifier)
+{
+    Utilities::uint64 tFrameStart, tFrameEnd;
+    tFrameStart = Utilities::GetTimeMs64();
 
     // Create eye kernels
     cv::Mat rightCornerKernel(4, 6, CV_32F, kEyeCornerKernel);
@@ -45,10 +60,10 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
     
     unsigned int imageWidth = grayFrame.size().width;
     
-    faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2,
+    classifier.detectMultiScale(grayFrame, faces, 1.1, 2,
                                  0 | CV_HAAR_SCALE_IMAGE | CV_HAAR_FIND_BIGGEST_OBJECT, 
                                  cv::Size(imageWidth/4, imageWidth/4)); 
-
+    
     if (faces.size() > 0)
     {
         return findEyes(grayFrame, faces[0]);
