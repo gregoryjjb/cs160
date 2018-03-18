@@ -48,9 +48,6 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
 std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<uchar>& grayFrame,
                                                                  cv::CascadeClassifier& classifier)
 {
-    Utilities::uint64 tFrameStart, tFrameEnd;
-    tFrameStart = Utilities::GetTimeMs64();
-
     // Create eye kernels
     cv::Mat rightCornerKernel(4, 6, CV_32F, kEyeCornerKernel);
     cv::Mat leftCornerKernel(4, 5, CV_32F);
