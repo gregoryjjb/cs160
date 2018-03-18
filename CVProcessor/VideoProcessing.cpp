@@ -247,6 +247,9 @@ void processVideoStream(const std::string& inPipe,
     StreamingFrameSource streamFrameSource(metadata);
     streamFrameSource.openFIFO(inPipe);
     
+    Utilities::uint64 tFrameStart, tFrameEnd;
+    tFrameStart = Utilities::GetTimeMs64();
+    
     processVideoStreamFrames(metadata, clnfModel1,
     [&]() -> cv::Mat
     {
@@ -260,6 +263,12 @@ void processVideoStream(const std::string& inPipe,
             Config::output.log("Error when writing to pipe\n",
                                OutputWriter::LogLevel::Debug);
         }
+        
+        tFrameEnd = Utilities::GetTimeMs64();
+        Config::output.log("Frame Took: " 
+                        + std::to_string(tFrameEnd-tFrameStart) + "ms\n",
+                        OutputWriter::LogLevel::Info);
+        tFrameStart = tFrameEnd;
     });
 
     // Close the output pipe
