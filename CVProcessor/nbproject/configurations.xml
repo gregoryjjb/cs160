@@ -27,6 +27,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>haarcascade_frontalface_alt.xml</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -148,6 +149,8 @@
       </item>
       <item path="VideoProcessing.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="haarcascade_frontalface_alt.xml" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -164,6 +167,11 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>8</standard>
+          <incDir>
+            <pElem>/usr/include/boost</pElem>
+            <pElem>/usr/local/include/OpenFace</pElem>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -172,8 +180,18 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>/usr/lib/x86_64-linux-gnu</pElem>
+          </linkerAddLib>
           <linkerLibItems>
+            <linkerLibLibItem>Utilities</linkerLibLibItem>
+            <linkerLibLibItem>LandmarkDetector</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs dlib-1`</linkerOptionItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>tbb</linkerLibLibItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -232,6 +250,8 @@
       <item path="VideoProcessing.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="VideoProcessing.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="haarcascade_frontalface_alt.xml" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
