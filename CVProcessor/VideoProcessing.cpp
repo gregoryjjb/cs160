@@ -312,7 +312,7 @@ void VideoProcessing::processVideoStream(const std::string& inputStream,
     // even if the stream is coming in faster
     //if ((metadata.frameRateNum / (float)metadata.frameRateDenom) > 20)
     {
-        metadata.frameRateNum = 20;
+        metadata.frameRateNum = 24;
         metadata.frameRateDenom = 1;
     }
     
