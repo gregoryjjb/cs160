@@ -60,6 +60,7 @@ void initializeConfiguration(const std::vector<std::string>& args)
         else if (args[i] == "-stdio")
         {
             Config::execMode = Config::ExecutionMode::StandardIO;
+            Config::videoStream = "pipe:0";
             Config::cmdFrameRate = args[i+1];
             Config::cmdWidth = std::stoi(args[i+2]);
             Config::cmdHeight = std::stoi(args[i+3]);
@@ -117,7 +118,7 @@ int main(int argc, char** argv)
     }
     else if (Config::execMode == Config::ExecutionMode::StandardIO)
     {
-        VideoProcessing::processVideoStream();
+        VideoProcessing::processVideoStream(Config::videoStream);
     }
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();

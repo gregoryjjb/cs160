@@ -317,7 +317,7 @@ void VideoProcessing::processVideo(const std::string& inputFile,
         outputFile, metadata);
 }
 
-void VideoProcessing::processVideoStream()
+void VideoProcessing::processVideoStream(const std::string& inputStream)
 {
     int sep = Config::cmdFrameRate.find('/');
     int num = std::stoi(Config::cmdFrameRate.substr(0,sep));
@@ -339,7 +339,7 @@ void VideoProcessing::processVideoStream()
     const std::string framePipe = "cvprocessor-frames";
     createFIFO(framePipe);
     
-    int extractionProcessID = FFMPEGProcessing::extractFramesFromStream("pipe:0", 
+    int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(inputStream, 
         framePipe, metadata);
 
     processVideoStream(framePipe, metadata);
