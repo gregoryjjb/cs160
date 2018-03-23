@@ -28,10 +28,15 @@ extern std::string videoStream;
 extern std::string outputVideoName;
 extern std::string outputFormat;
 
+extern std::string cmdFrameRate;
+extern int cmdWidth;
+extern int cmdHeight;
+
 extern enum class ExecutionMode
 {
     VideoFile,
-    VideoStream
+    VideoStream,
+    StandardIO
 } execMode;
 
 }
