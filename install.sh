@@ -1,5 +1,7 @@
-# start from the terminal in a directory you are okay with adding files to
-# will place two folders at this level: OpenFace and cs160
+# start from inside cs160 folder. 
+# Will add a directory at the same level as the cs160 folder for OpenFace
+
+cd ..
 
 # Exit script if any command fails
 set -e 
@@ -77,9 +79,8 @@ echo "OpenFace successfully installed."
 
 # Install our processing application
 echo "Installing processing application..."
-git clone https://github.com/gregdumb/cs160
 cd cs160/CVProcessor
 make CONF=Release
-cd ../..
+cd ..
 echo "Processing application installed. Located in cs160/dist/Release"
 
