@@ -122,36 +122,40 @@ std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPo
 
 void OpenFaceProcessing::applyFaceDataPointsToImage(cv::Mat& outputImage,
                                                     const FaceDataPointsRecord& dataPoints,
-                                                    const VideoMetadata& metadata)
+                                                    const VideoMetadata& metadata,
+                                                    double scaleFactor)
 {
+    const cv::Scalar DATA_POINT_COLOR(200, 0, 0);
+    
     for (int i = 0; i < dataPoints.landmarks.rows / 2; i++)
     {
         double x = dataPoints.landmarks.at<double>(i, 0);
         double y = dataPoints.landmarks.at<double>(i + dataPoints.landmarks.rows / 2, 0);
-        cv::circle(outputImage, cv::Point(x,y), 3, 200);
+        cv::circle(outputImage, cv::Point(x * scaleFactor,y * scaleFactor), 3, DATA_POINT_COLOR);
     }
 }
 
 void OpenFaceProcessing::applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
                                                        const std::vector<cv::Vec6f> triangles,
-                                                       const VideoMetadata& metadata)
+                                                       const VideoMetadata& metadata,
+                                                       double scaleFactor)
 {
     std::vector<cv::Point> pt(3);
-    cv::Scalar delaunay_color(255, 255, 255);
+    const cv::Scalar DELAUNAY_COLOR(255, 255, 255);
     cv::Rect rect(0, 0, metadata.width, metadata.height);
 
     for (int i = 0; i < triangles.size(); i++)
     {
         cv::Vec6f t = triangles[i];
-        pt[0] = cv::Point(cvRound(t[0]), cvRound(t[1]));
-        pt[1] = cv::Point(cvRound(t[2]), cvRound(t[3]));
-        pt[2] = cv::Point(cvRound(t[4]), cvRound(t[5]));
+        pt[0] = cv::Point(cvRound(t[0] * scaleFactor), cvRound(t[1] * scaleFactor));
+        pt[1] = cv::Point(cvRound(t[2] * scaleFactor), cvRound(t[3] * scaleFactor));
+        pt[2] = cv::Point(cvRound(t[4] * scaleFactor), cvRound(t[5] * scaleFactor));
 
         if (rect.contains(pt[0]) && rect.contains(pt[1]) && rect.contains(pt[2]))
         {
-            cv::line(outputImage, pt[0], pt[1], delaunay_color, 1, CV_AA, 0);
-            cv::line(outputImage, pt[1], pt[2], delaunay_color, 1, CV_AA, 0);
-            cv::line(outputImage, pt[2], pt[0], delaunay_color, 1, CV_AA, 0);
+            cv::line(outputImage, pt[0], pt[1], DELAUNAY_COLOR, 1, CV_AA, 0);
+            cv::line(outputImage, pt[1], pt[2], DELAUNAY_COLOR, 1, CV_AA, 0);
+            cv::line(outputImage, pt[2], pt[0], DELAUNAY_COLOR, 1, CV_AA, 0);
         }
     }
 }

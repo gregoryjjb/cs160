@@ -5,7 +5,8 @@
 
 OutputWriter::OutputWriter()
     : m_mutex(),
-    m_stdout(NULL)
+    m_stdout(NULL),
+    logLevel(LogLevel::Data)
 {
 }
 
@@ -39,19 +40,7 @@ void OutputWriter::outputMetadata(const VideoMetadata& metadata)
     
     outputStream << "End Metadata" << std::endl;
     
-    // Start critical section
-    {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        if (m_stdout == NULL)
-            std::cout << outputStream.str();
-        else
-        {
-            std::cout.rdbuf(m_stdout);
-            std::cout << outputStream.str();
-            m_stdout = cout.rdbuf();
-            std::cout.rdbuf(NULL);
-        }
-    }
+    log(outputStream.str(), OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::outputFrameData(const FrameData& frameData)
@@ -85,6 +74,13 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
         << std::endl;
     outputStream << "End Head Pose" << std::endl;
     
+    outputStream << "Begin Pupils" << std::endl;
+    cv::Point left, right;
+    std::tie(left, right) = frameData.pupils;
+    outputStream << left.x << " " << left.y << std::endl;
+    outputStream << right.x << " " << right.y << std::endl;
+    outputStream << "End Pupils" << std::endl;
+    
     outputStream << "Begin Triangles" << std::endl;
     for (int i = 0; i < frameData.delaunayTriangles.size(); i++)
     {
@@ -108,24 +104,14 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
     outputStream << "End Frame " << frameData.frameNumber << std::endl;
     outputStream << std::endl;
     
-    // Start critical section
-    {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        
-        if (m_stdout == NULL)
-            std::cout << outputStream.str();
-        else
-        {
-            std::cout.rdbuf(m_stdout);
-            std::cout << outputStream.str();
-            m_stdout = cout.rdbuf();
-            std::cout.rdbuf(NULL);
-        }
-    }
+    log(outputStream.str(), OutputWriter::LogLevel::Data);
 }
 
-void OutputWriter::log(const std::string& str)
+void OutputWriter::log(const std::string& str, OutputWriter::LogLevel level)
 {
+    if ((int)logLevel < (int)level)
+        return;
+    
     // Start critical section
     {
         std::unique_lock<std::mutex> lock(m_mutex);

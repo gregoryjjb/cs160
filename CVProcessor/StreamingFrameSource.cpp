@@ -13,17 +13,32 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-StreamingFrameSource::StreamingFrameSource(const std::string& inFifoName, const VideoMetadata& metadata)
+StreamingFrameSource::StreamingFrameSource(const VideoMetadata& metadata)
     : m_FrameWidth(metadata.width),
     m_FrameHeight(metadata.height),
     m_LatestImage(metadata.width, metadata.height, CV_8UC3),
     m_ImageLock(),
-    m_InFifo(0)
+    m_InFifo(0),
+    m_Initialized(false)
+{
+    
+}
+
+StreamingFrameSource::~StreamingFrameSource()
+{
+    close(m_InFifo);
+}
+
+void StreamingFrameSource::openFIFO(const std::string& inFifoName)
 {
     if ((m_InFifo = open(inFifoName.c_str(), O_RDONLY)) < 0)
     {
-        Config::output.log("Unable to open input pipe\n");
+        Config::output.log("Unable to open input pipe\n",
+                           OutputWriter::LogLevel::Debug);
+        return;
     }
+    
+    m_Initialized = true;
     
     m_ImageFetchingThread = std::thread([&]()
     {
@@ -43,7 +58,8 @@ StreamingFrameSource::StreamingFrameSource(const std::string& inFifoName, const 
 
             cv::Mat image(m_FrameHeight, m_FrameWidth, CV_8UC3, buffer);
             if (image.empty()) {
-                Config::output.log("Failed to read image\n");
+                Config::output.log("Failed to read image\n",
+                                   OutputWriter::LogLevel::Debug);
             }
             
             {
@@ -54,13 +70,15 @@ StreamingFrameSource::StreamingFrameSource(const std::string& inFifoName, const 
     });
 }
 
-StreamingFrameSource::~StreamingFrameSource()
-{
-    close(m_InFifo);
-}
-
 cv::Mat StreamingFrameSource::getLatestFrame()
 {
+    if (!m_Initialized)
+    {
+        Config::output.log("Cannot call getLatestFrame on uninitialized StreamingFrameSource\n",
+                           OutputWriter::LogLevel::Debug);
+        return cv::Mat();
+    }
+    
     std::unique_lock<std::mutex> lock(m_ImageLock);
     return m_LatestImage.clone();
 }

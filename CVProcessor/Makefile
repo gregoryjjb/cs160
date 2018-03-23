@@ -58,8 +58,8 @@ build: .build-post
 
 .build-post: .build-impl
 # Add your post 'build' code here...
-
-
+	cp haarcascade_frontalface_alt.xml ${CND_ARTIFACT_DIR_${CONF}}/haarcascade_frontalface_alt.xml
+	
 # clean
 clean: .clean-post
 

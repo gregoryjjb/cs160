@@ -11,7 +11,7 @@ const int kEyePercentHeight = 30;
 const int kEyePercentWidth = 35;
 
 // Preprocessing
-const bool kSmoothFaceImage = false;
+const bool kSmoothFaceImage = true;
 const float kSmoothFaceFactor = 0.005;
 
 // Algorithm Parameters
