@@ -65,7 +65,7 @@ cmake ..
 cmake --build . --config Release
 sudo make install
 sudo ldconfig
-cd ..
+cd ../..
 echo "dlib installed."
 
 # OpenFace installation
