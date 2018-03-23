@@ -84,12 +84,13 @@
           <linkerLibItems>
             <linkerLibLibItem>Utilities</linkerLibLibItem>
             <linkerLibLibItem>LandmarkDetector</linkerLibLibItem>
-            <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs --static opencv`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs dlib-1`</linkerOptionItem>
             <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibLibItem>tbb</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>openblas</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -186,12 +187,13 @@
           <linkerLibItems>
             <linkerLibLibItem>Utilities</linkerLibLibItem>
             <linkerLibLibItem>LandmarkDetector</linkerLibLibItem>
-            <linkerOptionItem>`pkg-config --libs opencv`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs --static opencv`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs dlib-1`</linkerOptionItem>
             <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibLibItem>tbb</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>openblas</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
