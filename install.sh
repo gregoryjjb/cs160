@@ -25,7 +25,7 @@ echo "Installing Essential dependencies..."
 sudo apt-get -y update
 sudo apt-get -y install build-essential
 sudo apt-get -y install llvm
-sudo apt-get -y install clang-3.7 libc++-dev libc++abi-dev
+sudo apt-get -y install clang-3.8 libc++-dev libc++abi-dev
 sudo apt-get -y install cmake
 sudo apt-get -y install libopenblas-dev liblapack-dev
 sudo apt-get -y install git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
@@ -34,13 +34,13 @@ echo "Essential dependencies installed."
 
 # OpenCV Dependency
 echo "Downloading OpenCV..."
-wget -O https://github.com/opencv/opencv/archive/3.4.0.zip
+wget https://github.com/opencv/opencv/archive/3.4.0.zip
 unzip 3.4.0.zip
 cd opencv-3.4.0
 mkdir -p build
 cd build
 echo "Installing OpenCV..."
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D FORCE_VTK=ON -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_OPENGL=ON -D WITH_GDAL=ON -D WITH_XINE=ON ..
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D FORCE_VTK=ON -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_OPENGL=ON -D WITH_GDAL=ON -D WITH_XINE=ON -D WITH_CUDA=OFF ..
 make -j4
 sudo make install
 cd ../..
@@ -81,6 +81,8 @@ echo "OpenFace successfully installed."
 echo "Installing processing application..."
 cd cs160/CVProcessor
 make CONF=Release
-cd ..
-echo "Processing application installed. Located in cs160/dist/Release"
+cd ../..
+sudo rm -rf OpenFace
+cd cs160
+echo "Processing application installed. Located in cs160/CVProcessor/dist/Release"
 
