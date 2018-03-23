@@ -57,6 +57,16 @@ void initializeConfiguration(const std::vector<std::string>& args)
             Config::outputVideoName = "processed.mp4";
             i++;
         }
+        else if (args[i] == "-s")
+        {
+            Config::execMode = Config::ExecutionMode::VideoStream;
+            Config::videoStream = args[i+1];
+            i++;
+
+            // In VideoStream mode, we can't output anything to stdout
+            // except frame data
+            Config::output.setEnabled(false);
+        }
         else if (args[i] == "-stdio")
         {
             Config::execMode = Config::ExecutionMode::StandardIO;
@@ -116,7 +126,8 @@ int main(int argc, char** argv)
         Config::output.disableOtherStdOutStreams();
         VideoProcessing::processVideo(Config::targetFile, Config::outputVideoName);
     }
-    else if (Config::execMode == Config::ExecutionMode::StandardIO)
+    else if (Config::execMode == Config::ExecutionMode::StandardIO
+            || Config::execMode == Config::ExecutionMode::VideoStream)
     {
         VideoProcessing::processVideoStream(Config::videoStream);
     }

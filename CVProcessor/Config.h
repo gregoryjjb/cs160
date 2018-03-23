@@ -35,6 +35,7 @@ extern int cmdHeight;
 extern enum class ExecutionMode
 {
     VideoFile,
+    VideoStream,
     StandardIO
 } execMode;
 

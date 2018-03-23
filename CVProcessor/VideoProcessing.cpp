@@ -319,11 +319,23 @@ void VideoProcessing::processVideo(const std::string& inputFile,
 
 void VideoProcessing::processVideoStream(const std::string& inputStream)
 {
-    int sep = Config::cmdFrameRate.find('/');
-    int num = std::stoi(Config::cmdFrameRate.substr(0,sep));
-    int denom = std::stoi(Config::cmdFrameRate.substr(sep + 1));
-    
-    VideoMetadata metadata(Config::cmdWidth, Config::cmdHeight, -1, num, denom);
+    VideoMetadata metadata;
+    if (Config::execMode == Config::ExecutionMode::StandardIO)
+    {
+        int sep = Config::cmdFrameRate.find('/');
+        int num = std::stoi(Config::cmdFrameRate.substr(0,sep));
+        int denom = std::stoi(Config::cmdFrameRate.substr(sep + 1));
+        metadata = VideoMetadata(Config::cmdWidth, Config::cmdHeight, -1, num, denom);
+    }
+    else if (Config::execMode == Config::ExecutionMode::VideoStream)
+    {
+        metadata = FFMPEGProcessing::extractMetadataFromStream(inputStream);
+    }
+    else
+    {
+        Config::output.log("Unrecognized execution mode", OutputWriter::LogLevel::Debug);
+        exit(1);
+    }
     
     Config::output.outputMetadata(metadata);
 
