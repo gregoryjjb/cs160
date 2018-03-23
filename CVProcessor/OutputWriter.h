@@ -17,6 +17,7 @@ public:
     void enableOtherStdOutStreams();
     void outputMetadata(const VideoMetadata& metadata);
     void outputFrameData(const FrameData& frameData);
+    void log(const std::string& str);
     
 private:
     std::mutex m_mutex;

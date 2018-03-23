@@ -43,7 +43,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/FFMPEGProcessing.o \
 	${OBJECTDIR}/OpenFaceProcessing.o \
 	${OBJECTDIR}/OutputWriter.o \
+	${OBJECTDIR}/StreamingFrameSource.o \
 	${OBJECTDIR}/SystemHelper.o \
+	${OBJECTDIR}/VideoProcessing.o \
 	${OBJECTDIR}/main.o
 
 
@@ -111,10 +113,20 @@ ${OBJECTDIR}/OutputWriter.o: OutputWriter.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OutputWriter.o OutputWriter.cpp
 
+${OBJECTDIR}/StreamingFrameSource.o: StreamingFrameSource.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/StreamingFrameSource.o StreamingFrameSource.cpp
+
 ${OBJECTDIR}/SystemHelper.o: SystemHelper.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SystemHelper.o SystemHelper.cpp
+
+${OBJECTDIR}/VideoProcessing.o: VideoProcessing.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 `pkg-config --cflags opencv` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/VideoProcessing.o VideoProcessing.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
