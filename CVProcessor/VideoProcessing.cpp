@@ -140,10 +140,8 @@ void processVideo(const std::string& framesFormat,
     tStart = Utilities::GetTimeMs64();
     
     LandmarkDetector::FaceModelParameters detParameters(args);
-    LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
-    LandmarkDetector::CLNF clnfModel2(clnfModel1);
-    cv::CascadeClassifier classifier1(EyeLikeProcessing::createClassifier());
-    cv::CascadeClassifier classifier2(EyeLikeProcessing::createClassifier());
+    LandmarkDetector::CLNF clnfModel(detParameters.model_location);
+    cv::CascadeClassifier classifier(EyeLikeProcessing::createClassifier());
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -168,12 +166,10 @@ void processVideo(const std::string& framesFormat,
     }
     
     tStart = Utilities::GetTimeMs64();
-    
-    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), frameData.begin(), frameData.end(), 2, std::cref(metadata), std::ref(clnfModel1), std::ref(classifier1));
-    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), frameData.begin()+1, frameData.end(), 2, std::cref(metadata), std::ref(clnfModel2), std::ref(classifier2));
-    
-    t1.join();
-    t2.join();
+
+    processSetOfFrames(images.cbegin(), images.cend(), 
+                    frameData.begin(), frameData.end(), 
+                    1, metadata, clnfModel, classifier);
 
     tEnd = Utilities::GetTimeMs64();
 
