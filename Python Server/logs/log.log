@@ -1,0 +1,211 @@
+DEBUG:Server started on port 8000
+INFO:server.py modified; restarting server
+DEBUG: Server started on port 8000
+DEBUG: Server started on port 8000
+INFO: server.py modified; restarting server
+04/04/2018 05:28:51 PM---DEBUG: Server started on port 8000
+04/04/2018 05:28:54 PM---INFO: server.py modified; restarting server
+04/04/2018 05:28:54 PM---DEBUG: Server started on port 8000
+04/04/2018 05:28:59 PM---INFO: server.py modified; restarting server
+04/04/2018 05:28:59 PM---DEBUG: Server started on port 8000
+04/04/2018 05:29:08 PM---DEBUG: Server started on port 8000
+04/04/2018 05:29:26 PM---INFO: server.py modified; restarting server
+04/04/2018 05:29:26 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:31:18 PM --- INFO: server.py modified; restarting server
+04/04/2018 05:31:19 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:31:46 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:31:54 PM --- DEBUG: done
+04/04/2018 05:31:54 PM --- INFO: 200 POST /upload (127.0.0.1) 43.37ms
+04/04/2018 05:36:54 PM --- INFO: server.py modified; restarting server
+04/04/2018 05:36:54 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:52:24 PM --- INFO: server.py modified; restarting server
+04/04/2018 05:52:24 PM --- DEBUG: Server started on port 8000
+04/08/2018 08:40:14 PM --- DEBUG: Server started on port 8000
+04/08/2018 09:00:06 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:12:58 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:13:19 PM --- ERROR: Uncaught exception GET /video (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'Connection': 'keep-alive', 'Accept': '*/*', 'Host': '127.0.0.1:8000', 'Cache-Control': 'no-cache', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': '954ccb0a-9857-41e1-bda1-4abe221241fb'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 28, in get
+    with open('/home/dennis/Desktop/HW/CS160/cs160/Python Server/done/big_buck_bunny.mp4', rb) as f:
+NameError: name 'rb' is not defined
+04/08/2018 11:13:19 PM --- ERROR: 500 GET /video (127.0.0.1) 3.58ms
+04/08/2018 11:13:34 PM --- INFO: server.py modified; restarting server
+04/08/2018 11:13:34 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:13:36 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:13:40 PM --- INFO: 200 GET /video (127.0.0.1) 26.57ms
+04/08/2018 11:15:03 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:15:13 PM --- INFO: 200 GET / (::1) 1.68ms
+04/08/2018 11:15:13 PM --- WARNING: 404 GET /favicon.ico (::1) 1.85ms
+04/08/2018 11:15:23 PM --- INFO: 200 GET /video (::1) 33.30ms
+04/08/2018 11:36:27 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:36:33 PM --- INFO: 200 GET /video (127.0.0.1) 39.37ms
+04/08/2018 11:37:56 PM --- INFO: server.py modified; restarting server
+04/08/2018 11:37:56 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:39:26 PM --- INFO: server.py modified; restarting server
+04/08/2018 11:39:26 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:39:34 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:39:38 PM --- INFO: 200 GET /video (127.0.0.1) 28.51ms
+04/09/2018 12:06:53 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:09:27 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:09:36 AM --- INFO: 304 GET / (::1) 1.55ms
+04/09/2018 12:09:53 AM --- WARNING: 404 GET /content (::1) 1.84ms
+04/09/2018 12:10:01 AM --- WARNING: 404 GET /content/f (::1) 2.57ms
+04/09/2018 12:10:33 AM --- WARNING: 404 GET /content/(.*) (::1) 0.65ms
+04/09/2018 12:30:06 AM --- INFO: server.py modified; restarting server
+04/09/2018 12:30:06 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:30:08 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:30:19 AM --- WARNING: 404 GET /content (::1) 1.90ms
+04/09/2018 12:30:53 AM --- WARNING: 404 GET /deovi (::1) 0.88ms
+04/09/2018 12:30:58 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:30:58 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:30:58 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:03 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:13 AM --- INFO: 304 GET / (::1) 0.95ms
+04/09/2018 12:31:16 AM --- WARNING: 405 GET /upload (::1) 0.91ms
+04/09/2018 12:31:20 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:20 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:20 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:25 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:35 AM --- INFO: server.py modified; restarting server
+04/09/2018 12:31:35 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:31:38 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:32:08 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:42:09 AM --- INFO: server.py modified; restarting server
+04/09/2018 12:42:09 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:42:11 AM --- INFO: 200 GET /video (::1) 1.46ms
+04/09/2018 01:02:53 AM --- INFO: server.py modified; restarting server
+04/09/2018 01:02:53 AM --- DEBUG: Server started on port 8000
+04/10/2018 12:03:46 PM --- DEBUG: Server started on port 8000
+04/10/2018 12:04:47 PM --- INFO: 304 GET / (::1) 1.67ms
+04/10/2018 12:04:47 PM --- WARNING: 404 GET /favicon.ico (::1) 1.73ms
+04/10/2018 12:05:07 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (::1) 191.70ms
+04/10/2018 12:05:07 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (::1) 19.40ms
+04/10/2018 12:05:45 PM --- WARNING: 404 GET /video/big_buck_bunny.jpg (::1) 2.14ms
+04/10/2018 12:06:20 PM --- INFO: 200 GET /video/text.txt (::1) 1.22ms
+04/10/2018 12:07:26 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 0.75ms
+04/10/2018 12:08:04 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (127.0.0.1) 18.28ms
+04/10/2018 12:08:38 PM --- INFO: server.py modified; restarting server
+04/10/2018 12:08:38 PM --- DEBUG: Server started on port 8000
