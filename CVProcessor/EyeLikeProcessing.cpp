@@ -48,13 +48,7 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
 std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<uchar>& grayFrame,
                                                                  cv::CascadeClassifier& classifier)
 {
-    // Create eye kernels
-    cv::Mat rightCornerKernel(4, 6, CV_32F, kEyeCornerKernel);
-    cv::Mat leftCornerKernel(4, 5, CV_32F);
-    cv::flip(rightCornerKernel, leftCornerKernel, 1);
-
     std::vector<cv::Rect> faces;
-    
     unsigned int imageWidth = grayFrame.size().width;
     
     classifier.detectMultiScale(grayFrame, faces, 1.1, 2,
@@ -67,6 +61,14 @@ std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<
     }
     
     return std::make_tuple(cv::Point(0,0), cv::Point(0,0));
+}
+
+std::tuple<cv::Point, cv::Point> EyeLikeProcessing::detectPupils(const cv::Mat_<uchar>& grayFrame,
+                                                                 const cv::Rect& face,
+                                                                 const cv::Rect& leftEyeRect,
+                                                                 const cv::Rect& rightEyeRect)
+{
+    return findEyes(grayFrame, face, leftEyeRect, rightEyeRect);
 }
 
 void EyeLikeProcessing::applyEyeCentersToImage(cv::Mat& outputImage, 

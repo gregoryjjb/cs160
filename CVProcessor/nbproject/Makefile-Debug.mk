@@ -73,62 +73,62 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/EyeLike/findEyeCenter.o: EyeLike/findEyeCenter.cpp 
+${OBJECTDIR}/EyeLike/findEyeCenter.o: EyeLike/findEyeCenter.cpp
 	${MKDIR} -p ${OBJECTDIR}/EyeLike
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/findEyeCenter.o EyeLike/findEyeCenter.cpp
 
-${OBJECTDIR}/EyeLike/findEyeCorner.o: EyeLike/findEyeCorner.cpp 
+${OBJECTDIR}/EyeLike/findEyeCorner.o: EyeLike/findEyeCorner.cpp
 	${MKDIR} -p ${OBJECTDIR}/EyeLike
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/findEyeCorner.o EyeLike/findEyeCorner.cpp
 
-${OBJECTDIR}/EyeLike/findEyes.o: EyeLike/findEyes.cpp 
+${OBJECTDIR}/EyeLike/findEyes.o: EyeLike/findEyes.cpp
 	${MKDIR} -p ${OBJECTDIR}/EyeLike
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/findEyes.o EyeLike/findEyes.cpp
 
-${OBJECTDIR}/EyeLike/helpers.o: EyeLike/helpers.cpp 
+${OBJECTDIR}/EyeLike/helpers.o: EyeLike/helpers.cpp
 	${MKDIR} -p ${OBJECTDIR}/EyeLike
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLike/helpers.o EyeLike/helpers.cpp
 
-${OBJECTDIR}/EyeLikeProcessing.o: EyeLikeProcessing.cpp 
+${OBJECTDIR}/EyeLikeProcessing.o: EyeLikeProcessing.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EyeLikeProcessing.o EyeLikeProcessing.cpp
 
-${OBJECTDIR}/FFMPEGProcessing.o: FFMPEGProcessing.cpp 
+${OBJECTDIR}/FFMPEGProcessing.o: FFMPEGProcessing.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FFMPEGProcessing.o FFMPEGProcessing.cpp
 
-${OBJECTDIR}/OpenFaceProcessing.o: OpenFaceProcessing.cpp 
+${OBJECTDIR}/OpenFaceProcessing.o: OpenFaceProcessing.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OpenFaceProcessing.o OpenFaceProcessing.cpp
 
-${OBJECTDIR}/OutputWriter.o: OutputWriter.cpp 
+${OBJECTDIR}/OutputWriter.o: OutputWriter.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OutputWriter.o OutputWriter.cpp
 
-${OBJECTDIR}/StreamingFrameSource.o: StreamingFrameSource.cpp 
+${OBJECTDIR}/StreamingFrameSource.o: StreamingFrameSource.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/StreamingFrameSource.o StreamingFrameSource.cpp
 
-${OBJECTDIR}/SystemHelper.o: SystemHelper.cpp 
+${OBJECTDIR}/SystemHelper.o: SystemHelper.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SystemHelper.o SystemHelper.cpp
 
-${OBJECTDIR}/VideoProcessing.o: VideoProcessing.cpp 
+${OBJECTDIR}/VideoProcessing.o: VideoProcessing.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/VideoProcessing.o VideoProcessing.cpp
 
-${OBJECTDIR}/main.o: main.cpp 
+${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/include/boost -I/usr/local/include/OpenFace -I. `pkg-config --cflags --static opencv` `pkg-config --cflags dlib-1` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
@@ -139,7 +139,6 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cvprocessor
 
 # Subprojects
 .clean-subprojects:
