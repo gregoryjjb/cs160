@@ -39,7 +39,7 @@ void OutputWriter::outputMetadata(const VideoMetadata& metadata)
         {"frameRateDenom", metadata.frameRateDenom}
     };
 
-    log(j.dump(2), OutputWriter::LogLevel::Data);
+    log(j.dump(2) + "\n", OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::outputFrameData(const FrameData& frameData)
@@ -88,7 +88,7 @@ void OutputWriter::outputFrameData(const FrameData& frameData)
         }));
     }
 
-    log(j.dump(2), OutputWriter::LogLevel::Data);
+    log(j.dump(2) + "\n", OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::log(const std::string& str, OutputWriter::LogLevel level)
