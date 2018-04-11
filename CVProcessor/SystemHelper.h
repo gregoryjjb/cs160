@@ -16,6 +16,12 @@
 
 #include <string>
 
-std::string exec(const std::string& cmd);
+// Executes the given command and returns anything 
+// output to stdout by the command
+std::string execAndGetOutput(const std::string& cmd);
+
+// Creates a fifo of the given name, returning the status indicator
+// from mkfifo
+int createFIFO(const std::string& fifoName);
 
 #endif /* SYSTEMHELPER_H */

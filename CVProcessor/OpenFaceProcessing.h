@@ -29,6 +29,7 @@ public:
     cv::Mat_<double> landmarks;
     cv::Mat_<int> visibilities;
     
+    FaceDataPointsRecord();
     FaceDataPointsRecord(const cv::Mat_<double>& landmarks, 
                          const cv::Mat_<int>& visibilities);
 };
@@ -46,24 +47,27 @@ FaceDataPointsRecord extractFaceDataPoints(const cv::Mat_<uchar> grayFrame,
                                            const VideoMetadata& metadata,
                                            LandmarkDetector::CLNF& model);
 
+// Extracts the head pose data of the first face detected
+// by the given model
 cv::Vec6f extractHeadPose(const LandmarkDetector::CLNF& model, 
                           const VideoMetadata& metadata);
 
+// Gets the delaunay trianlges constructed from the given dataPoints.
+// Discards triangles not entirely contained within a frame of the video.
 std::vector<cv::Vec6f> getDelaunayTriangles(const FaceDataPointsRecord& dataPoints,
                           const VideoMetadata& metadata);
 
-void applyFaceDataPointsToImage(const std::string& imagePath,
-                                const std::string& outputPath,
-                                const FaceDataPointsRecord& dataPoints,
-                                const VideoMetadata& metadata);
-
+// Draws the given face data points on the target image
 void applyFaceDataPointsToImage(cv::Mat& outputImage,
                                 const FaceDataPointsRecord& dataPoints,
-                                const VideoMetadata& metadata);
+                                const VideoMetadata& metadata,
+                                double scaleFactor = 1.0);
 
+// Draws the given triangles on the target image
 void applyDelaunayTrianlgesToImage(cv::Mat& outputImage,
                                    const std::vector<cv::Vec6f> triangles,
-                                   const VideoMetadata& metadata);
+                                   const VideoMetadata& metadata,
+                                   double scaleFactor = 1.0);
 
 }
 

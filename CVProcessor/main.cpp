@@ -15,179 +15,102 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <thread>
-#include <future>
 
-#include <tbb/tbb.h>
+#include <boost/filesystem.hpp>
 
-#include "VideoMetadata.h"
-#include "FFMPEGProcessing.h"
-#include "OpenFaceProcessing.h"
-#include "EyeLikeProcessing.h"
+#include "Config.h"
 #include "Utilities.h"
+#include "VideoProcessing.h"
 
-class OpenImages
+OutputWriter Config::output;
+std::string Config::targetFile;
+std::string Config::videoStream;
+std::string Config::outputVideoName;
+Config::ExecutionMode Config::execMode;
+
+// Returns cmd line arguments as a vector of strings
+// for convenience
+std::vector<std::string> parseArguments(int argc, char** argv)
 {
-public:
-    std::vector<cv::Mat>* images;
-    const std::string* framesFormat;
-    void operator()(const tbb::blocked_range<size_t>& r) const
+    std::vector<string> args;
+    for (int i = 0; i < argc; i++)
     {
-        for (size_t i = r.begin(); i != r.end(); i++)
-        {
-            char buffer[128];
-            snprintf(buffer, 128, framesFormat->c_str(), i);
-            std::string input(buffer);
-            (*images)[i-1] = OpenFaceProcessing::openImage(input);
-        }
+        args.push_back(argv[i]);
     }
-};
-
-class SaveImages
-{
-public:
-    std::vector<cv::Mat>* images;
-    const std::string* framesFormat;
-    void operator()(const tbb::blocked_range<size_t>& r) const
-    {
-        for (size_t i = r.begin(); i != r.end(); i++)
-        {
-            char buffer[128];
-            snprintf(buffer, 128, framesFormat->c_str(), i);
-            std::string output(buffer);
-            OpenFaceProcessing::saveImage(output, (*images)[i-1]);
-        }
-    }
-};
-
-void processFrame(const cv::Mat& input, 
-                  cv::Mat& output, 
-                  const VideoMetadata& metadata, 
-                  LandmarkDetector::CLNF& model)
-{
-    cv::Mat_<uchar> grayImage;
-    Utilities::ConvertToGrayscale_8bit(input, grayImage);
-    
-    auto pupilsFuture = std::async(std::launch::async, [&]()
-    {
-        return EyeLikeProcessing::detectPupils(grayImage);
-    });
-    
-    OpenFaceProcessing::FaceDataPointsRecord dataPoints
-                = OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
-    cv::Vec6f headPose = OpenFaceProcessing::extractHeadPose(model, metadata);
-    std::vector<cv::Vec6f> triangles = 
-        OpenFaceProcessing::getDelaunayTriangles(dataPoints, metadata);
-    
-    OpenFaceProcessing::applyFaceDataPointsToImage(output, dataPoints, metadata);
-    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output, triangles, metadata);
-    EyeLikeProcessing::applyEyeCentersToImage(output, pupilsFuture.get());
+    return args;
 }
 
-void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
-                        std::vector<cv::Mat>::const_iterator inputItEnd,
-                        std::vector<cv::Mat>::iterator outputIt,
-                        std::vector<cv::Mat>::iterator outputItEnd,
-                        int step,
-                        const VideoMetadata& metadata,
-                        LandmarkDetector::CLNF& model)
+// Configure application based on the given command line args
+void initializeConfiguration(const std::vector<std::string>& args)
 {
-    int processed = 0;
-    while (true)
+    for (int i = 0; i < args.size(); i++)
     {
-        processFrame(*inputIt, *outputIt, metadata, model);
-        processed++;
-        for (int i = 0; i < step; i++)
+        // Fixed file processing
+        if (args[i] == "-f")
         {
-            ++inputIt;
-            ++outputIt;
-            
-            if (inputIt == inputItEnd || outputIt == outputItEnd)
-            {
-                std::cout << "Thread processed " << processed << std::endl;
-                return;
-            }
+            Config::execMode = Config::ExecutionMode::VideoFile;
+            Config::targetFile = args[i+1];
+            Config::outputVideoName = "processed.mp4";
+            i++;
+        }
+        // Stream processing
+        else if (args[i] == "-s")
+        {
+            Config::execMode = Config::ExecutionMode::VideoStream;
+            Config::videoStream = args[i+1];
+            Config::outputVideoName = "rtsp://localhost:5545/processed.mp4";
+            i++;
+        }
+        // Output name
+        else if (args[i] == "-o")
+        {
+            Config::outputVideoName = args[i+1];
+            i++;
+        }
+        // Log Level
+        else if (args[i] == "-l")
+        {
+            Config::output.logLevel = (OutputWriter::LogLevel)std::stoi(args[i+1]);
+            i++;
         }
     }
-}
-
-void processVideo(const std::string& framesFormat,
-                  const std::string& processedFormat,
-                  const VideoMetadata& metadata)
-{
-    Utilities::uint64 tStart, tEnd;
-    
-    std::vector<std::string> args{};
-    args.push_back("-q");
-    args.push_back("-wild");
-
-    tStart = Utilities::GetTimeMs64();
-    
-    LandmarkDetector::FaceModelParameters detParameters(args);
-    LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
-    LandmarkDetector::CLNF clnfModel2(clnfModel1);
-    
-    tEnd = Utilities::GetTimeMs64();
-    
-    std::cout << "OpenFace Initialization Took: " << (tEnd - tStart) << "ms" << std::endl;
-    
-    int imageCount = metadata.numFrames;
-    
-    std::vector<cv::Mat> images((size_t)imageCount);
-    
-    OpenImages openImagesLoop;
-    openImagesLoop.framesFormat = &framesFormat;
-    openImagesLoop.images  = &images;
-    tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), openImagesLoop);
-    
-    std::vector<cv::Mat> processedImages(images);
-    
-    tStart = Utilities::GetTimeMs64();
-    
-    std::thread t1(processSetOfFrames, images.cbegin(), images.cend(), processedImages.begin(), processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel1));
-    std::thread t2(processSetOfFrames, images.cbegin()+1, images.cend(), processedImages.begin()+1, processedImages.end(), 2, std::cref(metadata), std::ref(clnfModel2));
-    
-    t1.join();
-    t2.join();
-
-    tEnd = Utilities::GetTimeMs64();
-    
-    std::cout << "Frame Processing(w/o IO) Took: " << (tEnd - tStart) << "ms (" 
-        << (tEnd - tStart) / imageCount << "ms per frame)" << std::endl;
-
-    SaveImages saveImagesLoop;
-    saveImagesLoop.framesFormat = &processedFormat;
-    saveImagesLoop.images = &processedImages;
-    tbb::parallel_for(tbb::blocked_range<size_t>(1, imageCount + 1), saveImagesLoop);
 }
 
 int main(int argc, char** argv)
 {
-    if (argc >= 2)
+    if (argc <= 1)
+        return 0;
+    
+    // Delete existing output directories to clear old data
+    boost::filesystem::remove_all("frames/");
+    boost::filesystem::remove_all("processed/");
+    
+    // Create output directories
+    boost::filesystem::create_directory("frames/");
+    boost::filesystem::create_directory("processed/");
+
+    initializeConfiguration(
+        parseArguments(argc, argv));
+    
+    Utilities::uint64 tStart = Utilities::GetTimeMs64();
+    // Disable std::out to prevent libraries
+    // like OpenFace and OpenCV from spamming
+    // our output
+    Config::output.disableOtherStdOutStreams();
+    
+    if (Config::execMode == Config::ExecutionMode::VideoFile)
     {
-        std::string inputFile = argv[1];
-
-        Utilities::uint64 tStart = Utilities::GetTimeMs64();
-        
-        VideoMetadata metadata =
-            FFMPEGProcessing::extractMetadata(inputFile);
-        
-        std::cout << "Extracted the following metadata: " << metadata.width << std::endl
-            << " " << metadata.height << std::endl
-            << " " << metadata.numFrames << std::endl
-            << " " << metadata.frameRateNum << std::endl
-            << " " << metadata.frameRateDenom << std::endl;
-        
-        FFMPEGProcessing::extractFrames(inputFile, "frames/out%d.png", metadata);
-        
-        processVideo("frames/out%d.png", "processed/out%d.png", metadata);
-
-        FFMPEGProcessing::combineFrames("processed/out%d.png", "processed.mp4", metadata);
-        
-        Utilities::uint64 tEnd = Utilities::GetTimeMs64();
-        
-        std::cout << "Full Processing Took: " << (tEnd - tStart) << "ms" << std::endl;
+        VideoProcessing::processVideo(Config::targetFile, Config::outputVideoName);
     }
+    else if (Config::execMode == Config::ExecutionMode::VideoStream)
+    {
+        VideoProcessing::processVideoStream(Config::videoStream, Config::outputVideoName);
+    }
+
+    Utilities::uint64 tEnd = Utilities::GetTimeMs64();
+
+    Config::output.log("Full Processing Took: " + std::to_string(tEnd - tStart) + "ms\n",
+                       OutputWriter::LogLevel::Info);
 
     return 0;
 }
