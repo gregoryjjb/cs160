@@ -33,6 +33,14 @@ std::tuple<cv::Point, cv::Point> detectPupils(const cv::Mat_<uchar>& grayFrame);
 std::tuple<cv::Point, cv::Point> detectPupils(const cv::Mat_<uchar>& grayFrame,
                                               cv::CascadeClassifier& classifier);
 
+
+// Returns the location of the pupils within the given image
+// using the specified cv::Rects to focus the search
+std::tuple<cv::Point, cv::Point> detectPupils(const cv::Mat_<uchar>& grayFrame,
+                                              const cv::Rect& face,
+                                              const cv::Rect& leftEyeRect,
+                                              const cv::Rect& rightEyeRect);
+
 // Draws the given pupil locations onto the given image
 void applyEyeCentersToImage(cv::Mat& outputImage, 
                             const std::tuple<cv::Point, cv::Point>& pupilLocations,

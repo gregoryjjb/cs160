@@ -69,20 +69,14 @@ public:
 void processFrame(const cv::Mat& input, 
                   FrameData& output, 
                   const VideoMetadata& metadata, 
-                  LandmarkDetector::CLNF& model,
-                  cv::CascadeClassifier& classifier)
+                  LandmarkDetector::CLNF& model)
 {
     cv::Mat_<uchar> grayImage;
     Utilities::ConvertToGrayscale_8bit(input, grayImage);
     
-    // Scale the image to be processed to about 320x240
-    int scaleFactor = (grayImage.size().width / 320);
+    // Scale the image to be processed to about 640x480
+    int scaleFactor = (grayImage.size().width / 640);
     cv::resize(grayImage, grayImage, grayImage.size() / scaleFactor, 0, 0, cv::INTER_LINEAR);
-    
-    auto pupilsFuture = std::async(std::launch::async, [&]()
-    {
-        return EyeLikeProcessing::detectPupils(grayImage, classifier);
-    });
     
     output.dataPoints = 
         OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
@@ -91,10 +85,23 @@ void processFrame(const cv::Mat& input,
     output.delaunayTriangles = 
         OpenFaceProcessing::getDelaunayTriangles(output.dataPoints, metadata);
     
+    // Use the detected landmarks to calculate face and eye regions
+    cv::Rect rect(Utilities::GetBoundingRect(output.dataPoints.landmarks));
+    cv::Rect leftPupil(Utilities::GetBoundingRect(output.dataPoints.landmarks, 36, 41));
+    cv::Rect rightPupil(Utilities::GetBoundingRect(output.dataPoints.landmarks, 42, 47));
+    
+    // Transform pupil regions to face coordinates
+    leftPupil.x -= rect.x;
+    leftPupil.y -= rect.y;
+    rightPupil.x -= rect.x;
+    rightPupil.y -= rect.y;
+    
+    output.pupils = 
+        EyeLikeProcessing::detectPupils(grayImage, rect, leftPupil, rightPupil);
+
     OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
-    
-    output.pupils = pupilsFuture.get();
+
     EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, output.pupils, scaleFactor);
     
     Config::output.outputFrameData(output);
@@ -106,13 +113,12 @@ void processSetOfFrames(std::vector<cv::Mat>::const_iterator inputIt,
                         std::vector<FrameData>::iterator outputItEnd,
                         int step,
                         const VideoMetadata& metadata,
-                        LandmarkDetector::CLNF& model,
-                        cv::CascadeClassifier& classifier)
+                        LandmarkDetector::CLNF& model)
 {
     int processed = 0;
     while (true)
     {
-        processFrame(*inputIt, *outputIt, metadata, model, classifier);
+        processFrame(*inputIt, *outputIt, metadata, model);
         processed++;
         for (int i = 0; i < step; i++)
         {
@@ -141,7 +147,6 @@ void processVideo(const std::string& framesFormat,
     
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel(detParameters.model_location);
-    cv::CascadeClassifier classifier(EyeLikeProcessing::createClassifier());
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -169,7 +174,7 @@ void processVideo(const std::string& framesFormat,
 
     processSetOfFrames(images.cbegin(), images.cend(), 
                     frameData.begin(), frameData.end(), 
-                    1, metadata, clnfModel, classifier);
+                    1, metadata, clnfModel);
 
     tEnd = Utilities::GetTimeMs64();
 
@@ -189,7 +194,6 @@ void processVideo(const std::string& framesFormat,
 // functions. Intended to be called in a separate thread.
 void processVideoStreamFrames(const VideoMetadata& metadata,
                               LandmarkDetector::CLNF& model,
-                              cv::CascadeClassifier& classifier,
                               std::function<cv::Mat()> input,
                               std::function<void(const FrameData&)> output)
 {
@@ -200,7 +204,7 @@ void processVideoStreamFrames(const VideoMetadata& metadata,
         FrameData data;
         data.outputImage = cv::Mat(image);
         
-        processFrame(image, data, metadata, model, classifier);
+        processFrame(image, data, metadata, model);
         
         output(data);
     }
@@ -221,7 +225,6 @@ void processVideoStream(const std::string& inPipe,
     
     LandmarkDetector::FaceModelParameters detParameters(args);
     LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
-    cv::CascadeClassifier classifier(EyeLikeProcessing::createClassifier());
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -254,7 +257,7 @@ void processVideoStream(const std::string& inPipe,
     Utilities::uint64 tFrameStart, tFrameEnd;
     tFrameStart = Utilities::GetTimeMs64();
     
-    processVideoStreamFrames(metadata, clnfModel1, classifier,
+    processVideoStreamFrames(metadata, clnfModel1,
     [&]() -> cv::Mat
     {
         return streamFrameSource.getLatestFrame();

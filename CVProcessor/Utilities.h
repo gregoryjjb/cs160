@@ -74,6 +74,48 @@ static void ConvertToGrayscale_8bit(const cv::Mat& in, cv::Mat& out)
     }
 }
 
+static cv::Rect GetBoundingRect(const cv::Mat_<double>& points)
+{
+    double minX = points.at<double>(0,0), 
+            maxX = points.at<double>(0,0), 
+            minY = points.at<double>(points.rows / 2,0), 
+            maxY = points.at<double>(points.rows / 2,0);
+    
+    for (int i = 0; i < points.rows / 2; i++)
+    {
+        double x = points.at<double>(i, 0);
+        double y = points.at<double>(i + points.rows / 2, 0);
+        
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+    }
+    
+    return cv::Rect(minX, minY, (maxX - minX), (maxY - minY));
+}
+
+static cv::Rect GetBoundingRect(const cv::Mat_<double>& points, int start, int end)
+{
+    double minX = points.at<double>(start,0), 
+            maxX = points.at<double>(start,0), 
+            minY = points.at<double>(start + (points.rows / 2),0), 
+            maxY = points.at<double>(start + (points.rows / 2),0);
+    
+    for (int i = start; i < end; i++)
+    {
+        double x = points.at<double>(i, 0);
+        double y = points.at<double>(i + points.rows / 2, 0);
+        
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+    }
+    
+    return cv::Rect(minX, minY, (maxX - minX), (maxY - minY));
+}
+
 /* Remove if already defined */
 typedef long long int64;
 typedef unsigned long long uint64;

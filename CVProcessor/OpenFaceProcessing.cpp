@@ -69,7 +69,7 @@ FaceDataPointsRecord OpenFaceProcessing::extractFaceDataPoints(const cv::Mat_<uc
     LandmarkDetector::FaceModelParameters detParameters(detectionArgs);
 
     LandmarkDetector::DetectLandmarksInVideo(grayFrame, clnfModel, detParameters);
-
+    
     return FaceDataPointsRecord(clnfModel.detected_landmarks, clnfModel.GetVisibilities());
 }
 
