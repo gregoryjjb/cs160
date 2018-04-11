@@ -2,6 +2,9 @@
 #include <iomanip>
 
 #include "OutputWriter.h"
+#include "json.hpp"
+
+using nlohmann::json;
 
 OutputWriter::OutputWriter()
     : m_mutex(),
@@ -28,19 +31,15 @@ void OutputWriter::disableOtherStdOutStreams()
 
 void OutputWriter::outputMetadata(const VideoMetadata& metadata)
 {
-    std::ostringstream outputStream;
-    
-    outputStream << "Begin Metadata" << std::endl;
-    
-    outputStream << "Width: " << metadata.width << std::endl;
-    outputStream << "Height: " << metadata.height << std::endl;
-    outputStream << "NumFrames: " << metadata.numFrames << std::endl;
-    outputStream << "FrameRateNum: " << metadata.frameRateNum << std::endl;
-    outputStream << "FrameRateDenom: " << metadata.frameRateDenom << std::endl;
-    
-    outputStream << "End Metadata" << std::endl;
-    
-    log(outputStream.str(), OutputWriter::LogLevel::Data);
+    json j = {
+        {"width", metadata.width},
+        {"height", metadata.height},
+        {"numFrames", metadata.numFrames},
+        {"frameRateNum", metadata.frameRateNum},
+        {"frameRateDenom", metadata.frameRateDenom}
+    };
+
+    log(j.dump(), OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::outputFrameData(const FrameData& frameData)
