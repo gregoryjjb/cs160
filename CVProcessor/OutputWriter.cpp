@@ -2,6 +2,9 @@
 #include <iomanip>
 
 #include "OutputWriter.h"
+#include "json.hpp"
+
+using nlohmann::json;
 
 OutputWriter::OutputWriter()
     : m_mutex(),
@@ -28,83 +31,64 @@ void OutputWriter::disableOtherStdOutStreams()
 
 void OutputWriter::outputMetadata(const VideoMetadata& metadata)
 {
-    std::ostringstream outputStream;
-    
-    outputStream << "Begin Metadata" << std::endl;
-    
-    outputStream << "Width: " << metadata.width << std::endl;
-    outputStream << "Height: " << metadata.height << std::endl;
-    outputStream << "NumFrames: " << metadata.numFrames << std::endl;
-    outputStream << "FrameRateNum: " << metadata.frameRateNum << std::endl;
-    outputStream << "FrameRateDenom: " << metadata.frameRateDenom << std::endl;
-    
-    outputStream << "End Metadata" << std::endl;
-    
-    log(outputStream.str(), OutputWriter::LogLevel::Data);
+    json j = {
+        {"width", metadata.width},
+        {"height", metadata.height},
+        {"numFrames", metadata.numFrames},
+        {"frameRateNum", metadata.frameRateNum},
+        {"frameRateDenom", metadata.frameRateDenom}
+    };
+
+    log(j.dump(2) + "\n", OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::outputFrameData(const FrameData& frameData)
 {
-    std::ostringstream outputStream;
-    outputStream.precision(5);
-    outputStream.setf(std::ios::fixed);
+    cv::Point leftPupil, rightPupil;
+    std::tie(leftPupil, rightPupil) = frameData.pupils;
     
-    outputStream << std::endl;
-    outputStream << "Begin Frame " << frameData.frameNumber << std::endl;
+    json j = {
+        {"frameNum", frameData.frameNumber},
+        {"landmarks", "[]"_json},
+        {"headPose", {
+            {"x", frameData.headPose[0]},
+            {"y", frameData.headPose[1]},
+            {"z", frameData.headPose[2]},
+            {"rx", frameData.headPose[3]},
+            {"ry", frameData.headPose[4]},
+            {"rz", frameData.headPose[5]}}
+        },
+        {"pupils",{
+            {"lx", leftPupil.x},
+            {"ly", leftPupil.y},
+            {"rx", rightPupil.x},
+            {"ry", rightPupil.y}}
+        },
+        {"triangles", "[]"_json}
+    };
     
-    outputStream << "Begin Landmarks" << std::endl;
     for (int i = 0; i < frameData.dataPoints.landmarks.rows / 2; i++)
     {
         double x = frameData.dataPoints.landmarks.at<double>(i, 0);
         double y = frameData.dataPoints.landmarks.at<double>(
             i + frameData.dataPoints.landmarks.rows / 2, 0);
         
-        outputStream << i << ": " << x << " " << y << std::endl;
+        j["landmarks"].push_back({{"x", x}, {"y", y}});
     }
-    outputStream << "End Landmarks" << std::endl;
     
-    outputStream << "Begin Head Pose" << std::endl;
-    outputStream << "X: " << frameData.headPose[0] 
-        << " Y: " << frameData.headPose[1]
-        << " Z: " << frameData.headPose[2] 
-        << std::endl;
-    outputStream << "RX: " << frameData.headPose[3] 
-        << " RY: " << frameData.headPose[4]
-        << " RZ: " << frameData.headPose[5] 
-        << std::endl;
-    outputStream << "End Head Pose" << std::endl;
-    
-    outputStream << "Begin Pupils" << std::endl;
-    cv::Point left, right;
-    std::tie(left, right) = frameData.pupils;
-    outputStream << left.x << " " << left.y << std::endl;
-    outputStream << right.x << " " << right.y << std::endl;
-    outputStream << "End Pupils" << std::endl;
-    
-    outputStream << "Begin Triangles" << std::endl;
     for (int i = 0; i < frameData.delaunayTriangles.size(); i++)
     {
-        outputStream 
-            << frameData.delaunayTriangles[i][0] << " "
-            << frameData.delaunayTriangles[i][1] << " "
-            << std::endl;
-        
-        outputStream 
-            << frameData.delaunayTriangles[i][2] << " "
-            << frameData.delaunayTriangles[i][3] << " "
-            << std::endl;
-        
-        outputStream 
-            << frameData.delaunayTriangles[i][4] << " "
-            << frameData.delaunayTriangles[i][5] << " "
-            << std::endl;
+        j["triangles"].push_back(json::array({
+            frameData.delaunayTriangles[i][0],
+            frameData.delaunayTriangles[i][1],
+            frameData.delaunayTriangles[i][2],
+            frameData.delaunayTriangles[i][3],
+            frameData.delaunayTriangles[i][4],
+            frameData.delaunayTriangles[i][5],
+        }));
     }
-    outputStream << "End Triangles" << std::endl;
-    
-    outputStream << "End Frame " << frameData.frameNumber << std::endl;
-    outputStream << std::endl;
-    
-    log(outputStream.str(), OutputWriter::LogLevel::Data);
+
+    log(j.dump(2) + "\n", OutputWriter::LogLevel::Data);
 }
 
 void OutputWriter::log(const std::string& str, OutputWriter::LogLevel level)

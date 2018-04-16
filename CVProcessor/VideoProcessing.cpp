@@ -75,9 +75,9 @@ void processFrame(const cv::Mat& input,
     Utilities::ConvertToGrayscale_8bit(input, grayImage);
     
     // Scale the image to be processed to about 640x480
-    int scaleFactor = (grayImage.size().width / 640);
+    int scaleFactor = (grayImage.size().width / 480);
     cv::resize(grayImage, grayImage, grayImage.size() / scaleFactor, 0, 0, cv::INTER_LINEAR);
-    
+
     output.dataPoints = 
         OpenFaceProcessing::extractFaceDataPoints(grayImage, metadata, model);
     output.headPose = 
@@ -96,9 +96,17 @@ void processFrame(const cv::Mat& input,
     rightPupil.x -= rect.x;
     rightPupil.y -= rect.y;
     
-    output.pupils = 
-        EyeLikeProcessing::detectPupils(grayImage, rect, leftPupil, rightPupil);
-
+    // If there is no face
+    if (rect.width == 0 || rect.height == 0)
+    {
+        output.pupils = std::make_tuple(cv::Point(0,0), cv::Point(0,0));
+    }
+    else
+    {
+        output.pupils = 
+            EyeLikeProcessing::detectPupils(grayImage, rect, leftPupil, rightPupil);
+    }
+    
     OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
     OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
 
@@ -197,11 +205,13 @@ void processVideoStreamFrames(const VideoMetadata& metadata,
                               std::function<cv::Mat()> input,
                               std::function<void(const FrameData&)> output)
 {
+    int i = 0;
     while (true)
     {
         cv::Mat image = input();
         
         FrameData data;
+        data.frameNumber = i++;
         data.outputImage = cv::Mat(image);
         
         processFrame(image, data, metadata, model);
@@ -270,7 +280,7 @@ void processVideoStream(const std::string& inPipe,
             Config::output.log("Error when writing to pipe\n",
                                OutputWriter::LogLevel::Debug);
         }
-        
+
         tFrameEnd = Utilities::GetTimeMs64();
         Config::output.log("Frame Took: " 
                         + std::to_string(tFrameEnd-tFrameStart) + "ms\n",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="97">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -23,6 +23,7 @@
       <itemPath>Utilities.h</itemPath>
       <itemPath>VideoMetadata.h</itemPath>
       <itemPath>VideoProcessing.h</itemPath>
+      <itemPath>json.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -152,6 +153,8 @@
       </item>
       <item path="haarcascade_frontalface_alt.xml" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="json.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -254,6 +257,8 @@
       <item path="VideoProcessing.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="haarcascade_frontalface_alt.xml" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="json.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
