@@ -1,0 +1,739 @@
+DEBUG:Server started on port 8000
+INFO:server.py modified; restarting server
+DEBUG: Server started on port 8000
+DEBUG: Server started on port 8000
+INFO: server.py modified; restarting server
+04/04/2018 05:28:51 PM---DEBUG: Server started on port 8000
+04/04/2018 05:28:54 PM---INFO: server.py modified; restarting server
+04/04/2018 05:28:54 PM---DEBUG: Server started on port 8000
+04/04/2018 05:28:59 PM---INFO: server.py modified; restarting server
+04/04/2018 05:28:59 PM---DEBUG: Server started on port 8000
+04/04/2018 05:29:08 PM---DEBUG: Server started on port 8000
+04/04/2018 05:29:26 PM---INFO: server.py modified; restarting server
+04/04/2018 05:29:26 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:31:18 PM --- INFO: server.py modified; restarting server
+04/04/2018 05:31:19 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:31:46 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:31:54 PM --- DEBUG: done
+04/04/2018 05:31:54 PM --- INFO: 200 POST /upload (127.0.0.1) 43.37ms
+04/04/2018 05:36:54 PM --- INFO: server.py modified; restarting server
+04/04/2018 05:36:54 PM --- DEBUG: Server started on port 8000
+04/04/2018 05:52:24 PM --- INFO: server.py modified; restarting server
+04/04/2018 05:52:24 PM --- DEBUG: Server started on port 8000
+04/08/2018 08:40:14 PM --- DEBUG: Server started on port 8000
+04/08/2018 09:00:06 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:12:58 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:13:19 PM --- ERROR: Uncaught exception GET /video (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'Connection': 'keep-alive', 'Accept': '*/*', 'Host': '127.0.0.1:8000', 'Cache-Control': 'no-cache', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': '954ccb0a-9857-41e1-bda1-4abe221241fb'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 28, in get
+    with open('/home/dennis/Desktop/HW/CS160/cs160/Python Server/done/big_buck_bunny.mp4', rb) as f:
+NameError: name 'rb' is not defined
+04/08/2018 11:13:19 PM --- ERROR: 500 GET /video (127.0.0.1) 3.58ms
+04/08/2018 11:13:34 PM --- INFO: server.py modified; restarting server
+04/08/2018 11:13:34 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:13:36 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:13:40 PM --- INFO: 200 GET /video (127.0.0.1) 26.57ms
+04/08/2018 11:15:03 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:15:13 PM --- INFO: 200 GET / (::1) 1.68ms
+04/08/2018 11:15:13 PM --- WARNING: 404 GET /favicon.ico (::1) 1.85ms
+04/08/2018 11:15:23 PM --- INFO: 200 GET /video (::1) 33.30ms
+04/08/2018 11:36:27 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:36:33 PM --- INFO: 200 GET /video (127.0.0.1) 39.37ms
+04/08/2018 11:37:56 PM --- INFO: server.py modified; restarting server
+04/08/2018 11:37:56 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:39:26 PM --- INFO: server.py modified; restarting server
+04/08/2018 11:39:26 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:39:34 PM --- DEBUG: Server started on port 8000
+04/08/2018 11:39:38 PM --- INFO: 200 GET /video (127.0.0.1) 28.51ms
+04/09/2018 12:06:53 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:09:27 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:09:36 AM --- INFO: 304 GET / (::1) 1.55ms
+04/09/2018 12:09:53 AM --- WARNING: 404 GET /content (::1) 1.84ms
+04/09/2018 12:10:01 AM --- WARNING: 404 GET /content/f (::1) 2.57ms
+04/09/2018 12:10:33 AM --- WARNING: 404 GET /content/(.*) (::1) 0.65ms
+04/09/2018 12:30:06 AM --- INFO: server.py modified; restarting server
+04/09/2018 12:30:06 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:30:08 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:30:19 AM --- WARNING: 404 GET /content (::1) 1.90ms
+04/09/2018 12:30:53 AM --- WARNING: 404 GET /deovi (::1) 0.88ms
+04/09/2018 12:30:58 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:30:58 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:30:58 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:03 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:13 AM --- INFO: 304 GET / (::1) 0.95ms
+04/09/2018 12:31:16 AM --- WARNING: 405 GET /upload (::1) 0.91ms
+04/09/2018 12:31:20 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:20 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:20 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:25 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:31:35 AM --- INFO: server.py modified; restarting server
+04/09/2018 12:31:35 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:31:38 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:32:08 AM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() missing 1 required positional argument: 'path'
+04/09/2018 12:42:09 AM --- INFO: server.py modified; restarting server
+04/09/2018 12:42:09 AM --- DEBUG: Server started on port 8000
+04/09/2018 12:42:11 AM --- INFO: 200 GET /video (::1) 1.46ms
+04/09/2018 01:02:53 AM --- INFO: server.py modified; restarting server
+04/09/2018 01:02:53 AM --- DEBUG: Server started on port 8000
+04/10/2018 12:03:46 PM --- DEBUG: Server started on port 8000
+04/10/2018 12:04:47 PM --- INFO: 304 GET / (::1) 1.67ms
+04/10/2018 12:04:47 PM --- WARNING: 404 GET /favicon.ico (::1) 1.73ms
+04/10/2018 12:05:07 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (::1) 191.70ms
+04/10/2018 12:05:07 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (::1) 19.40ms
+04/10/2018 12:05:45 PM --- WARNING: 404 GET /video/big_buck_bunny.jpg (::1) 2.14ms
+04/10/2018 12:06:20 PM --- INFO: 200 GET /video/text.txt (::1) 1.22ms
+04/10/2018 12:07:26 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 0.75ms
+04/10/2018 12:08:04 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (127.0.0.1) 18.28ms
+04/10/2018 12:08:38 PM --- INFO: server.py modified; restarting server
+04/10/2018 12:08:38 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:11:54 PM --- ERROR: Future <tornado.concurrent.Future object at 0x7f9bb5edf6d8> exception was never retrieved: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+TypeError: get() missing 2 required positional arguments: 'self' and 'path'
+04/11/2018 05:11:54 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:12:06 PM --- ERROR: Future <tornado.concurrent.Future object at 0x7fde79be86d8> exception was never retrieved: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+TypeError: get() missing 2 required positional arguments: 'self' and 'path'
+04/11/2018 05:12:06 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:12:51 PM --- WARNING: 404 GET /video (127.0.0.1) 4.11ms
+04/11/2018 05:13:16 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 6.23ms
+04/11/2018 05:15:48 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:17:07 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:17:12 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Cache-Control': 'no-cache', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': '443d58a8-ab81-44e7-9072-7decfb8af821', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+TypeError: get() takes 1 positional argument but 2 were given
+04/11/2018 05:17:12 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.61ms
+04/11/2018 05:17:54 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:17:54 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:17:57 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Postman-Token': '29bd4b58-7779-4873-8c6f-bd75223c40cf', 'Host': '127.0.0.1:8000', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Cache-Control': 'no-cache', 'User-Agent': 'PostmanRuntime/7.1.1', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+TypeError: get() takes 1 positional argument but 2 were given
+04/11/2018 05:17:57 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.66ms
+04/11/2018 05:18:26 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:18:26 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:18:28 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept': '*/*', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': 'a86e07e6-857a-498e-af87-d40b6dcc5623', 'Connection': 'keep-alive', 'Host': '127.0.0.1:8000', 'Cache-Control': 'no-cache', 'Accept-Encoding': 'gzip, deflate'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+TypeError: get() takes 1 positional argument but 2 were given
+04/11/2018 05:18:28 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.74ms
+04/11/2018 05:18:56 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:18:56 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:18:58 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Cache-Control': 'no-cache', 'Connection': 'keep-alive', 'User-Agent': 'PostmanRuntime/7.1.1', 'Accept': '*/*', 'Host': '127.0.0.1:8000', 'Postman-Token': '1de48fd2-d7c6-40b0-a591-2c6fc3fedb17', 'Accept-Encoding': 'gzip, deflate'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in get
+    self.get(self, path, include_body=True)
+TypeError: get() got multiple values for argument 'include_body'
+04/11/2018 05:18:58 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.63ms
+04/11/2018 05:19:12 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:19:12 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:19:14 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Accept': '*/*', 'Postman-Token': '963f557c-b764-4b0c-987d-1fe251965365', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in get
+    self.get(self, path, include_body)
+TypeError: get() takes from 2 to 3 positional arguments but 4 were given
+04/11/2018 05:19:14 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.76ms
+04/11/2018 05:19:23 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:19:23 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:19:25 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': 'd76a0cdd-611a-4593-a296-ab7d8d9e3f49', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache', 'Accept': '*/*', 'Host': '127.0.0.1:8000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in get
+    self.get()
+TypeError: get() missing 1 required positional argument: 'path'
+04/11/2018 05:19:25 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.74ms
+04/11/2018 05:19:41 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:19:41 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:19:43 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'Cache-Control': 'no-cache', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': '194ae8b0-2471-4957-9fac-7d0785a7ec94', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Accept': '*/*'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1471, in _execute
+    self.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 934, in finish
+    self.set_etag_header()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1374, in set_etag_header
+    etag = self.compute_etag()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2368, in compute_etag
+    version_hash = self._get_cached_version(self.absolute_path)
+AttributeError: 'GetVideo' object has no attribute 'absolute_path'
+04/11/2018 05:19:43 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.81ms
+04/11/2018 05:20:21 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:20:22 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:20:24 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'Host': '127.0.0.1:8000', 'Cache-Control': 'no-cache', 'Accept': '*/*', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': '28c7bd25-e093-4387-a886-b9bd7a70833e', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+TypeError: get() takes 1 positional argument but 2 were given
+04/11/2018 05:20:24 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.64ms
+04/11/2018 05:22:13 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:22:13 PM --- ERROR: Future <tornado.concurrent.Future object at 0x7fe9463d46d8> exception was never retrieved: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+TypeError: get() missing 2 required positional arguments: 'self' and 'path'
+04/11/2018 05:22:13 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:22:15 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 3.81ms
+04/11/2018 05:22:49 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:22:49 PM --- ERROR: Future <tornado.concurrent.Future object at 0x7f6e5b7fa748> exception was never retrieved: Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/gen.py", line 270, in wrapper
+    result = func(*args, **kwargs)
+TypeError: get() missing 2 required positional arguments: 'self' and 'path'
+04/11/2018 05:22:49 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:22:51 PM --- ERROR: Uncaught exception GET /video/text.txt (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='GET', uri='/video/text.txt', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'User-Agent': 'PostmanRuntime/7.1.1', 'Accept': '*/*', 'Postman-Token': '10799475-2ff7-416a-a868-7566f3a46b49', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+TypeError: get() takes 1 positional argument but 2 were given
+04/11/2018 05:22:51 PM --- ERROR: 500 GET /video/text.txt (127.0.0.1) 1.61ms
+04/11/2018 05:29:46 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:29:46 PM --- DEBUG: Server started on port 8000
+04/11/2018 05:31:09 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:31:10 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:33:37 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:33:37 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:35:03 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:35:08 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 6.63ms
+04/11/2018 05:37:39 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 0.77ms
+04/11/2018 05:39:40 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:39:40 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:39:50 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:39:50 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:39:53 PM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() got an unexpected keyword argument 'path'
+04/11/2018 05:40:14 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:40:14 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:40:17 PM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() got an unexpected keyword argument 'path'
+04/11/2018 05:40:24 PM --- ERROR: Uncaught exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/http1connection.py", line 238, in _read_message
+    delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/httpserver.py", line 289, in finish
+    self.delegate.finish()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2047, in finish
+    self.execute()
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 2067, in execute
+    **self.handler_kwargs)
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 187, in __init__
+    self.initialize(**kwargs)
+TypeError: initialize() got an unexpected keyword argument 'path'
+04/11/2018 05:41:00 PM --- INFO: server.py modified; restarting server
+04/11/2018 05:41:00 PM --- DEBUG: Server started on port 8000....
+04/11/2018 05:41:07 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 4.06ms
+04/11/2018 05:42:05 PM --- INFO: 200 GET /video/text.txt (127.0.0.1) 0.75ms
+04/11/2018 06:24:03 PM --- DEBUG: Server started on port 8000....
+04/11/2018 06:24:45 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (127.0.0.1) 35.96ms
+04/11/2018 06:25:21 PM --- INFO: 200 GET /video/big_buck_bunny.mp4 (127.0.0.1) 28.45ms
+04/12/2018 04:14:36 PM --- DEBUG: Server started on port 8000....
+04/12/2018 04:15:34 PM --- DEBUG: Receiving video
+04/12/2018 04:15:34 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Postman-Token': '52e74e10-05f3-42c1-afdc-40aafca8e73b', 'Cache-Control': 'no-cache', 'Host': '127.0.0.1:8000', 'Content-Type': 'multipart/form-data; boundary=--------------------------624696540858364731564014', 'Accept': '*/*', 'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': 'PostmanRuntime/7.1.1', 'Content-Length': '218'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in post
+    newFileName = id + extn
+TypeError: unsupported operand type(s) for +: 'builtin_function_or_method' and 'str'
+04/12/2018 04:15:34 PM --- ERROR: 500 POST /upload (127.0.0.1) 2.96ms
+04/12/2018 04:15:54 PM --- INFO: server.py modified; restarting server
+04/12/2018 04:15:54 PM --- DEBUG: Server started on port 8000....
+04/12/2018 04:16:02 PM --- INFO: server.py modified; restarting server
+04/12/2018 04:16:02 PM --- DEBUG: Server started on port 8000....
+04/12/2018 04:16:08 PM --- DEBUG: Receiving video
+04/12/2018 04:16:08 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Cache-Control': 'no-cache', 'Accept': '*/*', 'Host': '127.0.0.1:8000', 'Content-Type': 'multipart/form-data; boundary=--------------------------594624062915979255094037', 'Content-Length': '218', 'Accept-Encoding': 'gzip, deflate', 'User-Agent': 'PostmanRuntime/7.1.1', 'Connection': 'keep-alive', 'Postman-Token': 'eadd076d-58f4-43f8-82b0-9eb93bf13e52'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 36, in post
+    newFileName = id + extn
+TypeError: unsupported operand type(s) for +: 'builtin_function_or_method' and 'str'
+04/12/2018 04:16:08 PM --- ERROR: 500 POST /upload (127.0.0.1) 2.65ms
+04/12/2018 04:16:42 PM --- INFO: server.py modified; restarting server
+04/12/2018 04:16:42 PM --- DEBUG: Server started on port 8000....
+04/12/2018 04:16:45 PM --- DEBUG: Receiving video
+04/12/2018 04:16:45 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'User-Agent': 'PostmanRuntime/7.1.1', 'Content-Type': 'multipart/form-data; boundary=--------------------------546617693104442864379200', 'Accept-Encoding': 'gzip, deflate', 'Cache-Control': 'no-cache', 'Accept': '*/*', 'Content-Length': '218', 'Postman-Token': 'f84cddb6-42b3-4da3-8555-af8d937f39d9', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 36, in post
+    newFileName = id + extn
+TypeError: unsupported operand type(s) for +: 'builtin_function_or_method' and 'str'
+04/12/2018 04:16:45 PM --- ERROR: 500 POST /upload (127.0.0.1) 2.61ms
+04/12/2018 04:20:01 PM --- INFO: server.py modified; restarting server
+04/12/2018 04:20:01 PM --- DEBUG: Server started on port 8000....
+04/12/2018 04:20:04 PM --- DEBUG: Receiving video
+04/12/2018 04:20:04 PM --- INFO: 200 POST /upload (127.0.0.1) 1.30ms
+04/15/2018 03:37:42 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:38:09 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:38:09 PM --- DEBUG: Receiving video
+04/15/2018 03:38:10 PM --- INFO: 200 POST /upload (127.0.0.1) 155.39ms
+04/15/2018 03:39:24 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:39:24 PM --- DEBUG: Receiving video
+04/15/2018 03:39:37 PM --- INFO: 200 POST /upload (127.0.0.1) 13254.64ms
+04/15/2018 03:41:34 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:41:37 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:41:37 PM --- DEBUG: Receiving video
+04/15/2018 03:41:46 PM --- INFO: 200 POST /upload (127.0.0.1) 8446.96ms
+04/15/2018 03:42:11 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:42:14 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:42:14 PM --- DEBUG: Receiving video
+04/15/2018 03:42:15 PM --- INFO: 200 POST /upload (127.0.0.1) 1234.63ms
+04/15/2018 03:44:32 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:44:34 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:44:34 PM --- DEBUG: Receiving video
+04/15/2018 03:44:56 PM --- INFO: 200 POST /upload (127.0.0.1) 21588.03ms
+04/15/2018 03:45:51 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:45:51 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:46:04 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:46:06 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:46:06 PM --- DEBUG: Receiving video
+04/15/2018 03:46:22 PM --- INFO: 200 POST /upload (127.0.0.1) 15912.55ms
+04/15/2018 03:46:59 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:47:01 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:47:01 PM --- DEBUG: Receiving video
+04/15/2018 03:47:01 PM --- INFO: 200 POST /upload (127.0.0.1) 127.64ms
+04/15/2018 03:47:14 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:47:19 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:47:19 PM --- DEBUG: Receiving video
+04/15/2018 03:47:20 PM --- INFO: 200 POST /upload (127.0.0.1) 134.37ms
+04/15/2018 03:47:29 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:47:29 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:47:33 PM --- WARNING: Invalid multipart/form-data: no final boundary
+04/15/2018 03:47:33 PM --- DEBUG: Receiving video
+04/15/2018 03:47:48 PM --- INFO: 200 POST /upload (127.0.0.1) 15691.31ms
+04/15/2018 03:47:48 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:47:49 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:51:09 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:51:09 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:51:34 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:51:36 PM --- DEBUG: Receiving video
+04/15/2018 03:51:36 PM --- INFO: 200 POST /upload (127.0.0.1) 15.52ms
+04/15/2018 03:52:24 PM --- DEBUG: Receiving video
+04/15/2018 03:52:24 PM --- INFO: 200 POST /upload (127.0.0.1) 43.55ms
+04/15/2018 03:53:15 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:53:56 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:53:56 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:54:05 PM --- DEBUG: Receiving video
+04/15/2018 03:54:05 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Content-Length': '556', 'Accept': '*/*', 'Videoid': '123456', 'Accept-Encoding': 'gzip, deflate', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Postman-Token': 'ee2b0a6f-93cd-48d2-b5de-819d52ccb3c4', 'Content-Type': 'multipart/form-data; boundary=--------------------------519311271681317520467278', 'User-Agent': 'PostmanRuntime/7.1.1', 'Cache-Control': 'no-cache'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 36, in post
+    filekey = self.request.files[videoid]
+NameError: name 'videoid' is not defined
+04/15/2018 03:54:05 PM --- ERROR: 500 POST /upload (127.0.0.1) 6.30ms
+04/15/2018 03:54:25 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:54:25 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:54:29 PM --- DEBUG: Receiving video
+04/15/2018 03:54:29 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'Content-Type': 'multipart/form-data; boundary=--------------------------895444604625612099468579', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache', 'Host': '127.0.0.1:8000', 'Postman-Token': '5132b2ea-3ab5-4e55-b946-e47ce9ae4062', 'User-Agent': 'PostmanRuntime/7.1.1', 'Accept': '*/*', 'Content-Length': '556'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 36, in post
+    filekey = self.request.files[videoid]
+NameError: name 'videoid' is not defined
+04/15/2018 03:54:29 PM --- ERROR: 500 POST /upload (127.0.0.1) 4.97ms
+04/15/2018 03:54:42 PM --- DEBUG: Receiving video
+04/15/2018 03:54:42 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept-Encoding': 'gzip, deflate', 'Content-Type': 'multipart/form-data; boundary=--------------------------977140269519047812833224', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache', 'Host': '127.0.0.1:8000', 'Postman-Token': '78a21d7b-2eb1-44ee-8f97-f8c42419afb4', 'User-Agent': 'PostmanRuntime/7.1.1', 'Accept': '*/*', 'Content-Length': '444'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 36, in post
+    filekey = self.request.files[videoid]
+NameError: name 'videoid' is not defined
+04/15/2018 03:54:42 PM --- ERROR: 500 POST /upload (127.0.0.1) 45.31ms
+04/15/2018 03:54:58 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:55:00 PM --- DEBUG: Receiving video
+04/15/2018 03:55:00 PM --- INFO: 200 POST /upload (127.0.0.1) 1.13ms
+04/15/2018 03:55:16 PM --- DEBUG: Receiving video
+04/15/2018 03:55:16 PM --- INFO: 200 POST /upload (127.0.0.1) 44.57ms
+04/15/2018 03:55:23 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:55:24 PM --- DEBUG: Receiving video
+04/15/2018 03:55:24 PM --- INFO: 200 POST /upload (127.0.0.1) 1.99ms
+04/15/2018 03:55:40 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:55:40 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:55:44 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:55:47 PM --- DEBUG: Receiving video
+04/15/2018 03:55:47 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept': '*/*', 'Content-Length': '556', 'Cache-Control': 'no-cache', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': '16f08a8e-2548-4024-bb9d-4ac306546d7b', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate', 'Content-Type': 'multipart/form-data; boundary=--------------------------110616023971099038344634'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 36, in post
+    fileKey = self.request.files[videoid][0]
+NameError: name 'videoid' is not defined
+04/15/2018 03:55:47 PM --- ERROR: 500 POST /upload (127.0.0.1) 2.66ms
+04/15/2018 03:56:02 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:56:02 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:56:03 PM --- DEBUG: Receiving video
+04/15/2018 03:56:03 PM --- INFO: 200 POST /upload (127.0.0.1) 1.75ms
+04/15/2018 03:56:51 PM --- INFO: server.py modified; restarting server
+04/15/2018 03:56:52 PM --- DEBUG: Server started on port 8000....
+04/15/2018 03:56:55 PM --- DEBUG: Receiving video
+04/15/2018 03:56:55 PM --- INFO: 200 POST /upload (127.0.0.1) 2.97ms
+04/15/2018 03:57:20 PM --- DEBUG: Receiving video
+04/15/2018 03:57:20 PM --- INFO: 200 POST /upload (127.0.0.1) 43.82ms
+04/15/2018 03:58:03 PM --- DEBUG: Receiving video
+04/15/2018 03:58:03 PM --- INFO: 200 POST /upload (127.0.0.1) 41.05ms
+04/15/2018 03:58:25 PM --- DEBUG: Receiving video
+04/15/2018 03:58:25 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Postman-Token': '87f79aaf-b21d-4ac2-ba3b-cd35f28b03bb', 'Content-Length': '165', 'Videoid': '123456', 'Accept': '*/*', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate', 'Host': '127.0.0.1:8000', 'Content-Type': 'multipart/form-data; boundary=--------------------------688671823439085234769616', 'User-Agent': 'PostmanRuntime/7.1.1'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in post
+    fileInfo = self.request.files[key][0]
+KeyError: 'file'
+04/15/2018 03:58:25 PM --- ERROR: 500 POST /upload (127.0.0.1) 45.69ms
+04/15/2018 04:02:40 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:02:40 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:02:46 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:02:57 PM --- DEBUG: Receiving video
+04/15/2018 04:02:57 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Videoid': '123456', 'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Content-Type': 'multipart/form-data; boundary=--------------------------243137988293096650771356', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Postman-Token': '3c75354c-47c9-4b86-b241-ed30bf7b2375', 'Content-Length': '165', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in post
+    fileInfo = self.request.files[key][0]
+KeyError: 'file'
+04/15/2018 04:02:57 PM --- ERROR: 500 POST /upload (127.0.0.1) 1.80ms
+04/15/2018 04:06:53 PM --- DEBUG: Receiving video
+04/15/2018 04:06:53 PM --- INFO: 200 POST /upload (127.0.0.1) 42.64ms
+04/15/2018 04:07:32 PM --- DEBUG: Receiving video
+04/15/2018 04:07:32 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Postman-Token': '41fc1c4b-2ead-428f-92c4-44e1653fe5e8', 'Content-Length': '39', 'Cache-Control': 'no-cache', 'File': '', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in post
+    fileInfo = self.request.files[key][0]
+KeyError: 'file'
+04/15/2018 04:07:32 PM --- ERROR: 500 POST /upload (127.0.0.1) 0.97ms
+04/15/2018 04:07:40 PM --- DEBUG: Receiving video
+04/15/2018 04:07:40 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Content-Type': 'application/json', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Postman-Token': '42e4c651-3d77-4dad-8a94-54ccb894eec4', 'Content-Length': '39', 'Cache-Control': 'no-cache', 'File': '', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 35, in post
+    fileInfo = self.request.files[key][0]
+KeyError: 'file'
+04/15/2018 04:07:40 PM --- ERROR: 500 POST /upload (127.0.0.1) 1.07ms
+04/15/2018 04:10:14 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:10:14 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:10:21 PM --- DEBUG: Receiving video
+04/15/2018 04:10:21 PM --- INFO: 200 POST /upload (127.0.0.1) 1.11ms
+04/15/2018 04:12:41 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:13:18 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:14:04 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:14:06 PM --- DEBUG: Receiving video
+04/15/2018 04:14:06 PM --- INFO: 200 POST /upload (127.0.0.1) 1.25ms
+04/15/2018 04:14:15 PM --- DEBUG: Receiving video
+04/15/2018 04:14:15 PM --- INFO: 200 POST /upload (127.0.0.1) 109.26ms
+04/15/2018 04:15:31 PM --- DEBUG: Receiving video
+04/15/2018 04:15:31 PM --- INFO: 200 POST /upload (127.0.0.1) 106.78ms
+04/15/2018 04:15:35 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:15:36 PM --- DEBUG: Receiving video
+04/15/2018 04:15:36 PM --- INFO: 200 POST /upload (127.0.0.1) 12.91ms
+04/15/2018 04:16:25 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:16:25 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:16:29 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:16:29 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:16:30 PM --- DEBUG: Receiving video
+04/15/2018 04:16:30 PM --- INFO: 200 POST /upload (127.0.0.1) 55.44ms
+04/15/2018 04:16:40 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:16:40 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:17:22 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:17:24 PM --- DEBUG: Receiving video
+04/15/2018 04:17:24 PM --- INFO: 200 POST /upload (127.0.0.1) 51.01ms
+04/15/2018 04:18:28 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:18:28 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:18:36 PM --- DEBUG: Receiving video
+04/15/2018 04:18:36 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Accept': '*/*', 'Content-Type': 'multipart/form-data; boundary=--------------------------530462404482834184165586', 'Cache-Control': 'no-cache', 'Postman-Token': '15e95212-cfde-4cc2-b829-6389bdd00cdb', 'Accept-Encoding': 'gzip, deflate', 'Content-Length': '3790756'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 40, in post
+    print(filename)
+NameError: name 'filename' is not defined
+04/15/2018 04:18:36 PM --- ERROR: 500 POST /upload (127.0.0.1) 59.54ms
+04/15/2018 04:18:43 PM --- DEBUG: Receiving video
+04/15/2018 04:18:43 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Accept': '*/*', 'Content-Type': 'multipart/form-data; boundary=--------------------------463802233868282882024525', 'Cache-Control': 'no-cache', 'Postman-Token': '42c548d4-c759-47e3-86c3-cb16642f13d3', 'Accept-Encoding': 'gzip, deflate', 'Content-Length': '3790756'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 40, in post
+    print(filename)
+NameError: name 'filename' is not defined
+04/15/2018 04:18:43 PM --- ERROR: 500 POST /upload (127.0.0.1) 58.76ms
+04/15/2018 04:18:56 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:18:56 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:19:00 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:19:03 PM --- DEBUG: Receiving video
+04/15/2018 04:19:03 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Content-Length': '3790756', 'Accept': '*/*', 'User-Agent': 'PostmanRuntime/7.1.1', 'Host': '127.0.0.1:8000', 'Cache-Control': 'no-cache', 'Postman-Token': '1a095735-418e-433e-a26e-d5022bf31b69', 'Accept-Encoding': 'gzip, deflate', 'Content-Type': 'multipart/form-data; boundary=--------------------------591099698559346116500014', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 40, in post
+    print(filename)
+NameError: name 'filename' is not defined
+04/15/2018 04:19:03 PM --- ERROR: 500 POST /upload (127.0.0.1) 47.31ms
+04/15/2018 04:19:39 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:19:41 PM --- DEBUG: Receiving video
+04/15/2018 04:19:41 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Content-Length': '3790756', 'Postman-Token': 'f998951c-d0cf-4537-8fc4-4c35ae97c708', 'Cache-Control': 'no-cache', 'Host': '127.0.0.1:8000', 'Content-Type': 'multipart/form-data; boundary=--------------------------479992825776697536323386', 'User-Agent': 'PostmanRuntime/7.1.1', 'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 40, in post
+    print(filename)
+NameError: name 'filename' is not defined
+04/15/2018 04:19:41 PM --- ERROR: 500 POST /upload (127.0.0.1) 62.27ms
+04/15/2018 04:20:04 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:20:04 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:20:10 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:20:12 PM --- DEBUG: Receiving video
+04/15/2018 04:20:12 PM --- INFO: 200 POST /upload (127.0.0.1) 58.00ms
+04/15/2018 04:20:54 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:22:15 PM --- DEBUG: Receiving video
+04/15/2018 04:22:15 PM --- INFO: 200 POST /upload (127.0.0.1) 60.10ms
+04/15/2018 04:23:01 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:23:02 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:23:19 PM --- DEBUG: Receiving video
+04/15/2018 04:23:19 PM --- INFO: 200 POST /upload (127.0.0.1) 58.03ms
+04/15/2018 04:23:26 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:23:26 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:23:27 PM --- DEBUG: Receiving video
+04/15/2018 04:23:27 PM --- INFO: 200 POST /upload (127.0.0.1) 32.19ms
+04/15/2018 04:27:07 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:28:23 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:28:24 PM --- DEBUG: Receiving video
+04/15/2018 04:28:44 PM --- INFO: 200 POST /upload (127.0.0.1) 19799.99ms
+04/15/2018 04:29:41 PM --- DEBUG: Receiving video
+04/15/2018 04:29:41 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Content-Length': '3790756', 'Accept': '*/*', 'User-Agent': 'PostmanRuntime/7.1.1', 'Postman-Token': 'cdb73174-63df-445a-a506-3fc54f85b3e2', 'Content-Type': 'multipart/form-data; boundary=--------------------------054443082141763809468783', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'keep-alive', 'Cache-Control': 'no-cache', 'Host': '127.0.0.1:8000'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 39, in post
+    with open(toProcDir + filename, 'wb') as f: # save file
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dennis/Desktop/HW/CS160/cs160/PythonServer/to_process/video_id.mp4'
+04/15/2018 04:29:41 PM --- ERROR: 500 POST /upload (127.0.0.1) 71.64ms
+04/15/2018 04:30:16 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:30:20 PM --- DEBUG: Receiving video
+04/15/2018 04:30:20 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Postman-Token': '8f11fd32-504e-4046-be2c-6d74efc79b2a', 'Content-Type': 'multipart/form-data; boundary=--------------------------892716868592380634284420', 'Content-Length': '3790756', 'Cache-Control': 'no-cache', 'User-Agent': 'PostmanRuntime/7.1.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 39, in post
+    with open(toProcDir + filename, 'wb') as f: # save file
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dennis/Desktop/HW/CS160/cs160/PythonServer/to_process/video_id.mp4'
+04/15/2018 04:30:20 PM --- ERROR: 500 POST /upload (127.0.0.1) 64.31ms
+04/15/2018 04:30:38 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:30:38 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:30:57 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:31:09 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:31:11 PM --- DEBUG: Receiving video
+04/15/2018 04:31:11 PM --- ERROR: Uncaught exception POST /upload (127.0.0.1)
+HTTPServerRequest(protocol='http', host='127.0.0.1:8000', method='POST', uri='/upload', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Accept': '*/*', 'User-Agent': 'PostmanRuntime/7.1.1', 'Content-Type': 'multipart/form-data; boundary=--------------------------167263927586362982664036', 'Accept-Encoding': 'gzip, deflate', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Content-Length': '3790756', 'Cache-Control': 'no-cache', 'Postman-Token': '152b0362-816e-4b84-9304-dc71c9ccc130'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/tornado/web.py", line 1467, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "server.py", line 38, in post
+    with open(toProcDir + filename, 'wb') as f: # save file
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dennis/Desktop/HW/CS160/cs160/PythonServer/to_process/video_id.mp4'
+04/15/2018 04:31:11 PM --- ERROR: 500 POST /upload (127.0.0.1) 69.45ms
+04/15/2018 04:31:33 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:31:35 PM --- DEBUG: Receiving video
+04/15/2018 04:31:51 PM --- INFO: 200 POST /upload (127.0.0.1) 15931.27ms
+04/15/2018 04:32:33 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:32:33 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:32:45 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:32:45 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:33:55 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:33:58 PM --- DEBUG: Receiving video
+04/15/2018 04:34:14 PM --- INFO: 200 POST /upload (127.0.0.1) 16228.43ms
+04/15/2018 04:36:27 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:36:27 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:37:08 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:37:08 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:37:39 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:37:41 PM --- DEBUG: Receiving video
+04/15/2018 04:37:57 PM --- INFO: 200 POST /upload (127.0.0.1) 15969.68ms
+04/15/2018 04:41:14 PM --- INFO: server.py modified; restarting server
+04/15/2018 04:41:14 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:41:30 PM --- DEBUG: Server started on port 8000....
+04/15/2018 04:41:34 PM --- DEBUG: Receiving video
+04/15/2018 04:41:50 PM --- INFO: 200 POST /upload (127.0.0.1) 15815.10ms
