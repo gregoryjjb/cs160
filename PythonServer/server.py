@@ -41,7 +41,7 @@ class UploadVideo(tornado.web.RequestHandler):
         id = "video_id"
         #filename = id + extn
         filename = str(random.randint(1,100)*5) + extn # generate random file name to test processing
-                                                       # multiple processes
+                                                       # multiple requests
         with open(toProcDir + filename, 'wb') as f: # save file
             f.write(fileInfo['body'])
         os.system("sudo " + processDir + "./cvprocessor -f " + toProcDir + \
