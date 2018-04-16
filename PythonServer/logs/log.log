@@ -737,3 +737,259 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/dennis/Desktop/HW
 04/15/2018 04:41:30 PM --- DEBUG: Server started on port 8000....
 04/15/2018 04:41:34 PM --- DEBUG: Receiving video
 04/15/2018 04:41:50 PM --- INFO: 200 POST /upload (127.0.0.1) 15815.10ms
+04/15/2018 07:44:13 PM --- DEBUG: Server started on port 8000....
+04/15/2018 07:44:50 PM --- DEBUG: Receiving video
+04/15/2018 07:45:13 PM --- INFO: 200 POST /upload (127.0.0.1) 23233.96ms
+04/15/2018 07:45:41 PM --- DEBUG: Receiving video
+04/15/2018 07:45:57 PM --- INFO: 200 POST /upload (127.0.0.1) 16768.00ms
+04/15/2018 07:47:02 PM --- DEBUG: Receiving video
+04/15/2018 07:47:18 PM --- INFO: 200 POST /upload (127.0.0.1) 16025.72ms
+04/15/2018 07:47:18 PM --- DEBUG: Receiving video
+04/15/2018 07:47:34 PM --- INFO: 200 POST /upload (127.0.0.1) 15789.71ms
+04/15/2018 10:43:09 PM --- INFO: server.py modified; restarting server
+04/15/2018 10:43:09 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:44:15 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:44:22 PM --- DEBUG: Receiving video
+04/15/2018 10:44:42 PM --- DEBUG: Receiving video
+04/15/2018 10:45:29 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:46:38 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:48:28 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:51:12 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:51:20 PM --- DEBUG: Receiving video
+04/15/2018 10:51:41 PM --- DEBUG: Default route
+04/15/2018 10:52:40 PM --- INFO: server.py modified; restarting server
+04/15/2018 10:52:40 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:53:00 PM --- DEBUG: Server started on port 8000....
+04/15/2018 10:53:03 PM --- DEBUG: Default route
+04/15/2018 10:53:03 PM --- INFO: 200 GET / (127.0.0.1) 1.02ms
+04/15/2018 10:53:12 PM --- DEBUG: Receiving video
+04/15/2018 10:53:28 PM --- INFO: 200 POST /upload (127.0.0.1) 16071.45ms
+04/15/2018 10:53:28 PM --- DEBUG: Default route
+04/15/2018 10:53:28 PM --- INFO: 200 GET / (127.0.0.1) 0.78ms
+04/15/2018 11:01:12 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:01:14 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 8.31ms
+04/15/2018 11:01:27 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:01:32 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 6.72ms
+04/15/2018 11:01:38 PM --- DEBUG: Default route
+04/15/2018 11:01:38 PM --- INFO: 200 GET / (127.0.0.1) 0.52ms
+04/15/2018 11:01:41 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 5.12ms
+04/15/2018 11:01:53 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 4.59ms
+04/15/2018 11:01:57 PM --- DEBUG: Default route
+04/15/2018 11:01:57 PM --- INFO: 200 GET / (127.0.0.1) 0.71ms
+04/15/2018 11:02:11 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 3.57ms
+04/15/2018 11:02:15 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 4.47ms
+04/15/2018 11:02:19 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 3.77ms
+04/15/2018 11:02:32 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 4.71ms
+04/15/2018 11:02:40 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 4.71ms
+04/15/2018 11:03:25 PM --- INFO: server.py modified; restarting server
+04/15/2018 11:03:26 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:03:30 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 6.72ms
+04/15/2018 11:03:33 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 3.60ms
+04/15/2018 11:03:49 PM --- DEBUG: Receiving video
+04/15/2018 11:04:05 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 7.51ms
+04/15/2018 11:08:07 PM --- INFO: server.py modified; restarting server
+04/15/2018 11:08:07 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:10:42 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:20:29 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:21:15 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:22:04 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:22:44 PM --- INFO: server.py modified; restarting server
+04/15/2018 11:22:45 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:22:46 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:22:51 PM --- DEBUG: Receiving video
+04/15/2018 11:24:11 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:24:31 PM --- INFO: server.py modified; restarting server
+04/15/2018 11:24:31 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:24:35 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:25:15 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:25:17 PM --- DEBUG: Receiving video
+04/15/2018 11:27:56 PM --- INFO: server.py modified; restarting server
+04/15/2018 11:27:56 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:28:00 PM --- DEBUG: Receiving video
+04/15/2018 11:34:35 PM --- INFO: Starting 4 processes
+04/15/2018 11:34:55 PM --- DEBUG: Receiving video
+04/15/2018 11:34:57 PM --- DEBUG: Receiving video
+04/15/2018 11:35:10 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 10.61ms
+04/15/2018 11:41:02 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:41:02 PM --- INFO: Starting 4 processes
+04/15/2018 11:41:07 PM --- DEBUG: Receiving video
+04/15/2018 11:41:10 PM --- DEBUG: Receiving video
+04/15/2018 11:41:11 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 11.22ms
+04/15/2018 11:41:15 PM --- DEBUG: Default route
+04/15/2018 11:43:58 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:43:58 PM --- INFO: Starting 4 processes
+04/15/2018 11:44:11 PM --- DEBUG: Receiving video
+04/15/2018 11:44:16 PM --- DEBUG: Receiving video
+04/15/2018 11:44:16 PM --- INFO: 200 POST /upload (127.0.0.1) 5667.28ms
+04/15/2018 11:44:23 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 6.89ms
+04/15/2018 11:44:28 PM --- DEBUG: Default route
+04/15/2018 11:44:28 PM --- INFO: 200 GET / (127.0.0.1) 0.64ms
+04/15/2018 11:44:32 PM --- INFO: 200 POST /upload (127.0.0.1) 16708.93ms
+04/15/2018 11:45:03 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:45:03 PM --- INFO: Starting 4 processes
+04/15/2018 11:45:09 PM --- DEBUG: Receiving video
+04/15/2018 11:45:12 PM --- DEBUG: Receiving video
+04/15/2018 11:45:28 PM --- INFO: 200 POST /upload (127.0.0.1) 19158.66ms
+04/15/2018 11:45:31 PM --- INFO: 200 POST /upload (127.0.0.1) 19141.26ms
+04/15/2018 11:45:56 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:45:56 PM --- INFO: Starting 4 processes
+04/15/2018 11:46:00 PM --- DEBUG: Receiving video
+04/15/2018 11:46:06 PM --- DEBUG: Receiving video
+04/15/2018 11:46:18 PM --- INFO: 200 POST /upload (127.0.0.1) 18078.47ms
+04/15/2018 11:46:24 PM --- INFO: 200 POST /upload (127.0.0.1) 18422.55ms
+04/15/2018 11:46:58 PM --- DEBUG: Default route
+04/15/2018 11:46:58 PM --- INFO: 200 GET / (127.0.0.1) 0.90ms
+04/15/2018 11:47:01 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 10.01ms
+04/15/2018 11:47:07 PM --- INFO: 200 GET /video/55.mp4 (127.0.0.1) 6.62ms
+04/15/2018 11:47:10 PM --- DEBUG: Default route
+04/15/2018 11:47:10 PM --- INFO: 200 GET / (127.0.0.1) 1.09ms
+04/15/2018 11:53:50 PM --- DEBUG: Server started on port 8000....
+04/15/2018 11:53:50 PM --- INFO: Starting 4 processes
+04/15/2018 11:53:57 PM --- DEBUG: Receiving video
+04/15/2018 11:53:59 PM --- DEBUG: Receiving video
+04/15/2018 11:54:01 PM --- DEBUG: Receiving video
+04/15/2018 11:54:01 PM --- INFO: 200 POST /upload (127.0.0.1) 660.82ms
+04/15/2018 11:54:02 PM --- DEBUG: Receiving video
+04/15/2018 11:54:04 PM --- DEBUG: Receiving video
+04/15/2018 11:54:05 PM --- INFO: 200 POST /upload (127.0.0.1) 8643.88ms
+04/15/2018 11:54:23 PM --- INFO: 200 POST /upload (127.0.0.1) 24525.07ms
+04/15/2018 11:54:27 PM --- INFO: 200 POST /upload (127.0.0.1) 25129.27ms
+04/15/2018 11:54:28 PM --- INFO: 200 POST /upload (127.0.0.1) 23980.49ms
+04/15/2018 11:54:52 PM --- DEBUG: Receiving video
+04/15/2018 11:54:56 PM --- DEBUG: Receiving video
+04/15/2018 11:54:59 PM --- DEBUG: Receiving video
+04/15/2018 11:55:05 PM --- DEBUG: Receiving video
+04/15/2018 11:55:06 PM --- INFO: 200 POST /upload (127.0.0.1) 6730.16ms
+04/15/2018 11:55:09 PM --- DEBUG: Receiving video
+04/15/2018 11:55:18 PM --- INFO: 200 POST /upload (127.0.0.1) 25289.40ms
+04/15/2018 11:55:23 PM --- INFO: 200 POST /upload (127.0.0.1) 26986.66ms
+04/15/2018 11:55:30 PM --- INFO: 200 POST /upload (127.0.0.1) 25446.00ms
+04/15/2018 11:55:34 PM --- INFO: 200 POST /upload (127.0.0.1) 24949.34ms
+04/15/2018 11:55:53 PM --- DEBUG: Receiving video
+04/15/2018 11:55:55 PM --- DEBUG: Receiving video
+04/15/2018 11:55:57 PM --- DEBUG: Receiving video
+04/15/2018 11:55:57 PM --- INFO: 200 POST /upload (127.0.0.1) 594.15ms
+04/15/2018 11:55:58 PM --- DEBUG: Receiving video
+04/15/2018 11:55:59 PM --- INFO: 200 POST /upload (127.0.0.1) 4565.82ms
+04/15/2018 11:55:59 PM --- INFO: 200 POST /upload (127.0.0.1) 6210.66ms
+04/15/2018 11:55:59 PM --- INFO: 200 POST /upload (127.0.0.1) 1546.50ms
+04/16/2018 12:02:10 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:11:01 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:11:01 AM --- INFO: Starting 4 processes
+04/16/2018 12:12:12 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:12:12 AM --- INFO: Starting 4 processes
+04/16/2018 12:12:57 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:12:57 AM --- INFO: Starting 4 processes
+04/16/2018 12:13:18 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:13:18 AM --- INFO: Starting 4 processes
+04/16/2018 12:22:47 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:22:47 AM --- INFO: Starting 4 processes
+04/16/2018 12:29:00 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:29:00 AM --- INFO: Starting 4 processes
+04/16/2018 12:29:00 AM --- WARNING: child 2 (pid 30613) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 0 (pid 30611) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 1 (pid 30612) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 3 (pid 30614) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 2 (pid 30615) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 0 (pid 30616) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 3 (pid 30618) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 1 (pid 30617) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 2 (pid 30619) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 0 (pid 30620) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 3 (pid 30621) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 1 (pid 30622) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 2 (pid 30623) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 0 (pid 30624) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 3 (pid 30625) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 1 (pid 30626) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 2 (pid 30627) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 0 (pid 30628) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 3 (pid 30629) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 1 (pid 30630) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 2 (pid 30631) exited with status 1, restarting
+04/16/2018 12:29:00 AM --- WARNING: child 0 (pid 30632) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30633) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30634) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30635) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30636) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30637) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30638) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30639) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30640) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30641) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30642) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30643) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30644) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30645) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30646) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30647) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30648) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30649) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30650) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30651) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30652) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30653) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30654) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30655) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30656) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30657) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30658) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30659) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30660) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30661) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30662) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30663) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30664) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30665) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30666) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30667) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30668) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30669) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30670) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30671) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30672) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30673) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30674) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30675) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30676) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30677) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30678) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30679) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30680) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30681) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30682) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30683) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30684) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30685) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30686) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30687) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30688) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30689) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30690) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30691) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 0 (pid 30692) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 3 (pid 30693) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 1 (pid 30694) exited with status 1, restarting
+04/16/2018 12:29:01 AM --- WARNING: child 2 (pid 30695) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 0 (pid 30696) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 3 (pid 30697) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 1 (pid 30698) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 2 (pid 30699) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 0 (pid 30700) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 3 (pid 30701) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 1 (pid 30702) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 2 (pid 30703) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 0 (pid 30704) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 3 (pid 30705) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 1 (pid 30706) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 2 (pid 30707) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 0 (pid 30708) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 3 (pid 30709) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 1 (pid 30710) exited with status 1, restarting
+04/16/2018 12:29:02 AM --- WARNING: child 2 (pid 30711) exited with status 1, restarting
+04/16/2018 12:29:14 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:29:14 AM --- INFO: Starting 4 processes
+04/16/2018 12:29:27 AM --- DEBUG: Server started on port 8000....
+04/16/2018 12:29:27 AM --- INFO: Starting 8 processes
+04/16/2018 04:30:36 PM --- DEBUG: Server started on port 8000....
+04/16/2018 04:30:36 PM --- INFO: Starting 8 processes
