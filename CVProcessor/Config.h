@@ -26,6 +26,7 @@ extern OutputWriter output;
 extern std::string targetFile;
 extern std::string videoStream;
 extern std::string outputVideoName;
+extern std::string outputFormat;
 
 extern enum class ExecutionMode
 {

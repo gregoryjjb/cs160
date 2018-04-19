@@ -17,6 +17,7 @@ public:
         Data, Info, Debug
     } logLevel;
     
+    void setEnabled(bool value);
     void disableOtherStdOutStreams();
     void enableOtherStdOutStreams();
     void outputMetadata(const VideoMetadata& metadata);
@@ -24,6 +25,7 @@ public:
     void log(const std::string& str, OutputWriter::LogLevel level);
     
 private:
+    bool m_enabled;
     std::mutex m_mutex;
     std::streambuf*  m_stdout;
 };

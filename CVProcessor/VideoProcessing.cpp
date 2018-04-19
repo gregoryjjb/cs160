@@ -222,7 +222,6 @@ void processVideoStreamFrames(const VideoMetadata& metadata,
 
 // Processed the video stream from the given pipe
 void processVideoStream(const std::string& inPipe,
-                        const std::string& outputStream,
                         const VideoMetadata& metadata)
 {
     Utilities::uint64 tStart, tEnd;
@@ -234,7 +233,13 @@ void processVideoStream(const std::string& inPipe,
     tStart = Utilities::GetTimeMs64();
     
     LandmarkDetector::FaceModelParameters detParameters(args);
+    
+    // Disable std::out during model initialization
+    // to avoid spamming the console which is used 
+    // for output when streaming
+    Config::output.disableOtherStdOutStreams();
     LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
+    Config::output.enableOtherStdOutStreams();
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -248,8 +253,7 @@ void processVideoStream(const std::string& inPipe,
     createFIFO(outPipeName);
     
     // Start up read end of pipe
-    FFMPEGProcessing::outputFramesToStreamFromPipe(
-        outputStream,
+    FFMPEGProcessing::outputFramesToStdOutFromPipe(
         outPipeName,
         metadata);
     
@@ -313,8 +317,7 @@ void VideoProcessing::processVideo(const std::string& inputFile,
         outputFile, metadata);
 }
 
-void VideoProcessing::processVideoStream(const std::string& inputStream,
-                                         const std::string& outputStream)
+void VideoProcessing::processVideoStream(const std::string& inputStream)
 {
     VideoMetadata metadata = FFMPEGProcessing::extractMetadataFromStream(Config::videoStream);
     Config::output.outputMetadata(metadata);
@@ -333,5 +336,5 @@ void VideoProcessing::processVideoStream(const std::string& inputStream,
     int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(Config::videoStream, 
         inPipeName, metadata);
 
-    processVideoStream(inPipeName, outputStream, metadata);
+    processVideoStream(inPipeName, metadata);
 }
