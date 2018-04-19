@@ -11,7 +11,7 @@ Installation
    
 2. Method: `GET` <br />
    Route: `/video/(.*)` <br />
-   Searches the `\done` directory for the specified video file. For example, `/video/12345.mp4*` will search for and return       `12345.mp4` if the file exists. Otherwise, a `404` response will be sent.
+   Searches the `\done` directory for the specified video file. For example, `/video/12345.mp4` will search for and return       `12345.mp4` if the file exists. Otherwise, a `404` response will be sent.
    
 3. Method: `POST` <br />
    Route: `/upload` <br />
