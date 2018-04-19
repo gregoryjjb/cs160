@@ -26,6 +26,7 @@ OutputWriter Config::output;
 std::string Config::targetFile;
 std::string Config::videoStream;
 std::string Config::outputVideoName;
+std::string Config::outputFormat = "-f webm -c:v vp8 -b:v .5M";
 Config::ExecutionMode Config::execMode;
 
 // Returns cmd line arguments as a vector of strings
@@ -58,13 +59,19 @@ void initializeConfiguration(const std::vector<std::string>& args)
         {
             Config::execMode = Config::ExecutionMode::VideoStream;
             Config::videoStream = args[i+1];
-            Config::outputVideoName = "rtsp://localhost:5545/processed.mp4";
+            // when streaming, we output to stdout
+            Config::output.setEnabled(false);
             i++;
         }
         // Output name
         else if (args[i] == "-o")
         {
             Config::outputVideoName = args[i+1];
+            i++;
+        }
+        else if (args[i] == "-of")
+        {
+            Config::outputFormat = args[i+1];
             i++;
         }
         // Log Level
@@ -93,18 +100,18 @@ int main(int argc, char** argv)
         parseArguments(argc, argv));
     
     Utilities::uint64 tStart = Utilities::GetTimeMs64();
-    // Disable std::out to prevent libraries
-    // like OpenFace and OpenCV from spamming
-    // our output
-    Config::output.disableOtherStdOutStreams();
     
     if (Config::execMode == Config::ExecutionMode::VideoFile)
     {
+        // Disable std::out to prevent libraries
+        // like OpenFace and OpenCV from spamming
+        // our output
+        Config::output.disableOtherStdOutStreams();
         VideoProcessing::processVideo(Config::targetFile, Config::outputVideoName);
     }
     else if (Config::execMode == Config::ExecutionMode::VideoStream)
     {
-        VideoProcessing::processVideoStream(Config::videoStream, Config::outputVideoName);
+        VideoProcessing::processVideoStream(Config::videoStream);
     }
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
