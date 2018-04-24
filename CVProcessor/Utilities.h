@@ -158,6 +158,28 @@ static uint64 GetTimeMs64()
 #endif
 }
 
+//===========================================================================
+// Generate a random alphanumeric string of a given length
+// Mostly courtesy of Ates Goral https://stackoverflow.com/a/440240
+//===========================================================================
+
+static std::string generateRandomString(const int len) {
+    static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+        
+    std::string returnStr = "";
+
+    srand(time(NULL));
+
+    for (int i = 0; i < len; ++i) {
+        returnStr += alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+
+    return returnStr;
+}
+
 }
 
 #endif /* UTILITIES_H */
