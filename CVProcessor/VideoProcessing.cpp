@@ -24,6 +24,7 @@
 #include <tuple>
 #include <signal.h>
 #include <future>
+#include <regex>
 
 
 #include <sys/types.h>
@@ -249,7 +250,7 @@ void processVideoStream(const std::string& inPipe,
     
     tStart = Utilities::GetTimeMs64();
     
-    const std::string outPipeName = "cvprocessor-out";
+    const std::string outPipeName = "pipe-o-" + Utilities::generateRandomString(10);
     createFIFO(outPipeName);
     
     // Start up read end of pipe
@@ -330,7 +331,7 @@ void VideoProcessing::processVideoStream(const std::string& inputStream)
         metadata.frameRateDenom = 1;
     }
     
-    const std::string inPipeName = "cvprocessor-in";
+    const std::string inPipeName = "pipe-i-" + Utilities::generateRandomString(10);
     createFIFO(inPipeName);
     
     int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(Config::videoStream, 
@@ -338,3 +339,4 @@ void VideoProcessing::processVideoStream(const std::string& inputStream)
 
     processVideoStream(inPipeName, metadata);
 }
+
