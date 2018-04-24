@@ -143,7 +143,7 @@ void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
     // TODO: parameterize the input encoding
     const char* format = 
         "ffmpeg -y -r %d/%d -start_number 1 -f image2 -i "
-        "%s -c:v libx264 %s 2>&1 &";
+        "%s -f webm -c:v vp8 %s 2>&1 &";
     char buffer[256];
     snprintf(buffer, 256, format, metadata.frameRateNum, 
             metadata.frameRateDenom, inputFormat.c_str(), outputName.c_str());
