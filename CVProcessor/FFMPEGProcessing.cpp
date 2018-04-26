@@ -50,10 +50,10 @@ VideoMetadata FFMPEGProcessing::extractMetadataFromStream(const std::string& str
 
     char buffer[256];
     snprintf(buffer, 256, format, stream.c_str());
-    
+
     std::istringstream result;
     result.str(execAndGetOutput(std::string(buffer)));
-    
+
     std::string widthStr, heightStr, avgFramesStr;
     std::getline(result, widthStr);    
     std::getline(result, heightStr);
@@ -65,7 +65,7 @@ VideoMetadata FFMPEGProcessing::extractMetadataFromStream(const std::string& str
     int sep = avgFramesStr.find('/');
     int num = std::stoi(avgFramesStr.substr(0,sep));
     int denom = std::stoi(avgFramesStr.substr(sep + 1));
-    
+
     return VideoMetadata(width, height, -1, num, denom);
 }
 
@@ -100,7 +100,6 @@ int FFMPEGProcessing::extractFramesFromStream(const std::string& stream,
                  metadata.frameRateNum, 
                 metadata.frameRateDenom, outputFormat.c_str());
         execAndGetOutput(std::string(buffer));
-        exit(1);
     }
 
     return pid;

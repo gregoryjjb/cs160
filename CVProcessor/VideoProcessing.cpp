@@ -317,12 +317,17 @@ void VideoProcessing::processVideo(const std::string& inputFile,
         outputFile, metadata);
 }
 
-void VideoProcessing::processVideoStream(const std::string& inputStream)
+void VideoProcessing::processVideoStream()
 {
-    VideoMetadata metadata = FFMPEGProcessing::extractMetadataFromStream(Config::videoStream);
-    Config::output.outputMetadata(metadata);
+    int sep = Config::cmdFrameRate.find('/');
+    int num = std::stoi(Config::cmdFrameRate.substr(0,sep));
+    int denom = std::stoi(Config::cmdFrameRate.substr(sep + 1));
     
-    // limit the frame rate to 20 FPS
+    VideoMetadata metadata(Config::cmdWidth, Config::cmdHeight, -1, num, denom);
+    
+    Config::output.outputMetadata(metadata);
+
+    // limit the frame rate to 24 FPS
     // even if the stream is coming in faster
     //if ((metadata.frameRateNum / (float)metadata.frameRateDenom) > 20)
     {
@@ -330,11 +335,12 @@ void VideoProcessing::processVideoStream(const std::string& inputStream)
         metadata.frameRateDenom = 1;
     }
     
-    const std::string inPipeName = "cvprocessor-in";
-    createFIFO(inPipeName);
+    // TODO: unique names
+    const std::string framePipe = "cvprocessor-frames";
+    createFIFO(framePipe);
     
-    int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(Config::videoStream, 
-        inPipeName, metadata);
+    int extractionProcessID = FFMPEGProcessing::extractFramesFromStream("pipe:0", 
+        framePipe, metadata);
 
-    processVideoStream(inPipeName, metadata);
+    processVideoStream(framePipe, metadata);
 }

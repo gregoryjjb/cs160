@@ -28,6 +28,9 @@ std::string Config::videoStream;
 std::string Config::outputVideoName;
 std::string Config::outputFormat = "-f webm -c:v vp8 -b:v .5M";
 Config::ExecutionMode Config::execMode;
+std::string Config::cmdFrameRate;
+int Config::cmdWidth;
+int Config::cmdHeight;
 
 // Returns cmd line arguments as a vector of strings
 // for convenience
@@ -54,14 +57,17 @@ void initializeConfiguration(const std::vector<std::string>& args)
             Config::outputVideoName = "processed.mp4";
             i++;
         }
-        // Stream processing
-        else if (args[i] == "-s")
+        else if (args[i] == "-stdio")
         {
-            Config::execMode = Config::ExecutionMode::VideoStream;
-            Config::videoStream = args[i+1];
-            // when streaming, we output to stdout
+            Config::execMode = Config::ExecutionMode::StandardIO;
+            Config::cmdFrameRate = args[i+1];
+            Config::cmdWidth = std::stoi(args[i+2]);
+            Config::cmdHeight = std::stoi(args[i+3]);
+            i += 3;
+            
+            // In StandardIO mode, we can't output anything to stdout
+            // except frame data
             Config::output.setEnabled(false);
-            i++;
         }
         // Output name
         else if (args[i] == "-o")
@@ -109,9 +115,9 @@ int main(int argc, char** argv)
         Config::output.disableOtherStdOutStreams();
         VideoProcessing::processVideo(Config::targetFile, Config::outputVideoName);
     }
-    else if (Config::execMode == Config::ExecutionMode::VideoStream)
+    else if (Config::execMode == Config::ExecutionMode::StandardIO)
     {
-        VideoProcessing::processVideoStream(Config::videoStream);
+        VideoProcessing::processVideoStream();
     }
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();

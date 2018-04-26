@@ -22,7 +22,7 @@ namespace VideoProcessing
 void processVideo(const std::string& inputFile, 
                   const std::string& outputFile);
 
-void processVideoStream(const std::string& inputStream);
+void processVideoStream();
 
 }
 
