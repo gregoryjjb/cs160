@@ -23,6 +23,7 @@
 #include "VideoProcessing.h"
 
 OutputWriter Config::output;
+std::string Config::outputPrefix;
 std::string Config::targetFile;
 std::string Config::videoStream;
 std::string Config::outputVideoName;
@@ -105,13 +106,10 @@ int main(int argc, char** argv)
     if (argc <= 1)
         return 0;
     
-    // Delete existing output directories to clear old data
-    boost::filesystem::remove_all("frames/");
-    boost::filesystem::remove_all("processed/");
+    Config::outputPrefix = Utilities::GenerateRandomString(10);
     
     // Create output directories
-    boost::filesystem::create_directory("frames/");
-    boost::filesystem::create_directory("processed/");
+    boost::filesystem::create_directory(Config::outputPrefix + "/");   
 
     initializeConfiguration(
         parseArguments(argc, argv));
@@ -137,5 +135,7 @@ int main(int argc, char** argv)
     Config::output.log("Full Processing Took: " + std::to_string(tEnd - tStart) + "ms\n",
                        OutputWriter::LogLevel::Info);
 
+    boost::filesystem::remove_all(Config::outputPrefix + "/");
+    
     return 0;
 }

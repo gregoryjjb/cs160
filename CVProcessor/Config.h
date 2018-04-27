@@ -23,6 +23,8 @@ namespace Config
 
 extern OutputWriter output;
 
+extern std::string outputPrefix;
+
 extern std::string targetFile;
 extern std::string videoStream;
 extern std::string outputVideoName;

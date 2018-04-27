@@ -305,15 +305,22 @@ void processVideoStream(const std::string& inPipe,
 void VideoProcessing::processVideo(const std::string& inputFile, 
                                    const std::string& outputFile)
 {
+    // Create intermediary directories for frames
+    boost::filesystem::create_directory(Config::outputPrefix + "/frames/");
+    boost::filesystem::create_directory(Config::outputPrefix + "/processed/");
+    
+    std::string framesNameFormat = Config::outputPrefix + "/frames/out%d.png";
+    std::string processedNameFormat = Config::outputPrefix + "/processed/out%d.png";
+    
     VideoMetadata metadata = FFMPEGProcessing::extractMetadata(inputFile);
     Config::output.outputMetadata(metadata);
 
     FFMPEGProcessing::extractFrames(inputFile, 
-        "frames/out%d.png", metadata);
+        framesNameFormat, metadata);
         
-    processVideo("frames/out%d.png", "processed/out%d.png", metadata);
+    processVideo(framesNameFormat, processedNameFormat, metadata);
         
-    FFMPEGProcessing::combineFrames("processed/out%d.png", 
+    FFMPEGProcessing::combineFrames(processedNameFormat, 
         outputFile, metadata);
 }
 
