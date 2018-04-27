@@ -249,7 +249,7 @@ void processVideoStream(const std::string& inPipe,
     
     tStart = Utilities::GetTimeMs64();
     
-    const std::string outPipeName = "cvprocessor-out";
+    const std::string outPipeName = Config::outputPrefix + "/cvprocessor-out";
     createFIFO(outPipeName);
     
     // Start up read end of pipe
@@ -355,7 +355,7 @@ void VideoProcessing::processVideoStream(const std::string& inputStream)
     }
     
     // TODO: unique names
-    const std::string framePipe = "cvprocessor-frames";
+    const std::string framePipe = Config::outputPrefix + "/cvprocessor-frames";
     createFIFO(framePipe);
     
     int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(inputStream, 
