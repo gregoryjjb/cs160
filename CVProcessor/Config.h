@@ -23,14 +23,22 @@ namespace Config
 
 extern OutputWriter output;
 
+extern std::string outputPrefix;
+
 extern std::string targetFile;
 extern std::string videoStream;
 extern std::string outputVideoName;
+extern std::string outputFormat;
+
+extern std::string cmdFrameRate;
+extern int cmdWidth;
+extern int cmdHeight;
 
 extern enum class ExecutionMode
 {
     VideoFile,
-    VideoStream
+    VideoStream,
+    StandardIO
 } execMode;
 
 }
