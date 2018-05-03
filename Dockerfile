@@ -1,4 +1,5 @@
-FROM debian:stretch
+# All dependencies
+FROM debian:stretch AS default
 
 # Environment
 ENV PROJECT_DIR="/usr/var/app/processing"
@@ -39,6 +40,11 @@ RUN chmod +x $SCRIPTS_DIR/*.sh && $SCRIPTS_DIR/build-dlib.sh
 COPY scripts/build-openface.sh $SCRIPTS_DIR/
 RUN chmod +x $SCRIPTS_DIR/*.sh && $SCRIPTS_DIR/build-openface.sh
 
+# ===================================================== #
+
+# CVProcessor proper
+FROM default AS CVProcessor
+
 # Copy processing server files
 WORKDIR $PROJECT_DIR
 COPY CVProcessor CVProcessor
@@ -48,6 +54,11 @@ COPY PythonServer PythonServer
 WORKDIR $PROJECT_DIR/CVProcessor
 COPY scripts/build-processing.sh $SCRIPTS_DIR/
 RUN chmod +x $SCRIPTS_DIR/*.sh && $SCRIPTS_DIR/build-processing.sh
+
+# Setup for Python server
+WORKDIR $PROJECT_DIR/PythonServer
+COPY scripts/setup-python-server.sh $SCRIPTS_DIR/
+RUN chmod +x $SCRIPTS_DIR/*.sh && $SCRIPTS_DIR/setup-python-server.sh
 
 # Clean up
 WORKDIR $PROJECT_DIR

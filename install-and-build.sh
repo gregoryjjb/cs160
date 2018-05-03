@@ -6,6 +6,7 @@ SCRIPTS_DIR="${PROJECT_DIR}/scripts"
 DEPENDENCIES_DIR="${PROJECT_DIR}/dependencies"
 DEPENDENCIES_BUILD_DIR="${DEPENDENCIES_DIR}/build"
 CVPROCESSOR_DIR="{PROJECT_DIR}/CVProcessor"
+PYTHON_SERVER_DIR="${PROJECT_DIR}/PythonServer"
 
 mkdir -p $DEPENDENCIES_DIR
 
@@ -19,3 +20,4 @@ $SCRIPTS_DIR/build-dlib.sh
 $SCRIPTS_DIR/build-openface.sh
 
 cd $CVPROCESSOR_DIR && $SCRIPTS_DIR/build-processing.sh
+cd $PYTHON_SERVER_DIR && $SCRIPTS_DIR/setup-python-server.sh
