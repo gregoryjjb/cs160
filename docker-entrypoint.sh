@@ -1,3 +1,3 @@
 #!/bin/bash
-
-echo "TODO"
+cd $PROJECT_DIR/PythonServer
+python3 ./server.py
