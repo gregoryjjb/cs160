@@ -1,10 +1,29 @@
-# Python Server
-Installation
--------
+# CS160 Computer Vision Pipeline
+
+A video processing application using OpenFace and FFMPEG. Primarily authored by @deanljohnson.
+
+The CVProcessor takes either a video file or RTSP stream as an input, and outputs the video with delaunay triangles applied to detected faces. It can output to a video file, RTSP stream, or STDOUT, and is capable of real-time streaming face detection.
+
+The application was designed to work in tandem with a [server](https://github.com/gregdumb/cs160-server) and [web UI](https://github.com/gregdumb/cs160-server), allowing video upload conversion and real-time streaming using a webcam.
+
+## Installation
+
+Clone the repo and run `sudo bash install.sh`. This will install all required dependencies, as well as build the project. It takes roughly 20 minutes on a high end machine with a good internet connection.
+
+The compiled output will be in `CVProcessor/dist/your system info`. We only tested in Debian-based systems.
+
+---
+
+## Python Server
+
+A network API comes bundled with the appliation (primary author @dang3).
+
+### Installation
+
 * Install/switch to Python 3. The server was developed and tested in Python 3.5.2.
 * Install tornado `pip install tornado`
 
-## Requests
+### API Routes
 1. Method: `GET` <br />
    Route: `/` <br />
    If the server is running, `Server running` should appear.
