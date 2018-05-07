@@ -23,6 +23,7 @@
 #include "Utilities.h"
 #include "OpenFaceProcessing.h"
 #include "VideoMetadata.h"
+#include "OutputWriter.h"
 
 using namespace OpenFaceProcessing;
 
@@ -91,12 +92,19 @@ std::vector<cv::Vec6f> OpenFaceProcessing::getDelaunayTriangles(const FaceDataPo
     {
         double x = dataPoints.landmarks.at<double>(i, 0);
         double y = dataPoints.landmarks.at<double>(i + dataPoints.landmarks.rows / 2, 0);
+        
+        // If any points are invalid, return an empty list of triangles
+        if (x < 0 || x > metadata.width || y < 0 || y > metadata.height)
+        {
+            return std::vector<cv::Vec6f>();
+        }
+        
         points.push_back(cv::Point2f(x,y));
     }
 
     if (points.size() == 0)
         return std::vector<cv::Vec6f>();
-    
+
     sub.insert(points);
 
     std::vector<cv::Vec6f> triangles;

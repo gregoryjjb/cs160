@@ -85,6 +85,8 @@ void processFrame(const cv::Mat& input,
     output.delaunayTriangles = 
         OpenFaceProcessing::getDelaunayTriangles(output.dataPoints, metadata);
     
+    bool invalidFace = output.delaunayTriangles.size() == 0;
+    
     // Use the detected landmarks to calculate face and eye regions
     cv::Rect rect(Utilities::GetBoundingRect(output.dataPoints.landmarks));
     cv::Rect leftPupil(Utilities::GetBoundingRect(output.dataPoints.landmarks, 36, 41));
@@ -95,9 +97,9 @@ void processFrame(const cv::Mat& input,
     leftPupil.y -= rect.y;
     rightPupil.x -= rect.x;
     rightPupil.y -= rect.y;
-    
+
     // If there is no face
-    if (rect.width == 0 || rect.height == 0)
+    if (rect.width == 0 || rect.height == 0 || invalidFace)
     {
         output.pupils = std::make_tuple(cv::Point(0,0), cv::Point(0,0));
     }
@@ -107,10 +109,13 @@ void processFrame(const cv::Mat& input,
             EyeLikeProcessing::detectPupils(grayImage, rect, leftPupil, rightPupil);
     }
     
-    OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
-    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
+    if (!invalidFace)
+    {
+        OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
+        OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
 
-    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, output.pupils, scaleFactor);
+        EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, output.pupils, scaleFactor);
+    }
     
     Config::output.outputFrameData(output);
 }
