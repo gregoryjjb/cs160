@@ -74,6 +74,6 @@ RUN chmod +x $SCRIPTS_DIR/*.sh && $SCRIPTS_DIR/setup-python-server.sh
 
 # Ready to rumble
 WORKDIR $PROJECT_DIR
-COPY docker-entrypoint.sh .
-RUN chmod +x docker-entrypoint.sh
+COPY *-entrypoint.sh ./
+RUN chmod +x *-entrypoint.sh
 ENTRYPOINT ["./docker-entrypoint.sh"]
