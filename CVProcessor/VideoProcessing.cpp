@@ -85,6 +85,8 @@ void processFrame(const cv::Mat& input,
     output.delaunayTriangles = 
         OpenFaceProcessing::getDelaunayTriangles(output.dataPoints, metadata);
     
+    bool invalidFace = output.delaunayTriangles.size() == 0;
+    
     // Use the detected landmarks to calculate face and eye regions
     cv::Rect rect(Utilities::GetBoundingRect(output.dataPoints.landmarks));
     cv::Rect leftPupil(Utilities::GetBoundingRect(output.dataPoints.landmarks, 36, 41));
@@ -95,9 +97,9 @@ void processFrame(const cv::Mat& input,
     leftPupil.y -= rect.y;
     rightPupil.x -= rect.x;
     rightPupil.y -= rect.y;
-    
+
     // If there is no face
-    if (rect.width == 0 || rect.height == 0)
+    if (rect.width == 0 || rect.height == 0 || invalidFace)
     {
         output.pupils = std::make_tuple(cv::Point(0,0), cv::Point(0,0));
     }
@@ -107,10 +109,13 @@ void processFrame(const cv::Mat& input,
             EyeLikeProcessing::detectPupils(grayImage, rect, leftPupil, rightPupil);
     }
     
-    OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
-    OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
+    if (!invalidFace)
+    {
+        OpenFaceProcessing::applyFaceDataPointsToImage(output.outputImage, output.dataPoints, metadata, scaleFactor);
+        OpenFaceProcessing::applyDelaunayTrianlgesToImage(output.outputImage, output.delaunayTriangles, metadata, scaleFactor);
 
-    EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, output.pupils, scaleFactor);
+        EyeLikeProcessing::applyEyeCentersToImage(output.outputImage, output.pupils, scaleFactor);
+    }
     
     Config::output.outputFrameData(output);
 }
@@ -222,7 +227,6 @@ void processVideoStreamFrames(const VideoMetadata& metadata,
 
 // Processed the video stream from the given pipe
 void processVideoStream(const std::string& inPipe,
-                        const std::string& outputStream,
                         const VideoMetadata& metadata)
 {
     Utilities::uint64 tStart, tEnd;
@@ -234,7 +238,13 @@ void processVideoStream(const std::string& inPipe,
     tStart = Utilities::GetTimeMs64();
     
     LandmarkDetector::FaceModelParameters detParameters(args);
+    
+    // Disable std::out during model initialization
+    // to avoid spamming the console which is used 
+    // for output when streaming
+    Config::output.disableOtherStdOutStreams();
     LandmarkDetector::CLNF clnfModel1(detParameters.model_location);
+    Config::output.enableOtherStdOutStreams();
     
     tEnd = Utilities::GetTimeMs64();
     
@@ -244,12 +254,11 @@ void processVideoStream(const std::string& inPipe,
     
     tStart = Utilities::GetTimeMs64();
     
-    const std::string outPipeName = "cvprocessor-out";
+    const std::string outPipeName = Config::outputPrefix + "/cvprocessor-out";
     createFIFO(outPipeName);
     
     // Start up read end of pipe
-    FFMPEGProcessing::outputFramesToStreamFromPipe(
-        outputStream,
+    FFMPEGProcessing::outputFramesToStdOutFromPipe(
         outPipeName,
         metadata);
     
@@ -301,25 +310,48 @@ void processVideoStream(const std::string& inPipe,
 void VideoProcessing::processVideo(const std::string& inputFile, 
                                    const std::string& outputFile)
 {
+    // Create intermediary directories for frames
+    boost::filesystem::create_directory(Config::outputPrefix + "/frames/");
+    boost::filesystem::create_directory(Config::outputPrefix + "/processed/");
+    
+    std::string framesNameFormat = Config::outputPrefix + "/frames/out%d.png";
+    std::string processedNameFormat = Config::outputPrefix + "/processed/out%d.png";
+    
     VideoMetadata metadata = FFMPEGProcessing::extractMetadata(inputFile);
     Config::output.outputMetadata(metadata);
 
     FFMPEGProcessing::extractFrames(inputFile, 
-        "frames/out%d.png", metadata);
+        framesNameFormat, metadata);
         
-    processVideo("frames/out%d.png", "processed/out%d.png", metadata);
+    processVideo(framesNameFormat, processedNameFormat, metadata);
         
-    FFMPEGProcessing::combineFrames("processed/out%d.png", 
+    FFMPEGProcessing::combineFrames(processedNameFormat, 
         outputFile, metadata);
 }
 
-void VideoProcessing::processVideoStream(const std::string& inputStream,
-                                         const std::string& outputStream)
+void VideoProcessing::processVideoStream(const std::string& inputStream)
 {
-    VideoMetadata metadata = FFMPEGProcessing::extractMetadataFromStream(Config::videoStream);
-    Config::output.outputMetadata(metadata);
+    VideoMetadata metadata;
+    if (Config::execMode == Config::ExecutionMode::StandardIO)
+    {
+        int sep = Config::cmdFrameRate.find('/');
+        int num = std::stoi(Config::cmdFrameRate.substr(0,sep));
+        int denom = std::stoi(Config::cmdFrameRate.substr(sep + 1));
+        metadata = VideoMetadata(Config::cmdWidth, Config::cmdHeight, -1, num, denom);
+    }
+    else if (Config::execMode == Config::ExecutionMode::VideoStream)
+    {
+        metadata = FFMPEGProcessing::extractMetadataFromStream(inputStream);
+    }
+    else
+    {
+        Config::output.log("Unrecognized execution mode", OutputWriter::LogLevel::Debug);
+        exit(1);
+    }
     
-    // limit the frame rate to 20 FPS
+    Config::output.outputMetadata(metadata);
+
+    // limit the frame rate to 24 FPS
     // even if the stream is coming in faster
     //if ((metadata.frameRateNum / (float)metadata.frameRateDenom) > 20)
     {
@@ -327,11 +359,12 @@ void VideoProcessing::processVideoStream(const std::string& inputStream,
         metadata.frameRateDenom = 1;
     }
     
-    const std::string inPipeName = "cvprocessor-in";
-    createFIFO(inPipeName);
+    // TODO: unique names
+    const std::string framePipe = Config::outputPrefix + "/cvprocessor-frames";
+    createFIFO(framePipe);
     
-    int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(Config::videoStream, 
-        inPipeName, metadata);
+    int extractionProcessID = FFMPEGProcessing::extractFramesFromStream(inputStream, 
+        framePipe, metadata);
 
-    processVideoStream(inPipeName, outputStream, metadata);
+    processVideoStream(framePipe, metadata);
 }

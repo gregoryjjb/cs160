@@ -23,10 +23,15 @@
 #include "VideoProcessing.h"
 
 OutputWriter Config::output;
+std::string Config::outputPrefix;
 std::string Config::targetFile;
 std::string Config::videoStream;
 std::string Config::outputVideoName;
+std::string Config::outputFormat = "-f webm -c:v vp8 -b:v .5M";
 Config::ExecutionMode Config::execMode;
+std::string Config::cmdFrameRate;
+int Config::cmdWidth;
+int Config::cmdHeight;
 
 // Returns cmd line arguments as a vector of strings
 // for convenience
@@ -53,18 +58,38 @@ void initializeConfiguration(const std::vector<std::string>& args)
             Config::outputVideoName = "processed.mp4";
             i++;
         }
-        // Stream processing
         else if (args[i] == "-s")
         {
             Config::execMode = Config::ExecutionMode::VideoStream;
             Config::videoStream = args[i+1];
-            Config::outputVideoName = "rtsp://localhost:5545/processed.mp4";
             i++;
+
+            // In VideoStream mode, we can't output anything to stdout
+            // except frame data
+            Config::output.setEnabled(false);
+        }
+        else if (args[i] == "-stdio")
+        {
+            Config::execMode = Config::ExecutionMode::StandardIO;
+            Config::videoStream = "pipe:0";
+            Config::cmdFrameRate = args[i+1];
+            Config::cmdWidth = std::stoi(args[i+2]);
+            Config::cmdHeight = std::stoi(args[i+3]);
+            i += 3;
+            
+            // In StandardIO mode, we can't output anything to stdout
+            // except frame data
+            Config::output.setEnabled(false);
         }
         // Output name
         else if (args[i] == "-o")
         {
             Config::outputVideoName = args[i+1];
+            i++;
+        }
+        else if (args[i] == "-of")
+        {
+            Config::outputFormat = args[i+1];
             i++;
         }
         // Log Level
@@ -81,30 +106,28 @@ int main(int argc, char** argv)
     if (argc <= 1)
         return 0;
     
-    // Delete existing output directories to clear old data
-    boost::filesystem::remove_all("frames/");
-    boost::filesystem::remove_all("processed/");
+    Config::outputPrefix = Utilities::GenerateRandomString(10);
     
     // Create output directories
-    boost::filesystem::create_directory("frames/");
-    boost::filesystem::create_directory("processed/");
+    boost::filesystem::create_directory(Config::outputPrefix + "/");   
 
     initializeConfiguration(
         parseArguments(argc, argv));
     
     Utilities::uint64 tStart = Utilities::GetTimeMs64();
-    // Disable std::out to prevent libraries
-    // like OpenFace and OpenCV from spamming
-    // our output
-    Config::output.disableOtherStdOutStreams();
     
     if (Config::execMode == Config::ExecutionMode::VideoFile)
     {
+        // Disable std::out to prevent libraries
+        // like OpenFace and OpenCV from spamming
+        // our output
+        Config::output.disableOtherStdOutStreams();
         VideoProcessing::processVideo(Config::targetFile, Config::outputVideoName);
     }
-    else if (Config::execMode == Config::ExecutionMode::VideoStream)
+    else if (Config::execMode == Config::ExecutionMode::StandardIO
+            || Config::execMode == Config::ExecutionMode::VideoStream)
     {
-        VideoProcessing::processVideoStream(Config::videoStream, Config::outputVideoName);
+        VideoProcessing::processVideoStream(Config::videoStream);
     }
 
     Utilities::uint64 tEnd = Utilities::GetTimeMs64();
@@ -112,5 +135,7 @@ int main(int argc, char** argv)
     Config::output.log("Full Processing Took: " + std::to_string(tEnd - tStart) + "ms\n",
                        OutputWriter::LogLevel::Info);
 
+    boost::filesystem::remove_all(Config::outputPrefix + "/");
+    
     return 0;
 }

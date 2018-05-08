@@ -50,10 +50,10 @@ VideoMetadata FFMPEGProcessing::extractMetadataFromStream(const std::string& str
 
     char buffer[256];
     snprintf(buffer, 256, format, stream.c_str());
-    
+
     std::istringstream result;
     result.str(execAndGetOutput(std::string(buffer)));
-    
+
     std::string widthStr, heightStr, avgFramesStr;
     std::getline(result, widthStr);    
     std::getline(result, heightStr);
@@ -65,7 +65,7 @@ VideoMetadata FFMPEGProcessing::extractMetadataFromStream(const std::string& str
     int sep = avgFramesStr.find('/');
     int num = std::stoi(avgFramesStr.substr(0,sep));
     int denom = std::stoi(avgFramesStr.substr(sep + 1));
-    
+
     return VideoMetadata(width, height, -1, num, denom);
 }
 
@@ -100,14 +100,12 @@ int FFMPEGProcessing::extractFramesFromStream(const std::string& stream,
                  metadata.frameRateNum, 
                 metadata.frameRateDenom, outputFormat.c_str());
         execAndGetOutput(std::string(buffer));
-        exit(1);
     }
 
     return pid;
 }
 
-int FFMPEGProcessing::outputFramesToStreamFromPipe(const std::string& stream,
-                                           const std::string& pipeName,
+int FFMPEGProcessing::outputFramesToStdOutFromPipe(const std::string& pipeName,
                                            const VideoMetadata& metadata)
 {
     int pid = fork();
@@ -121,16 +119,17 @@ int FFMPEGProcessing::outputFramesToStreamFromPipe(const std::string& stream,
         const char* format = 
             "ffmpeg -f rawvideo -vcodec rawvideo -video_size %dx%d "
             "-pix_fmt bgr24 -framerate %d/%d -i %s -q:v 10 -r %d/%d "
-            "-f rtsp %s 2>&1";
+            "%s pipe:1 2>/dev/null";
         char buffer[256];
         snprintf(buffer, 256, format, metadata.width, metadata.height,
                  metadata.frameRateNum, metadata.frameRateDenom, 
                  pipeName.c_str(),
                  metadata.frameRateNum, metadata.frameRateDenom,
-                 stream.c_str());
+                 Config::outputFormat.c_str());
         
-        execAndGetOutput(std::string(buffer));
-        exit(1);
+        std::string cmd(buffer);
+        
+        execl("/bin/sh", "sh", "-c", cmd.c_str(), (char*)0);
     }
 
     return pid;
@@ -143,9 +142,10 @@ void FFMPEGProcessing::combineFrames(const std::string& inputFormat,
     // TODO: parameterize the input encoding
     const char* format = 
         "ffmpeg -y -r %d/%d -start_number 1 -f image2 -i "
-        "%s -f webm -c:v vp8 %s 2>&1 &";
+        "%s %s %s 2>&1";
     char buffer[256];
-    snprintf(buffer, 256, format, metadata.frameRateNum, 
-            metadata.frameRateDenom, inputFormat.c_str(), outputName.c_str());
+    snprintf(buffer, 256, format, metadata.frameRateNum,
+             metadata.frameRateDenom, inputFormat.c_str(), 
+             Config::outputFormat.c_str(), outputName.c_str());
     execAndGetOutput(std::string(buffer));
 }

@@ -7,10 +7,22 @@
 using nlohmann::json;
 
 OutputWriter::OutputWriter()
-    : m_mutex(),
+    : m_enabled(true),
+    m_mutex(),
     m_stdout(NULL),
     logLevel(LogLevel::Data)
 {
+}
+
+
+void OutputWriter::setEnabled(bool value)
+{
+    // Start critical section
+    {
+        std::unique_lock<std::mutex> lock(m_mutex);
+        
+        m_enabled = value;
+    }
 }
 
 void OutputWriter::enableOtherStdOutStreams()
@@ -99,6 +111,9 @@ void OutputWriter::log(const std::string& str, OutputWriter::LogLevel level)
     // Start critical section
     {
         std::unique_lock<std::mutex> lock(m_mutex);
+        
+        if (!m_enabled)
+            return;
         
         if (m_stdout == NULL)
             std::cout << str;
