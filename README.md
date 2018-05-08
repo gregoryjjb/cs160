@@ -16,12 +16,12 @@ The compiled output will be in `CVProcessor/dist/your system info`. We only test
 
 ## Python Server
 
-A network API comes bundled with the appliation (primary author @dang3).
+A network API comes bundled with the application (primary author @dang3).
 
 ### Installation
 
 * Install/switch to Python 3. The server was developed and tested in Python 3.5.2.
-* Install tornado `pip install tornado`
+* The server uses the tornado framework. Install tornado `pip install tornado`
 
 ### API Routes
 1. Method: `GET` <br />
@@ -34,10 +34,13 @@ A network API comes bundled with the appliation (primary author @dang3).
    
 3. Method: `POST` <br />
    Route: `/upload` <br />
-   Used to upload a file to the server which will temporarily be cloned to the `\to_process` directory. The video file is then    processed with the output file from the processing application being placed in the `\done` directory which can be accessed      through the `/video/(.*)` GET request. After the processing, the uploaded file is deleted.
+   Used to upload a video to the server which will temporarily be cloned to the `\to_process` directory. The video file is then    processed with the output file from the processing application being placed in the `\done` directory which can be accessed through the `/video/(.*)` GET request. After the processing, the uploaded file is deleted.  <br />
+   Use the `file` key when uploading video files. Every uploaded video should have a videoid. Within the same request, the client should 
+   specify videoid as a plain string using the `videoid` key within the body of the request. Each unique video should have its own 
+   videoid  or else video files will be overwritten.
    
-4. Method: `GET` <br />
+4. Method: `POST` <br />
    Route: `/status` <br />
-   To do
+   Returns the status of a video. Within the body of the request, use the key `videoid` and specify an id for the video.
    
    
