@@ -22,6 +22,7 @@ A network API comes bundled with the application (primary author @dang3).
 
 * Install/switch to Python 3. The server was developed and tested in Python 3.5.2.
 * The server uses the tornado framework. Install tornado `pip install tornado`
+* Run the server using `sudo`
 
 ### API Routes
 1. Method: `GET` <br />
