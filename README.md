@@ -6,6 +6,11 @@ The CVProcessor takes either a video file or RTSP stream as an input, and output
 
 The application was designed to work in tandem with a [server](https://github.com/gregdumb/cs160-server) and [web UI](https://github.com/gregdumb/cs160-server), allowing video upload conversion and real-time streaming using a webcam.
 
+### Demo Videos
+
+* [Video uploading](https://youtu.be/9RE6Nfh6KuA)
+* [Video streaming](https://youtu.be/5yjUkBXFWF0)
+
 ## Installation
 
 Clone the repo and run `sudo bash install.sh`. This will install all required dependencies, as well as build the project. It takes roughly 20 minutes on a high end machine with a good internet connection.
